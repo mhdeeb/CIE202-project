@@ -2,14 +2,14 @@
 
 #include "Shape.h"
 
-class Rect : public shape
+class Circle : public shape
 {
 private:
 	Point Corner1;
 	Point Corner2;
 public:
-	Rect(Point , Point, GfxInfo shapeGfxInfo );
-	virtual ~Rect();
+	Circle(Point, Point, GfxInfo shapeGfxInfo);
+	virtual ~Circle();
 	virtual void Draw(GUI* pUI) const;
 };
 

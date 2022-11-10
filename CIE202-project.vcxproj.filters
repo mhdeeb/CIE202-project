@@ -123,6 +123,9 @@
     <ClCompile Include="Shapes\Graph.cpp">
       <Filter>Shapes&amp;Graph</Filter>
     </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -206,6 +209,9 @@
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Circle.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Operations">
