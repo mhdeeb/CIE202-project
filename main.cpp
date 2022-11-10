@@ -3,7 +3,7 @@
 
 int main()
 {
-
+	ShowWindow(GetConsoleWindow(), SW_HIDE);		// Hide Console terminal
 	//Create an object of controller
 	controller Control;
 
