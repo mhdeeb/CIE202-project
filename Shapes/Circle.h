@@ -5,8 +5,8 @@
 class Circle : public shape
 {
 private:
-	Point Corner1;
-	Point Corner2;
+	Point origin;
+	double radius;
 public:
 	Circle(Point, double, GfxInfo);
 	virtual ~Circle();

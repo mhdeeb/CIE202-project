@@ -1,6 +1,6 @@
 #include "controller.h"
 #include "Operations/opAddRect.h"
-#include "opAddCircle.h"
+#include "Operations/opAddCircle.h"
 
 
 //Constructor

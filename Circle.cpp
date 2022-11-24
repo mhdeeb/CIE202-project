@@ -5,6 +5,6 @@ Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo): origin(origin
 Circle::~Circle() {}
 
 void Circle::Draw(GUI* pUI) const {
-	//Call Output::DrawCircle to draw a circle on the screen	
+	//Call Output::DrawCircle to draw a rectangle on the screen	
 	pUI->DrawCircle(origin, radius, ShpGfxInfo);
 }

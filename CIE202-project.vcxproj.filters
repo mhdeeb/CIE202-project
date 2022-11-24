@@ -123,10 +123,10 @@
     <ClCompile Include="Shapes\Graph.cpp">
       <Filter>Shapes&amp;Graph</Filter>
     </ClCompile>
-    <ClCompile Include="Circle.cpp">
+    <ClCompile Include="Shapes\Circle.cpp">
       <Filter>Shapes&amp;Graph</Filter>
     </ClCompile>
-    <ClCompile Include="opAddCircle.cpp">
+    <ClCompile Include="operations\opAddCircle.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
   </ItemGroup>
@@ -211,10 +211,10 @@
     <ClInclude Include="Shapes\Graph.h">
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
-    <ClInclude Include="Circle.h">
+    <ClInclude Include="Shapes\Circle.h">
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
-    <ClInclude Include="opAddCircle.h">
+    <ClInclude Include="operations\opAddCircle.h">
       <Filter>Operations</Filter>
     </ClInclude>
   </ItemGroup>
