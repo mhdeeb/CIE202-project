@@ -245,6 +245,28 @@ void GUI::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const
 
 }
 
+void GUI::DrawCircle(Point origin, double radius, GfxInfo CircleGfxInfo) const
+{
+	color DrawingClr;
+	if (CircleGfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = CircleGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, CircleGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (CircleGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(CircleGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawCircle(origin.x, origin.y, radius, style);
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()

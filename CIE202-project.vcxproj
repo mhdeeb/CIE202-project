@@ -167,6 +167,7 @@
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="opAddCircle.cpp" />
     <ClCompile Include="operations\opAddRect.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
     <ClCompile Include="Shapes\Shape.cpp" />
@@ -197,18 +198,12 @@
     <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="opAddCircle.h" />
     <ClInclude Include="operations\opAddRect.h" />
     <ClInclude Include="operations\operation.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Shapes\Graph.h" />
     <ClInclude Include="Shapes\Shape.h" />
     <ClInclude Include="Shapes\Rect.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="CIE202-project.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

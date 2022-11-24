@@ -126,6 +126,9 @@
     <ClCompile Include="Circle.cpp">
       <Filter>Shapes&amp;Graph</Filter>
     </ClCompile>
+    <ClCompile Include="opAddCircle.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -208,9 +211,11 @@
     <ClInclude Include="Shapes\Graph.h">
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Circle.h">
       <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="opAddCircle.h">
+      <Filter>Operations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -226,11 +231,5 @@
     <Filter Include="Shapes&amp;Graph">
       <UniqueIdentifier>{5e150dff-8a89-44f3-b58a-731df9cea925}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="CIE202-project.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
