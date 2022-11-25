@@ -132,7 +132,7 @@
     <ClCompile Include="Shapes\square.cpp">
       <Filter>Shapes&amp;Graph</Filter>
     </ClCompile>
-    <ClCompile Include="opAddSquare.cpp">
+    <ClCompile Include="operations\opAddSquare.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
   </ItemGroup>
@@ -226,7 +226,7 @@
     <ClInclude Include="Shapes\square.h">
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
-    <ClInclude Include="opAddSquare.h">
+    <ClInclude Include="operations\opAddSquare.h">
       <Filter>Operations</Filter>
     </ClInclude>
   </ItemGroup>

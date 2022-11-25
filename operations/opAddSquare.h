@@ -1,6 +1,6 @@
 #pragma once
 
-#include "operations/operation.h"
+#include "operation.h"
 
 //Add Square operation class
 class opAddSquare : public operation
