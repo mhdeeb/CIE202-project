@@ -2,6 +2,7 @@
 #include "Operations/opAddRect.h"
 #include "Operations/opAddSquare.h"
 #include "Operations/opAddCircle.h"
+#include "Operations/opAddLine.h"
 
 
 //Constructor
@@ -40,6 +41,7 @@ operation* controller::createOperation(operationType OpType)
 			break;
 
 		case DRAW_LINE:
+			pOp = new opAddLine(this);
 			///create AddLineoperation here
 
 			break;

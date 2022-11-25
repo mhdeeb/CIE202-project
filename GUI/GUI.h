@@ -41,6 +41,8 @@ class GUI
 		ICON_CIRC,		//Circle icon in menu
 		ICON_SQUARE,    // Square icon menu 
 
+		ICON_LINE,      //Line icon in menu
+
 		//TODO: Add more icons names here
 
 		ICON_EXIT,		//Exit icon
@@ -104,6 +106,7 @@ public:
 
 	// -- shapes Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
+	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo) const;  //Draw a Line
 	void DrawCircle(Point, double, GfxInfo) const;  //Draw a circle
 
 	///Make similar functions for drawing all other shapes.
