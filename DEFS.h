@@ -7,6 +7,7 @@ enum operationType //The operations supported (you can add more if needed)
 {
 	DRAW_LINE,		//Draw Line
 	DRAW_RECT,		//Draw Rectangle
+	DRAW_SQUARE,    // Draw Square 
 	DRAW_TRI,		//Draw Triangle
 	DRAW_CIRC,		//Draw Circle
 	CHNG_DRAW_CLR,	//Change the drawing color
