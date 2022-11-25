@@ -3,8 +3,8 @@
 square::square(Point P1, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo)
 {
 	Corner1 = P1;
-	Corner2.x = 2 * p1.x;
-	corner2.y = 2 * p1.y;
+	Corner2.x = 2 * P1.x;
+	Corner2.y = 2 * P1.y;
 }
 
 square::~square()
