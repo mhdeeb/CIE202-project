@@ -9,7 +9,7 @@ int main()
 
 	Control.Run();
 
-	
+
 	return 0;
 }
 

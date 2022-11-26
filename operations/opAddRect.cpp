@@ -5,13 +5,13 @@
 
 #include "..\GUI\GUI.h"
 
-opAddRect::opAddRect(controller * pCont):operation(pCont)
+opAddRect::opAddRect(controller* pCont) :operation(pCont)
 {}
 opAddRect::~opAddRect()
-{} 
+{}
 
 //Execute the operation
-void opAddRect::Execute() 
+void opAddRect::Execute()
 {
 	Point P1, P2;
 
@@ -31,7 +31,7 @@ void opAddRect::Execute()
 
 	//Preapre all rectangle parameters
 	GfxInfo RectGfxInfo;
-	
+
 	//get drawing, filling colors and pen width from the interface
 	RectGfxInfo.DrawClr = pUI->getCrntDrawColor();
 	RectGfxInfo.FillClr = pUI->getCrntFillColor();
@@ -43,7 +43,7 @@ void opAddRect::Execute()
 
 
 	//Create a rectangle with the above parameters
-	Rect *R=new Rect(P1, P2, RectGfxInfo);
+	Rect* R = new Rect(P1, P2, RectGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();

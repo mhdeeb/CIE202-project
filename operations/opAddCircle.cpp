@@ -43,7 +43,7 @@ void opAddCircle::Execute()
 
 
 	//Create a circle with the above parameters
-	Circle* C = new Circle(center, sqrt(pow(rad.x-center.x, 2) + pow(rad.y - center.y, 2)), CircleGfxInfo);
+	Circle* C = new Circle(center, sqrt(pow(rad.x - center.x, 2) + pow(rad.y - center.y, 2)), CircleGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();

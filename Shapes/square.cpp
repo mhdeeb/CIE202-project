@@ -1,7 +1,7 @@
 #include "square.h"
 #include"math.h"
 
-square::square(Point P1, Point P2 , GfxInfo shapeGfxInfo) :shape(shapeGfxInfo)
+square::square(Point P1, Point P2, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo)
 {
 	Corner1 = P1;
 	double L = sqrt((pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2)) / 2);

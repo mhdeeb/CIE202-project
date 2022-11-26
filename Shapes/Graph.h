@@ -5,7 +5,7 @@
 using namespace std;
 
 //forward decl
-class GUI;	
+class GUI;
 
 //A class that is responsible on everything related to shapes
 class Graph
@@ -13,7 +13,7 @@ class Graph
 private:
 	vector <shape*> shapesList; //a container to hold all shapes							   
 	shape* selectedShape;	//pointer to the currently selected shape
-public:										
+public:
 	Graph();
 	~Graph();
 	void Addshape(shape* pFig); //Adds a new shape to the shapesList

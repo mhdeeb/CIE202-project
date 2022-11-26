@@ -1,6 +1,6 @@
 #include "Circle.h"
 
-Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo): origin(origin), radius(radius), shape(shapeGfxInfo) {}
+Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo) : origin(origin), radius(radius), shape(shapeGfxInfo) {}
 
 Circle::~Circle() {}
 

@@ -42,7 +42,7 @@ void opAddSquare::Execute()
 
 
 	//Create a square with the above parameters
-	square* R = new square(P1,P2, SquareGfxInfo);
+	square* R = new square(P1, P2, SquareGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();

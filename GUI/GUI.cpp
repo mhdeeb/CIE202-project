@@ -53,15 +53,15 @@ string GUI::GetSrting() const
 	while (1)
 	{
 		ktype = pWind->WaitKeyPress(Key);
-		if (ktype == ESCAPE )	//ESCAPE key is pressed
+		if (ktype == ESCAPE)	//ESCAPE key is pressed
 			return "";	//returns nothing as user has cancelled label
 		if (Key == 13)	//ENTER key is pressed
 			return Label;
 		if (Key == 8)	//BackSpace is pressed
-			if( Label.size() > 0)	
+			if (Label.size() > 0)
 				Label.resize(Label.size() - 1);
 			else
-				Key = '\0';		
+				Key = '\0';
 		else
 			Label += Key;
 		PrintMessage(Label);
@@ -147,7 +147,7 @@ void GUI::ClearStatusBar() const
 	pWind->DrawRectangle(0, height - StatusBarHeight, width, height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void GUI::CreateDrawToolBar() 
+void GUI::CreateDrawToolBar()
 {
 	InterfaceMode = MODE_DRAW;
 
@@ -163,7 +163,7 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_SQUARE] = "images\\MenuIcons\\Menu_Square.jpg";
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
 	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Exit.jpg";
-	
+
 
 	//TODO: Prepare images for each menu icon and add it to the list
 
@@ -180,7 +180,7 @@ void GUI::CreateDrawToolBar()
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::CreatePlayToolBar() 
+void GUI::CreatePlayToolBar()
 {
 	InterfaceMode = MODE_PLAY;
 	///TODO: write code to create Play mode menu

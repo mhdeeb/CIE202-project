@@ -18,45 +18,45 @@ controller::controller()
 operationType controller::GetUseroperation() const
 {
 	//Ask the input to get the operation from the user.
-	return pGUI->GetUseroperation();		
+	return pGUI->GetUseroperation();
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Creates an operation and executes it
 operation* controller::createOperation(operationType OpType)
 {
 	operation* pOp = nullptr;
-	
+
 	//According to operation Type, create the corresponding operation object
 	switch (OpType)
 	{
-		case DRAW_RECT:
-			pOp = new opAddRect(this);
-			break;
+	case DRAW_RECT:
+		pOp = new opAddRect(this);
+		break;
 
-		case DRAW_CIRC:
-			pOp = new opAddCircle(this);
-			break;
-		case DRAW_SQUARE:
-			pOp = new opAddSquare(this);
-			break;
+	case DRAW_CIRC:
+		pOp = new opAddCircle(this);
+		break;
+	case DRAW_SQUARE:
+		pOp = new opAddSquare(this);
+		break;
 
-		case DRAW_LINE:
-			pOp = new opAddLine(this);
-			///create AddLineoperation here
+	case DRAW_LINE:
+		pOp = new opAddLine(this);
+		///create AddLineoperation here
 
-			break;
+		break;
 
-		case EXIT:
-			///create Exitoperation here
-			
-			break;
-		
-		case STATUS:	//a click on the status bar ==> no operation
-			break;
+	case EXIT:
+		///create Exitoperation here
+
+		break;
+
+	case STATUS:	//a click on the status bar ==> no operation
+		break;
 	}
 
 	return pOp;
-	
+
 }
 //==================================================================================//
 //							Interface Management Functions							//
@@ -64,13 +64,15 @@ operation* controller::createOperation(operationType OpType)
 
 //Draw all shapes on the user interface
 void controller::UpdateInterface() const
-{	
+{
 	pGraph->Draw(pGUI);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the UI
-GUI *controller::GetUI() const
-{	return pGUI; }
+GUI* controller::GetUI() const
+{
+	return pGUI;
+}
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the Graph
 Graph* controller::getGraph() const
@@ -85,7 +87,7 @@ controller::~controller()
 {
 	delete pGUI;
 	delete pGraph;
-	
+
 }
 
 
@@ -103,7 +105,7 @@ void controller::Run()
 
 		//2. Create an operation coresspondingly
 		operation* pOpr = createOperation(OpType);
-		 
+
 		//3. Execute the created operation
 		if (pOpr)
 		{

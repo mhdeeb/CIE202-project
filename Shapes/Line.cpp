@@ -1,10 +1,10 @@
 #include "Line.h"
 
-Line::Line (Point P1, Point P2, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo)
+Line::Line(Point P1, Point P2, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo)
 {
 	Point1 = P1;
 	Point2 = P2;
-	
+
 }
 Line::~Line() {}
 

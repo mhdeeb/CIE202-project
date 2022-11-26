@@ -18,7 +18,7 @@ Graph::~Graph()
 void Graph::Addshape(shape* pShp)
 {
 	//Add a new shape to the shapes vector
-	shapesList.push_back(pShp);	
+	shapesList.push_back(pShp);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
