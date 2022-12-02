@@ -9,6 +9,6 @@ Line::Line(Point P1, Point P2, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo)
 Line::~Line() {}
 
 void Line::Draw(GUI* pUI) const {
-	//Call Output::DrawLine to draw a rectangle on the screen	
+	//Call Output::DrawLine to draw a line on the screen	
 	pUI->DrawLine(Point1, Point2, ShpGfxInfo);
 }
