@@ -79,8 +79,7 @@ class GUI
 	color BkGrndColor;		//Background color
 	color StatusBarColor;	//Status bar color
 	int PenWidth;			//width of the pen that draws shapes
-
-	/// Add more members if needed
+	string statusMessage;
 
 
 
@@ -92,7 +91,7 @@ public:
 
 	// Input Functions  ---------------------------
 	void GetPointClicked(int& x, int& y) const;//Get coordinate where user clicks
-	string GetSrting() const;	 //Returns a string entered by the user
+	string GetSrting();	 //Returns a string entered by the user
 	operationType GetUseroperation() const; //Read the user click and map to an operation
 
 	// Output Functions  ---------------------------
@@ -101,8 +100,8 @@ public:
 	void CreatePlayToolBar();	//creates Play mode toolbar & menu
 	void CreateStatusBar() const;	//create the status bar
 
-	void ClearStatusBar() const;	//Clears the status bar
-	void ClearDrawArea() const;	//Clears the drawing area
+	void Clear() const;	//Clears the display
+	void ClearStatusBar();
 
 	// -- shapes Drawing functions
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
@@ -111,7 +110,7 @@ public:
 
 	///Make similar functions for drawing all other shapes.
 
-	void PrintMessage(string msg) const;	//Print a message on Status bar
+	void PrintMessage(string msg); //Print a message on Status bar
 
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color

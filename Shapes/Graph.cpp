@@ -24,9 +24,11 @@ void Graph::Addshape(shape* pShp)
 //Draw all shapes on the user interface
 void Graph::Draw(GUI* pUI) const
 {
-	pUI->ClearDrawArea();
+	pUI->Clear();
 	for (auto shapePointer : shapesList)
 		shapePointer->Draw(pUI);
+	pUI->CreateDrawToolBar();
+	pUI->CreateStatusBar();
 }
 
 

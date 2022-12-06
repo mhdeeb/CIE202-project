@@ -44,7 +44,7 @@ void GUI::GetPointClicked(int& x, int& y) const
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
-string GUI::GetSrting() const
+string GUI::GetSrting()
 {
 	string Label;
 	char Key;
@@ -137,14 +137,15 @@ void GUI::CreateStatusBar() const
 	pWind->SetPen(StatusBarColor, 1);
 	pWind->SetBrush(StatusBarColor);
 	pWind->DrawRectangle(0, height - StatusBarHeight, width, height);
+	pWind->SetPen(MsgColor, 50);
+	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
+	pWind->DrawString(10, height - (int)(0.9 * StatusBarHeight), statusMessage);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void GUI::ClearStatusBar() const
+void GUI::ClearStatusBar()
 {
-	//Clear Status bar by drawing a filled white rectangle
-	pWind->SetPen(StatusBarColor, 1);
-	pWind->SetBrush(StatusBarColor);
-	pWind->DrawRectangle(0, height - StatusBarHeight, width, height);
+	//Clear Status bar message
+	statusMessage = "";
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::CreateDrawToolBar()
@@ -187,22 +188,18 @@ void GUI::CreatePlayToolBar()
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::ClearDrawArea() const
+void GUI::Clear() const
 {
 	pWind->SetPen(BkGrndColor, 1);
 	pWind->SetBrush(BkGrndColor);
-	pWind->DrawRectangle(0, ToolBarHeight, width, height - StatusBarHeight);
-
+	pWind->DrawRectangle(0, 0, width, height);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void GUI::PrintMessage(string msg) const	//Prints a message on status bar
+void GUI::PrintMessage(string msg) //Prints a message on status bar
 {
-	ClearStatusBar();	//First clear the status bar
-
-	pWind->SetPen(MsgColor, 50);
-	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-	pWind->DrawString(10, height - (int)(0.75 * StatusBarHeight), msg);
+	statusMessage = msg;
+	CreateStatusBar();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
