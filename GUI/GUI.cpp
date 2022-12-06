@@ -161,8 +161,8 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_RECT] = "images\\MenuIcons\\Menu_Rect.jpg";
 	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.jpg";
 	MenuIconImages[ICON_SQUARE] = "images\\MenuIcons\\Menu_Square.jpg";
+	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Line.jpg";
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
-	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Exit.jpg";
 
 
 	//TODO: Prepare images for each menu icon and add it to the list
@@ -174,7 +174,7 @@ void GUI::CreateDrawToolBar()
 
 
 	//Draw a line under the toolbar
-	pWind->SetPen(RED, 3);
+	pWind->SetPen(BLACK, 3);
 	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
 
 }
