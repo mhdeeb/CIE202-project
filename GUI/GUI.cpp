@@ -91,6 +91,9 @@ operationType GUI::GetUseroperation() const
 			case ICON_CIRC: return DRAW_CIRC;
 			case ICON_SQUARE: return DRAW_SQUARE;
 			case ICON_LINE: return DRAW_LINE;
+			case ICON_TRIANGLE: return DRAW_TRIANGLE;
+			case ICON_REG_POLY: return DRAW_REG_POLY;
+			case ICON_IRREG_POLY: return DRAW_IRREG_POLY;
 			case ICON_EXIT: return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
@@ -163,6 +166,9 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.jpg";
 	MenuIconImages[ICON_SQUARE] = "images\\MenuIcons\\Menu_Square.jpg";
 	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Line.jpg";
+	MenuIconImages[ICON_TRIANGLE] = "images\\MenuIcons\\Menu_Triangle.jpg";
+	MenuIconImages[ICON_REG_POLY] = "images\\MenuIcons\\Menu_Regular_Polygon.jpg";
+	MenuIconImages[ICON_IRREG_POLY] = "images\\MenuIcons\\Menu_Irregular_Polygon.jpg";
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
 
 
@@ -176,7 +182,7 @@ void GUI::CreateDrawToolBar()
 
 	//Draw a line under the toolbar
 	pWind->SetPen(BLACK, 3);
-	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
+	pWind->DrawLine(0, ToolBarHeight, DRAW_ICON_COUNT * MenuIconWidth-2, ToolBarHeight);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////

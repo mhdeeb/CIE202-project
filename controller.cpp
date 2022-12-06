@@ -44,7 +44,12 @@ operation* controller::createOperation(operationType OpType)
 		pOp = new opAddLine(this);
 		///create AddLineoperation here
 		break;
-
+	case DRAW_TRIANGLE:
+		break;
+	case DRAW_REG_POLY:
+		break;
+	case DRAW_IRREG_POLY:
+		break;
 	case EXIT:
 		///create Exitoperation here
 

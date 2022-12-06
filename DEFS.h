@@ -7,8 +7,8 @@ enum operationType //The operations supported (you can add more if needed)
 {
 	DRAW_LINE,		//Draw Line
 	DRAW_RECT,		//Draw Rectangle
-	DRAW_SQUARE,    // Draw Square 
-	DRAW_TRI,		//Draw Triangle
+	DRAW_SQUARE,    //Draw Square 
+	DRAW_TRIANGLE,  //Draw Triangle
 	DRAW_CIRC,		//Draw Circle
 	DRAW_REG_POLY,  //Draw Regular Polygon 
 	DRAW_IRREG_POLY,//Draw Irregular Polygon

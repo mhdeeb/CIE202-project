@@ -42,7 +42,9 @@ class GUI
 		ICON_SQUARE,    // Square icon menu 
 
 		ICON_LINE,      //Line icon in menu
-
+		ICON_TRIANGLE,
+		ICON_REG_POLY,
+		ICON_IRREG_POLY,
 		//TODO: Add more icons names here
 
 		ICON_EXIT,		//Exit icon
