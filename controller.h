@@ -1,8 +1,11 @@
 #pragma once
 
-#include "DEFS.h"
 #include "Shapes\Graph.h"
-#include "GUI\GUI.h"
+#include "Operations/opAddRect.h"
+#include "Operations/opAddSquare.h"
+#include "Operations/opAddCircle.h"
+#include "Operations/opAddLine.h"
+#include "Operations/opAddIrregPoly.h"
 
 class operation; //forward declaration
 
@@ -13,7 +16,7 @@ class controller
 	Graph* pGraph;	//pointe to the grapg
 	GUI* pGUI;		//Pointer to UI class
 
-
+	
 public:
 	controller();
 	~controller();

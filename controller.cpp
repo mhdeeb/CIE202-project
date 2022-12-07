@@ -1,8 +1,5 @@
 #include "controller.h"
-#include "Operations/opAddRect.h"
-#include "Operations/opAddSquare.h"
-#include "Operations/opAddCircle.h"
-#include "Operations/opAddLine.h"
+
 
 
 //Constructor
@@ -32,33 +29,27 @@ operation* controller::createOperation(operationType OpType)
 	case DRAW_RECT:
 		pOp = new opAddRect(this);
 		break;
-
 	case DRAW_CIRC:
 		pOp = new opAddCircle(this);
 		break;
 	case DRAW_SQUARE:
 		pOp = new opAddSquare(this);
 		break;
-
 	case DRAW_LINE:
 		pOp = new opAddLine(this);
-		///create AddLineoperation here
 		break;
 	case DRAW_TRIANGLE:
 		break;
 	case DRAW_REG_POLY:
 		break;
 	case DRAW_IRREG_POLY:
+		pOp = new opAddIrregPoly(this);
 		break;
 	case EXIT:
-		///create Exitoperation here
-
 		break;
-
 	case STATUS:	//a click on the status bar ==> no operation
 		break;
 	}
-
 	return pOp;
 
 }

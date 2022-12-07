@@ -273,7 +273,25 @@ void GUI::DrawCircle(Point origin, double radius, GfxInfo CircleGfxInfo) const
 		style = FRAME;
 
 	pWind->DrawCircle(origin.x, origin.y, radius, style);
+}
 
+void GUI::DrawIrregPoly(const vector<int>& xpoints, const vector<int>& ypoints, GfxInfo gfxInfo) const
+{
+	color DrawingClr;
+	if (gfxInfo.isSelected)
+		DrawingClr = HighlightColor; 
+	else
+		DrawingClr = gfxInfo.DrawClr;
+	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);
+	drawstyle style;
+	if (gfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(gfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+	pWind->DrawPolygon(&xpoints[0], &ypoints[0], xpoints.size(), style);
 }
 
 

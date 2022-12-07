@@ -1,5 +1,4 @@
 #pragma once
-#include "..\DefS.h"
 #include "..\GUI\GUI.h"
 
 class controller; //forward class declaration

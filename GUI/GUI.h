@@ -1,17 +1,5 @@
 #pragma once
-
-
-
-#include "..\CMUgraphicsLib\CMUgraphics.h"
-#include "..\Defs.h"
-
-#include <string>
-using namespace std;
-
-struct Point	//To be used for shapes points
-{
-	int x, y;
-};
+#include "..\util.h"
 
 struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 {
@@ -21,8 +9,6 @@ struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 	int BorderWdth;	//Width of shape borders
 	bool isSelected;	//true if the shape is selected.
 };
-
-
 
 
 class GUI
@@ -109,6 +95,7 @@ public:
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
 	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo) const;  //Draw a Line
 	void DrawCircle(Point, double, GfxInfo) const;  //Draw a circle
+	void DrawIrregPoly(const vector<int>&, const vector<int>&, GfxInfo) const;
 
 	///Make similar functions for drawing all other shapes.
 

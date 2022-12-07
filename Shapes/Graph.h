@@ -1,8 +1,6 @@
 #pragma once
 #include "Shape.h"
-#include <fstream>
-#include <vector>
-using namespace std;
+
 
 //forward decl
 class GUI;
