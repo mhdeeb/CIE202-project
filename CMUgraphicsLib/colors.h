@@ -7,6 +7,8 @@ This file was last modified on 05.16.1999
 #define COLORS_H
 
 #include "version.h"
+#include <iostream>
+#include <algorithm>
 
 class color {
 
@@ -17,6 +19,36 @@ class color {
         ucRed = Red;  ucGreen = Green;  ucBlue = Blue; 
     }
 
+    /// <summary>
+    /// Creates a color object using hex value string; defaults to #000000 if hex fails isHexColor(std::string) check
+    /// </summary>
+    /// <param name="hex"></param>
+    color(string hex) {
+        if(isHexColor(hex)) {
+            ucRed = stoul(hex.substr(1, 2), nullptr, 16);
+            ucGreen = stoul(hex.substr(3, 2), nullptr, 16);
+            ucBlue = stoul(hex.substr(5, 2), nullptr, 16);
+        }
+        else {
+            cout << hex << " is not a valid hex color value: defaulted to #000000";
+            ucRed = ucGreen = ucBlue = 0;
+        }
+    }
+
+    /// <summary>
+    /// Creates a color object using hex value string; defaults to #000000 if hex fails isHexColor(std::string) check
+    /// </summary>
+    /// <param name="hex"></param>
+    color(const char hex[]) : color(string(hex)) {}
+
+    /// <summary>
+    /// Returns true if hex is a valid hex number string "#000000~#ffffff"
+    /// </summary>
+    /// <param name="hex"></param>
+    /// <returns></returns>
+    bool isHexColor(string hex) {
+        return (hex.length() == 7 && hex[0] == '#' && all_of(hex.begin() + 1, hex.end(), isxdigit));
+    }
 
     // Color components.  0 = no intensity, 255 = full intensity
     unsigned char ucRed;
