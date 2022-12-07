@@ -30,7 +30,7 @@ class color {
             ucBlue = stoul(hex.substr(5, 2), nullptr, 16);
         }
         else {
-            cout << hex << " is not a valid hex color value: defaulted to #000000";
+            cout << "Warning: " << hex << " is not a valid hex color value, defaulted to #000000";
             ucRed = ucGreen = ucBlue = 0;
         }
     }
