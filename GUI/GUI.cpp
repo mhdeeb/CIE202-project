@@ -50,7 +50,7 @@ string GUI::GetSrting()
 	char Key;
 	keytype ktype;
 	pWind->FlushKeyQueue();
-	while (1)
+	while (true)
 	{
 		ktype = pWind->WaitKeyPress(Key);
 		if (ktype == ESCAPE)	//ESCAPE key is pressed
@@ -94,6 +94,7 @@ operationType GUI::GetUseroperation() const
 			case ICON_TRIANGLE: return DRAW_TRIANGLE;
 			case ICON_REG_POLY: return DRAW_REG_POLY;
 			case ICON_IRREG_POLY: return DRAW_IRREG_POLY;
+			case ICON_COLOR_PALETTE: return DRAW_COLOR_PALETTE;
 			case ICON_EXIT: return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
@@ -162,27 +163,33 @@ void GUI::CreateDrawToolBar()
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuIcon
 	string MenuIconImages[DRAW_ICON_COUNT];
-	MenuIconImages[ICON_RECT] = "images\\MenuIcons\\Menu_Rect.jpg";
-	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.jpg";
-	MenuIconImages[ICON_SQUARE] = "images\\MenuIcons\\Menu_Square.jpg";
-	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Line.jpg";
-	MenuIconImages[ICON_TRIANGLE] = "images\\MenuIcons\\Menu_Triangle.jpg";
-	MenuIconImages[ICON_REG_POLY] = "images\\MenuIcons\\Menu_Regular_Polygon.jpg";
-	MenuIconImages[ICON_IRREG_POLY] = "images\\MenuIcons\\Menu_Irregular_Polygon.jpg";
-	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
+	MenuIconImages[ICON_RECT] = "images/MenuIcons/Menu_Rect.jpg";
+	MenuIconImages[ICON_CIRC] = "images/MenuIcons/Menu_Circ.jpg";
+	MenuIconImages[ICON_SQUARE] = "images/MenuIcons/Menu_Square.jpg";
+	MenuIconImages[ICON_LINE] = "images/MenuIcons/Menu_Line.jpg";
+	MenuIconImages[ICON_TRIANGLE] = "images/MenuIcons/Menu_Triangle.jpg";
+	MenuIconImages[ICON_REG_POLY] = "images/MenuIcons/Menu_Regular_Polygon.jpg";
+	MenuIconImages[ICON_IRREG_POLY] = "images/MenuIcons/Menu_Irregular_Polygon.jpg";
+	//MenuIconImages[ICON_COLOR_PALETTE] = "images/MenuIcons/.jpg";
+	MenuIconImages[ICON_EXIT] = "images/MenuIcons/Menu_Exit.jpg";
 
 
 	//TODO: Prepare images for each menu icon and add it to the list
 
 	//Draw menu icon one image at a time
-	for (int i = 0; i < DRAW_ICON_COUNT; i++)
-		pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+	for (int i = 0; i < DRAW_ICON_COUNT; i++) {
+		if (MenuIconImages[i].empty())
+			pWind->DrawImage("images/MenuIcons/Placeholder.jpg", i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+		else
+			pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+	}
+
 
 
 
 	//Draw a line under the toolbar
 	pWind->SetPen(BLACK, 3);
-	pWind->DrawLine(0, ToolBarHeight, DRAW_ICON_COUNT * MenuIconWidth-2, ToolBarHeight);
+	pWind->DrawLine(0, ToolBarHeight, DRAW_ICON_COUNT * MenuIconWidth - 2, ToolBarHeight);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -279,7 +286,7 @@ void GUI::DrawIrregPoly(const vector<int>& xpoints, const vector<int>& ypoints, 
 {
 	color DrawingClr;
 	if (gfxInfo.isSelected)
-		DrawingClr = HighlightColor; 
+		DrawingClr = HighlightColor;
 	else
 		DrawingClr = gfxInfo.DrawClr;
 	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);
@@ -322,4 +329,3 @@ GUI::~GUI()
 {
 	delete pWind;
 }
-

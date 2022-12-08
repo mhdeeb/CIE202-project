@@ -1,5 +1,13 @@
 #pragma once
-#include "..\util.h"
+
+#include "../CMUgraphicsLib/CMUgraphics.h"
+#include "../DEFS.h"
+#include <vector>
+
+struct Point
+{
+	int x, y;
+};
 
 struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 {
@@ -31,6 +39,7 @@ class GUI
 		ICON_TRIANGLE,
 		ICON_REG_POLY,
 		ICON_IRREG_POLY,
+		ICON_COLOR_PALETTE,
 		//TODO: Add more icons names here
 
 		ICON_EXIT,		//Exit icon
@@ -108,4 +117,3 @@ public:
 
 	~GUI();
 };
-
