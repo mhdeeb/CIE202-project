@@ -12,4 +12,3 @@ public:
 	virtual ~Circle();
 	virtual void Draw(GUI* pUI) const;
 };
-

@@ -25,4 +25,3 @@ void shape::ChngFillClr(color Fclr)
 	ShpGfxInfo.isFilled = true;
 	ShpGfxInfo.FillClr = Fclr;
 }
-

@@ -1,5 +1,4 @@
 #include "square.h"
-#include"math.h"
 
 square::square(Point P1, Point P2, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo)
 {

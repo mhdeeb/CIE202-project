@@ -12,4 +12,3 @@ public:
 	virtual ~Rect();
 	virtual void Draw(GUI* pUI) const;
 };
-

@@ -17,6 +17,15 @@
     <Filter Include="Operations">
       <UniqueIdentifier>{5b559cbb-08f2-4197-993f-7a3028ee6b52}</UniqueIdentifier>
     </Filter>
+    <ClInclude Include="operations\opAddIrregPoly.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\IrregPoly.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opColorPalette.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
@@ -184,14 +193,23 @@
     <ClInclude Include="CMUgraphicsLib\colors.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
+    <ClCompile Include="Shapes\IrregPoly.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opColorPalette.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddIrregPoly.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\GUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClCompile Include="GUI\GUI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shapes\Shape.h">

@@ -1,8 +1,6 @@
 #pragma once
-#include "..\GUI\GUI.h"
 
-class controller; //forward class declaration
-
+#include "../controller.h"
 
 //Base class for all possible operations
 class operation
@@ -12,7 +10,7 @@ protected:
 
 public:
 
-	operation(controller* pCont) { pControl = pCont; }	//constructor
+	operation(controller* pControl) : pControl(pControl) {}	//constructor
 	virtual ~operation() {}
 
 	//Execute operation (code depends on operation type)
@@ -25,4 +23,3 @@ public:
 	//virtual void Redo()=0;
 
 };
-

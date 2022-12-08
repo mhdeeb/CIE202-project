@@ -1,9 +1,7 @@
 #pragma once
+
+#include "../GUI/GUI.h"
 #include "Shape.h"
-
-
-//forward decl
-class GUI;
 
 //A class that is responsible on everything related to shapes
 class Graph

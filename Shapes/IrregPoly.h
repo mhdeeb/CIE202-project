@@ -11,4 +11,3 @@ public:
 	virtual ~IrregPoly();
 	virtual void Draw(GUI*) const;
 };
-

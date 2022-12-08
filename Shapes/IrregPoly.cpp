@@ -1,6 +1,5 @@
 #include "IrregPoly.h"
 
-
 IrregPoly::IrregPoly(vector<int> xpoints, vector<int>ypoints, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo), xpoints(xpoints), ypoints(ypoints)
 {}
 

@@ -1,5 +1,4 @@
 #include "Graph.h"
-#include "../GUI/GUI.h"
 
 Graph::Graph()
 {

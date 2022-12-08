@@ -1,6 +1,6 @@
 #pragma once
-#include "..\GUI\GUI.h"
 
+#include "../GUI/GUI.h"
 
 //Base class for all shapes
 class shape
@@ -37,4 +37,3 @@ public:
 
 	//virtual void PrintInfo(Output* pOut) = 0;	//print all shape info on the status bar
 };
-

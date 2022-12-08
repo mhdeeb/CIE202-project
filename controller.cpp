@@ -1,6 +1,11 @@
 #include "controller.h"
 
-
+#include "operations/opAddRect.h"
+#include "operations/opAddCircle.h"
+#include "operations/opAddSquare.h"
+#include "operations/opAddLine.h"
+#include "operations/opAddIrregPoly.h"
+#include "operations/opColorPalette.h"
 
 //Constructor
 controller::controller()
@@ -44,6 +49,9 @@ operation* controller::createOperation(operationType OpType)
 		break;
 	case DRAW_IRREG_POLY:
 		pOp = new opAddIrregPoly(this);
+		break;
+	case DRAW_COLOR_PALETTE:
+		pOp = new opColorPalette(this);
 		break;
 	case EXIT:
 		break;

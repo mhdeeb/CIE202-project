@@ -1,13 +1,8 @@
 #pragma once
 
-#include "Shapes\Graph.h"
-#include "Operations/opAddRect.h"
-#include "Operations/opAddSquare.h"
-#include "Operations/opAddCircle.h"
-#include "Operations/opAddLine.h"
-#include "Operations/opAddIrregPoly.h"
+#include "Shapes/Graph.h"
 
-class operation; //forward declaration
+class operation;
 
 //Main class that manages everything in the application.
 class controller
@@ -16,7 +11,7 @@ class controller
 	Graph* pGraph;	//pointe to the grapg
 	GUI* pGUI;		//Pointer to UI class
 
-	
+
 public:
 	controller();
 	~controller();
@@ -34,4 +29,3 @@ public:
 	void UpdateInterface() const;	//Redraws all the drawing window	
 
 };
-

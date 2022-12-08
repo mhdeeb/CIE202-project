@@ -1,5 +1,6 @@
 #include "opAddIrregPoly.h"
 
+#include "../Shapes/IrregPoly.h"
 
 opAddIrregPoly::opAddIrregPoly(controller* pCont) :operation(pCont)
 {}
@@ -35,7 +36,7 @@ void opAddIrregPoly::Execute()
 		pUI->GetPointClicked(px, py);
 	};
 	pUI->ClearStatusBar();
-	
+
 	IrregPoly* R = new IrregPoly(xpoints, ypoints, gfxInfo);
 	Graph* pGr = pControl->getGraph();
 	pGr->Addshape(R);

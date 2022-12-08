@@ -1,8 +1,6 @@
 #include "opAddSquare.h"
+
 #include "../Shapes/square.h"
-#include "../controller.h"
-#include "../GUI/GUI.h"
-using namespace std;
 
 opAddSquare::opAddSquare(controller* pCont) :operation(pCont)
 {}
