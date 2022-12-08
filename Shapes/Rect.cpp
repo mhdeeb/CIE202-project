@@ -6,9 +6,19 @@ Rect::Rect(Point P1, Point P2, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo)
 	Corner2 = P2;
 }
 
+Point Rect::getC1() const
+{
+	return Corner1;
+}
+
+Point Rect::getC2() const
+{
+	return Corner2;
+}
+
 Rect::~Rect() {}
 
 void Rect::Draw(GUI* pUI) const {
 	//Call Output::DrawRect to draw a rectangle on the screen	
-	pUI->DrawRect(Corner1, Corner2, ShpGfxInfo);
+	pUI->DrawRect(this);
 }

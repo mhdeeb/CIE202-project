@@ -13,11 +13,14 @@ protected:
 
 public:
 	shape(GfxInfo shapeGfxInfo);
+	shape() {}
 	virtual ~shape() {}
 	void SetSelected(bool s);	//select/unselect the shape
 	bool IsSelected() const;	//check whether fig is selected
 
 	virtual void Draw(GUI* pUI) const = 0;		//Draw the shape
+
+	GfxInfo getGfxInfo() const;
 
 	void ChngDrawClr(color Dclr);	//changes the shape's drawing color
 	void ChngFillClr(color Fclr);	//changes the shape's filling color

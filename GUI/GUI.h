@@ -2,7 +2,14 @@
 
 #include "../CMUgraphicsLib/CMUgraphics.h"
 #include "../DEFS.h"
+
 #include <vector>
+
+class Rect;
+class Circle;
+class Square;
+class Line;
+class IrregPoly;
 
 struct Point
 {
@@ -11,11 +18,11 @@ struct Point
 
 struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 {
-	color DrawClr;	//Draw color of the shape
-	color FillClr;	//Fill color of the shape
-	bool isFilled;	//shape Filled or not
-	int BorderWdth;	//Width of shape borders
-	bool isSelected;	//true if the shape is selected.
+	color DrawClr = BLACK;	//Draw color of the shape
+	color FillClr = BLACK;	//Fill color of the shape
+	bool isFilled = true;	//shape Filled or not
+	int BorderWdth = 1;	//Width of shape borders
+	bool isSelected = false;	//true if the shape is selected.
 };
 
 
@@ -75,6 +82,7 @@ class GUI
 	color MsgColor;			//Messages color
 	color BkGrndColor;		//Background color
 	color StatusBarColor;	//Status bar color
+	color PaletteColor;		//Select Palette color
 	int PenWidth;			//width of the pen that draws shapes
 	string statusMessage;
 
@@ -95,16 +103,18 @@ public:
 	window* CreateWind(int, int, int, int) const; //creates the application window
 	void CreateDrawToolBar();	//creates Draw mode toolbar & menu
 	void CreatePlayToolBar();	//creates Play mode toolbar & menu
-	void CreateStatusBar() const;	//create the status bar
+	void CreateStatusBar(string, Rect) const;	//create the status bar
+	void CreateStatusBar(string) const;
+	void CreateStatusBar() const;
 
 	void Clear() const;	//Clears the display
 	void ClearStatusBar();
 
 	// -- shapes Drawing functions
-	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
-	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo) const;  //Draw a Line
-	void DrawCircle(Point, double, GfxInfo) const;  //Draw a circle
-	void DrawIrregPoly(const vector<int>&, const vector<int>&, GfxInfo) const;
+	void DrawRect(const Rect *) const;		//Draw a rectangle
+	void DrawLine(const Line *) const;		//Draw a Line
+	void DrawCircle(const Circle *) const;  //Draw a circle
+	void DrawIrregPoly(const IrregPoly *) const;
 
 	///Make similar functions for drawing all other shapes.
 
@@ -112,7 +122,18 @@ public:
 
 	color getCrntDrawColor() const;	//get current drwawing color
 	color getCrntFillColor() const;	//get current filling color
-	int getCrntPenWidth() const;		//get current pen width
+	int getCrntPenWidth() const;	//get current pen width
+	color getMsgColor() const;	//get current message color
+	string getStatusMessage() const;	//get current message color
+
+	void setDrawColor(color);
+	void setFillColor(color);
+	void setHighlightColor(color);
+	void setMsgColor(color);
+	void setBkGrndColor(color);
+	void setStatusBarColor(color);
+	void setPaletteColor(color);
+	void setPenWidth(int);
 
 
 	~GUI();

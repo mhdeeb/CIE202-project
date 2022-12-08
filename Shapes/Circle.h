@@ -9,6 +9,8 @@ private:
 	double radius;
 public:
 	Circle(Point, double, GfxInfo);
+	Point getOrigin() const;
+	double getRadius() const;
 	virtual ~Circle();
 	virtual void Draw(GUI* pUI) const;
 };

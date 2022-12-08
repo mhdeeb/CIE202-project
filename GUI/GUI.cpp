@@ -1,5 +1,11 @@
 #include "GUI.h"
 
+#include "../Shapes/Rect.h"
+#include "../Shapes/Circle.h"
+#include "../Shapes/square.h"
+#include "../Shapes/Line.h"
+#include "../Shapes/IrregPoly.h"
+
 GUI::GUI()
 {
 	//Initialize user interface parameters
@@ -30,7 +36,7 @@ GUI::GUI()
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 
 	CreateDrawToolBar();
-	CreateStatusBar();
+	CreateStatusBar("Welcome to Paint Mode!");
 }
 
 
@@ -49,14 +55,17 @@ string GUI::GetSrting()
 	string Label;
 	char Key;
 	keytype ktype;
+	PrintMessage("Taking input...");
 	pWind->FlushKeyQueue();
 	while (true)
 	{
 		ktype = pWind->WaitKeyPress(Key);
 		if (ktype == ESCAPE)	//ESCAPE key is pressed
 			return "";	//returns nothing as user has cancelled label
-		if (Key == 13)	//ENTER key is pressed
+		if (Key == 13) { //ENTER key is pressed
+			PrintMessage("Input Saved!");
 			return Label;
+		}
 		if (Key == 8)	//BackSpace is pressed
 			if (Label.size() > 0)
 				Label.resize(Label.size() - 1);
@@ -136,14 +145,29 @@ window* GUI::CreateWind(int w, int h, int x, int y) const
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void GUI::CreateStatusBar() const
+void GUI::CreateStatusBar(string statusMessage, Rect textInput) const
 {
+	Point c1 = textInput.getC1(), c2 = textInput.getC2();
+	GfxInfo gfxInfo = textInput.getGfxInfo();
 	pWind->SetPen(StatusBarColor, 1);
 	pWind->SetBrush(StatusBarColor);
 	pWind->DrawRectangle(0, height - StatusBarHeight, width, height);
+	pWind->SetPen(gfxInfo.DrawClr, gfxInfo.BorderWdth);
+	pWind->SetBrush(gfxInfo.FillClr);
+	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y);
 	pWind->SetPen(MsgColor, 50);
 	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 	pWind->DrawString(10, height - (int)(0.9 * StatusBarHeight), statusMessage);
+}
+
+void GUI::CreateStatusBar(string statusMessage) const
+{
+	CreateStatusBar(statusMessage, {});
+}
+
+void GUI::CreateStatusBar() const
+{
+	CreateStatusBar(statusMessage, {});
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ClearStatusBar()
@@ -163,14 +187,14 @@ void GUI::CreateDrawToolBar()
 	//To control the order of these images in the menu, 
 	//reoder them in UI_Info.h ==> enum DrawMenuIcon
 	string MenuIconImages[DRAW_ICON_COUNT];
-	MenuIconImages[ICON_RECT] = "images/MenuIcons/Menu_Rect.jpg";
-	MenuIconImages[ICON_CIRC] = "images/MenuIcons/Menu_Circ.jpg";
+	MenuIconImages[ICON_RECT] = "images/MenuIcons/Menu_Rectangle.jpg";
+	MenuIconImages[ICON_CIRC] = "images/MenuIcons/Menu_Circle.jpg";
 	MenuIconImages[ICON_SQUARE] = "images/MenuIcons/Menu_Square.jpg";
 	MenuIconImages[ICON_LINE] = "images/MenuIcons/Menu_Line.jpg";
 	MenuIconImages[ICON_TRIANGLE] = "images/MenuIcons/Menu_Triangle.jpg";
 	MenuIconImages[ICON_REG_POLY] = "images/MenuIcons/Menu_Regular_Polygon.jpg";
 	MenuIconImages[ICON_IRREG_POLY] = "images/MenuIcons/Menu_Irregular_Polygon.jpg";
-	//MenuIconImages[ICON_COLOR_PALETTE] = "images/MenuIcons/.jpg";
+	MenuIconImages[ICON_COLOR_PALETTE] = "images/MenuIcons/Menu_Color_Picker.jpg";
 	MenuIconImages[ICON_EXIT] = "images/MenuIcons/Menu_Exit.jpg";
 
 
@@ -212,7 +236,19 @@ void GUI::Clear() const
 void GUI::PrintMessage(string msg) //Prints a message on status bar
 {
 	statusMessage = msg;
-	CreateStatusBar();
+	if (color::isHexColor(msg))	//Preview written color
+	{
+		GfxInfo r;
+		r.FillClr = WHITE;
+		Rect rect = Rect({ 10, height - StatusBarHeight + 10 }, { 90, height - StatusBarHeight + 50 }, r);
+		DrawRect(&rect);
+		color msgColor = getMsgColor();
+		setMsgColor(msg);
+		CreateStatusBar(msg);
+		setMsgColor(msgColor);
+	}
+	else
+		CreateStatusBar(msg);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -233,58 +269,111 @@ int GUI::getCrntPenWidth() const		//get current pen width
 	return PenWidth;
 }
 
+color GUI::getMsgColor() const
+{
+	return MsgColor;
+}
+
+string GUI::getStatusMessage() const
+{
+	return statusMessage;
+}
+
+void GUI::setDrawColor(color drawColor)
+{
+	DrawColor = drawColor;
+}
+
+void GUI::setFillColor(color fillColor)
+{
+	FillColor = fillColor;
+}
+
+void GUI::setHighlightColor(color highlightColor)
+{
+	HighlightColor = highlightColor;
+}
+
+void GUI::setMsgColor(color msgColor)
+{
+	MsgColor = msgColor;
+}
+
+void GUI::setBkGrndColor(color bkGrndColor)
+{
+	BkGrndColor = bkGrndColor;
+}
+
+void GUI::setStatusBarColor(color statusBarColor)
+{
+	StatusBarColor = statusBarColor;
+}
+
+void GUI::setPaletteColor(color paletteColor)
+{
+	PaletteColor = paletteColor;
+}
+
+void GUI::setPenWidth(int penWidth)
+{
+	PenWidth = penWidth;
+}
+
 //======================================================================================//
 //								shapes Drawing Functions								//
 //======================================================================================//
 
-void GUI::DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const
+void GUI::DrawRect(const Rect* rect) const
 {
 	color DrawingClr;
-	if (RectGfxInfo.isSelected)	//shape is selected
+	GfxInfo gfxInfo = rect->getGfxInfo();
+	Point c1 = rect->getC1(), c2 = rect->getC2();
+	if (gfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
-		DrawingClr = RectGfxInfo.DrawClr;
+		DrawingClr = gfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, RectGfxInfo.BorderWdth);	//Set Drawing color & width
+	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
 
 	drawstyle style;
-	if (RectGfxInfo.isFilled)
+	if (rect->getGfxInfo().isFilled)
 	{
 		style = FILLED;
-		pWind->SetBrush(RectGfxInfo.FillClr);
+		pWind->SetBrush(rect->getGfxInfo().FillClr);
+	}
+	else
+		style = FRAME;
+	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style);
+}
+
+void GUI::DrawCircle(const Circle* circle) const
+{
+	color DrawingClr;
+	Point origin = circle->getOrigin();
+	GfxInfo gfxInfo = circle->getGfxInfo();
+	if (gfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = gfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (gfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(gfxInfo.FillClr);
 	}
 	else
 		style = FRAME;
 
-	pWind->DrawRectangle(P1.x, P1.y, P2.x, P2.y, style);
-
+	pWind->DrawCircle(origin.x, origin.y, circle->getRadius(), style);
 }
 
-void GUI::DrawCircle(Point origin, double radius, GfxInfo CircleGfxInfo) const
+void GUI::DrawIrregPoly(const IrregPoly* irrePoly) const
 {
 	color DrawingClr;
-	if (CircleGfxInfo.isSelected)	//shape is selected
-		DrawingClr = HighlightColor; //shape should be drawn highlighted
-	else
-		DrawingClr = CircleGfxInfo.DrawClr;
-
-	pWind->SetPen(DrawingClr, CircleGfxInfo.BorderWdth);	//Set Drawing color & width
-
-	drawstyle style;
-	if (CircleGfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(CircleGfxInfo.FillClr);
-	}
-	else
-		style = FRAME;
-
-	pWind->DrawCircle(origin.x, origin.y, radius, style);
-}
-
-void GUI::DrawIrregPoly(const vector<int>& xpoints, const vector<int>& ypoints, GfxInfo gfxInfo) const
-{
-	color DrawingClr;
+	GfxInfo gfxInfo = irrePoly->getGfxInfo();
 	if (gfxInfo.isSelected)
 		DrawingClr = HighlightColor;
 	else
@@ -298,31 +387,32 @@ void GUI::DrawIrregPoly(const vector<int>& xpoints, const vector<int>& ypoints, 
 	}
 	else
 		style = FRAME;
-	pWind->DrawPolygon(&xpoints[0], &ypoints[0], xpoints.size(), style);
+	pWind->DrawPolygon(irrePoly->getXpoints(), irrePoly->getYpoints(), irrePoly->getSize(), style);
 }
 
 
-void GUI::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo) const
+void GUI::DrawLine(const Line* line) const
 {
 	color DrawingClr;
-	if (LineGfxInfo.isSelected)	//shape is selected
+	GfxInfo gfxInfo = line->getGfxInfo();
+	Point p1 = line->getPoint1(), p2 = line->getPoint2();
+	if (gfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
-		DrawingClr = LineGfxInfo.DrawClr;
+		DrawingClr = gfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, LineGfxInfo.BorderWdth);	//Set Drawing color & width
+	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
 
 	drawstyle style;
-	if (LineGfxInfo.isFilled)
+	if (gfxInfo.isFilled)
 	{
 		style = FILLED;
-		pWind->SetBrush(LineGfxInfo.FillClr);
+		pWind->SetBrush(gfxInfo.FillClr);
 	}
 	else
 		style = FRAME;
 
-	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
-
+	pWind->DrawLine(p1.x, p1.y, p2.x, p2.y, style);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()

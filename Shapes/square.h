@@ -1,14 +1,11 @@
 #pragma once
 
-#include "Shape.h"
+#include "Rect.h"
 
-class square : public shape
+class Square : public Rect
 {
-private:
-	Point Corner1;
-	Point Corner2;
 public:
-	square(Point P1, Point P2, GfxInfo shapeGfxInfo);
-	virtual ~square();
-	virtual void Draw(GUI* pUI) const;
+	Square(Point, Point, GfxInfo);
+	virtual ~Square();
+	virtual void Draw(GUI*) const;
 };

@@ -9,6 +9,8 @@ private:
 	Point Point2;
 public:
 	Line(Point, Point, GfxInfo shapeGfxInfo);
+	Point getPoint1() const;
+	Point getPoint2() const;
 	virtual ~Line();
 	virtual void Draw(GUI* pUI) const;
 };
