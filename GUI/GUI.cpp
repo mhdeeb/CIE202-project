@@ -12,7 +12,7 @@ GUI::GUI()
 	InterfaceMode = MODE_DRAW;
 
 	width = 1300;
-	height = 700;
+	height = 1000;
 	wx = 5;
 	wy = 5;
 
@@ -303,6 +303,12 @@ string GUI::getStatusMessage() const
 color GUI::getClickedColor(int &x, int &y)
 {
 	pWind->WaitMouseClick(x, y);
+	return pWind->GetColor(x, y);
+}
+
+color GUI::getHoverColor(int &x, int &y)
+{
+	pWind->GetMouseCoord(x, y);
 	return pWind->GetColor(x, y);
 }
 

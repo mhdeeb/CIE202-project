@@ -136,12 +136,13 @@ public:
 
 	void PrintMessage(string msg); //Print a message on Status bar
 
-	color getCrntDrawColor() const;	//get current drwawing color
-	color getCrntFillColor() const;	//get current filling color
-	int getCrntPenWidth() const;	//get current pen width
-	color getMsgColor() const;	//get current message color
+	color getCrntDrawColor() const;		//get current drwawing color
+	color getCrntFillColor() const;		//get current filling color
+	int getCrntPenWidth() const;		//get current pen width
+	color getMsgColor() const;			//get current message color
 	string getStatusMessage() const;	//get current message color
-	color getClickedColor(int&, int&);	//get current message color
+	color getClickedColor(int&, int&);
+	color getHoverColor(int&, int&);
 	window* getWindow() const;
 
 	void setDrawColor(color);
@@ -152,8 +153,6 @@ public:
 	void setStatusBarColor(color);
 	void setPaletteColor(color);
 	void setPenWidth(int);
-	void setGraph(Graph *);
-
 
 	~GUI();
 };

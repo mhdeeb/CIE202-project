@@ -54,6 +54,7 @@ operation* controller::createOperation(operationType OpType)
 		pOp = new opColorPalette(this);
 		break;
 	case EXIT:
+		exit(0);
 		break;
 	case STATUS:	//a click on the status bar ==> no operation
 		break;
