@@ -1,51 +1,37 @@
 #include "opAddRect.h"
 
 #include "../Shapes/Rect.h"
-#include "../Shapes/Circle.h"
+
+#include <format>
 
 opAddRect::opAddRect(controller* pCont) :operation(pCont)
 {}
 opAddRect::~opAddRect()
 {}
 
-//Execute the operation
 void opAddRect::Execute()
 {
-	Point P1, P2;
-
-	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
-
-	//Preapre all rectangle parameters
 	GfxInfo gfxInfo;
-
-	//get drawing, filling colors and pen width from the interface
 	gfxInfo.DrawClr = pUI->getCrntDrawColor();
 	gfxInfo.FillClr = pUI->getCrntFillColor();
 	gfxInfo.BorderWdth = pUI->getCrntPenWidth();
-	gfxInfo.isFilled = false;	//default is not filled
-	gfxInfo.isSelected = false;	//defualt is not selected
-
-	pUI->PrintMessage("New Rectangle: Click at first corner");
-	//Read 1st corner and store in point P1
-	pUI->GetPointClicked(P1.x, P1.y);
-	Circle circ = Circle({ P1.x , P1.y }, 10, gfxInfo);
-	pUI->DrawCircle(&circ);
-	string msg = "First corner is at (" + to_string(P1.x) + ", " + to_string(P1.y) + " )";
-	msg += " ... Click at second corner";
-	pUI->PrintMessage(msg);
-	//Read 2nd corner and store in point P2
-	pUI->GetPointClicked(P2.x, P2.y);
+	gfxInfo.isFilled = false;
+	Point rad;
+	int x, y;
+	Rect* R = new Rect({}, {}, gfxInfo);
+	pUI->PrintMessage("Rectangle Selected: Click on graph to start drawing");
+	pUI->GetPointClicked(x, y);
+	R->setC1({ x, y });
+	pUI->CreateStatusBar(format("({}, {})->", x, y));
+	while (!pUI->GetLeftPointState(rad.x, rad.y)) {
+		R->setC2(rad);
+		pUI->DrawRect(R);
+		pControl->getGraph()->Draw(pUI);
+		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", x, y, rad.x, rad.y));
+		Sleep(16);
+		pUI->Clear();
+	}
 	pUI->ClearStatusBar();
-
-
-	//Create a rectangle with the above parameters
-	Rect* R = new Rect(P1, P2, gfxInfo);
-
-	//Get a pointer to the graph
-	Graph* pGr = pControl->getGraph();
-
-	//Add the rectangle to the list of shapes
-	pGr->Addshape(R);
-
+	pControl->getGraph()->Addshape(R);
 }

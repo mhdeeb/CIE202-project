@@ -1,7 +1,6 @@
 #include "IrregPoly.h"
 
-IrregPoly::IrregPoly(vector<int> xpoints, vector<int>ypoints, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo), xpoints(xpoints), ypoints(ypoints), size(xpoints.size())
-{}
+IrregPoly::IrregPoly(GfxInfo shapeGfxInfo) : shape(shapeGfxInfo) {}
 
 const int* IrregPoly::getXpoints() const
 {
@@ -13,9 +12,22 @@ const int* IrregPoly::getYpoints() const
 	return &ypoints[0];
 }
 
+void IrregPoly::addPoint(const Point &point)
+{
+	xpoints.push_back(point.x);
+	ypoints.push_back(point.y);
+}
+
+Point IrregPoly::getPoint(int index)
+{
+	if (index < 0)
+		index = getSize() + index;
+	return { xpoints[index], ypoints[index] };
+}
+
 int IrregPoly::getSize() const
 {
-	return size;
+	return xpoints.size();
 }
 
 IrregPoly::~IrregPoly() {

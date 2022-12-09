@@ -68,7 +68,7 @@ operation* controller::createOperation(operationType OpType)
 //Draw all shapes on the user interface
 void controller::UpdateInterface() const
 {
-	pGraph->Draw(pGUI);
+	pGraph->Refresh(pGUI);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the UI
@@ -90,7 +90,6 @@ controller::~controller()
 {
 	delete pGUI;
 	delete pGraph;
-
 }
 
 

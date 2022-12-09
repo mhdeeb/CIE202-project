@@ -5,38 +5,42 @@
 //Base class for all shapes
 class shape
 {
+private:
+	static int shapeCount;
 protected:
-	int ID;		//Each shape has an ID
-	GfxInfo ShpGfxInfo;	//shape graphis info
-
-	/// Add more parameters if needed.
-
+	//Shape ID
+	int id;
+	//Shape graphics info
+	GfxInfo gfxInfo;
 public:
-	shape(GfxInfo shapeGfxInfo);
+	//Shape constructor
+	shape(GfxInfo);
+	//Shape default constructor
 	shape() {}
+	//Shape destructor
 	virtual ~shape() {}
-	void SetSelected(bool s);	//select/unselect the shape
-	bool IsSelected() const;	//check whether fig is selected
-
-	virtual void Draw(GUI* pUI) const = 0;		//Draw the shape
-
+	//Set shape selection
+	void SetSelected(bool);
+	//Return true if shape is selected 
+	bool IsSelected() const;
+	//absrtact function of Drawing the shape
+	virtual void Draw(GUI* pUI) const = 0;
+	//Get shape graphics info
 	GfxInfo getGfxInfo() const;
-
-	void ChngDrawClr(color Dclr);	//changes the shape's drawing color
-	void ChngFillClr(color Fclr);	//changes the shape's filling color
-
-	///The following functions should be supported by the shape class
-	///It should be overridden by each inherited shape
-
-	///Decide the parameters that you should pass to each function	
-
-
-	//virtual void Rotate() = 0;	//Rotate the shape
-	//virtual void Resize() = 0;	//Resize the shape
-	//virtual void Move() = 0;		//Move the shape
-
-	//virtual void Save(ofstream &OutFile) = 0;	//Save the shape parameters to the file
-	//virtual void Load(ifstream &Infile) = 0;	//Load the shape parameters to the file
-
-	//virtual void PrintInfo(Output* pOut) = 0;	//print all shape info on the status bar
+	//Change draw color
+	void setDrawColor(color);
+	//Change fill color
+	void setFillColor(color, int);
+	////Rotate the shape
+	//virtual void Rotate() = 0;
+	////Resize the shape
+	//virtual void Resize() = 0;
+	////Move the shape
+	//virtual void Move() = 0;
+	////Save the shape parameters to the file
+	//virtual void Save(ofstream &OutFile) = 0;
+	//Load the shape parameters to the file
+	//virtual void Load(ifstream &Infile) = 0;
+	////print all shape info on the status bar
+	//virtual void PrintInfo(Output* pOut) = 0;
 };

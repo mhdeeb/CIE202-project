@@ -10,10 +10,20 @@ class Circle;
 class Square;
 class Line;
 class IrregPoly;
+class Graph;
 
 struct Point
 {
 	int x, y;
+	int& getX() {
+		return x;
+	}
+	int& getY() {
+		return y;
+	}
+	double distance(const Point& p2) {
+		return sqrt(pow(p2.x - x, 2) + pow(p2.y - y, 2));
+	}
 };
 
 struct GfxInfo	//Graphical info common for all shapes (you may add more members)
@@ -85,6 +95,7 @@ class GUI
 	color PaletteColor;		//Select Palette color
 	int PenWidth;			//width of the pen that draws shapes
 	string statusMessage;
+	buttonstate perviousLeftButtonState;
 
 
 
@@ -96,6 +107,9 @@ public:
 
 	// Input Functions  ---------------------------
 	void GetPointClicked(int& x, int& y) const;//Get coordinate where user clicks
+	buttonstate GetLeftPointState(int&, int&) const;
+	bool GetLeftClick(int&, int&);
+	//Get coordinate where user clicks
 	string GetSrting();	 //Returns a string entered by the user
 	operationType GetUseroperation() const; //Read the user click and map to an operation
 
@@ -118,6 +132,8 @@ public:
 
 	///Make similar functions for drawing all other shapes.
 
+	void ClearDrawing() const;
+
 	void PrintMessage(string msg); //Print a message on Status bar
 
 	color getCrntDrawColor() const;	//get current drwawing color
@@ -125,6 +141,8 @@ public:
 	int getCrntPenWidth() const;	//get current pen width
 	color getMsgColor() const;	//get current message color
 	string getStatusMessage() const;	//get current message color
+	color getClickedColor(int&, int&);	//get current message color
+	window* getWindow() const;
 
 	void setDrawColor(color);
 	void setFillColor(color);
@@ -134,6 +152,7 @@ public:
 	void setStatusBarColor(color);
 	void setPaletteColor(color);
 	void setPenWidth(int);
+	void setGraph(Graph *);
 
 
 	~GUI();

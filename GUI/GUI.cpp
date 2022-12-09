@@ -28,6 +28,7 @@ GUI::GUI()
 	HighlightColor = MAGENTA;	//This color should NOT be used to draw shapes. use if for highlight only
 	StatusBarColor = LIGHTSEAGREEN;
 	PenWidth = 3;	//default width of the shapes frames
+	perviousLeftButtonState = BUTTON_UP;
 
 
 	//Create the output window
@@ -48,6 +49,19 @@ GUI::GUI()
 void GUI::GetPointClicked(int& x, int& y) const
 {
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+}
+
+buttonstate GUI::GetLeftPointState(int& x, int& y) const
+{
+	return pWind->GetButtonState(LEFT_BUTTON, x, y);
+}
+
+bool GUI::GetLeftClick(int& x, int& y)
+{
+
+	buttonstate currentLeftButtonState = pWind->GetButtonState(LEFT_BUTTON, x, y), prev = perviousLeftButtonState;
+	perviousLeftButtonState = currentLeftButtonState;
+	return prev || !currentLeftButtonState;
 }
 
 string GUI::GetSrting()
@@ -233,6 +247,13 @@ void GUI::Clear() const
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
+void GUI::ClearDrawing() const
+{
+	pWind->SetPen(BkGrndColor, 1);
+	pWind->SetBrush(BkGrndColor);
+	pWind->DrawRectangle(0, ToolBarHeight, width, height-StatusBarHeight);
+}
+//////////////////////////////////////////////////////////////////////////////////////////
 void GUI::PrintMessage(string msg) //Prints a message on status bar
 {
 	statusMessage = msg;
@@ -277,6 +298,17 @@ color GUI::getMsgColor() const
 string GUI::getStatusMessage() const
 {
 	return statusMessage;
+}
+
+color GUI::getClickedColor(int &x, int &y)
+{
+	pWind->WaitMouseClick(x, y);
+	return pWind->GetColor(x, y);
+}
+
+window* GUI::getWindow() const
+{
+	return pWind;
 }
 
 void GUI::setDrawColor(color drawColor)

@@ -6,11 +6,12 @@ class IrregPoly : public shape
 {
 private:
 	vector<int> xpoints, ypoints;
-	int size;
 public:
-	IrregPoly(vector<int>, vector<int>, GfxInfo);
+	IrregPoly(GfxInfo);
 	const int* getXpoints() const;
 	const int* getYpoints() const;
+	void addPoint(const Point&);
+	Point getPoint(int index);
 	int getSize() const;
 	virtual ~IrregPoly();
 	virtual void Draw(GUI*) const;

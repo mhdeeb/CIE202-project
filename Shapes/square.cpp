@@ -1,10 +1,17 @@
 #include "Square.h"
 
-Square::Square(Point P1, Point P2, GfxInfo shapeGfxInfo) : Rect(P1, P2, shapeGfxInfo)
+Square::Square(Point p1, Point p2, GfxInfo shapeGfxInfo) : Rect(p1, p2, shapeGfxInfo)
 {
-	double L = sqrt((pow(P1.x - P2.x, 2) + pow(P1.y - P2.y, 2)) / 2);
-	Corner2.x = P1.x + ((P1.x < P2.x) ? L : -L);
-	Corner2.y = P1.y + ((P1.y < P2.y) ? L : -L);
+	double L = sqrt((pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2)) / 2);
+	Rect::p2.x = p1.x + ((p1.x < p2.x) ? L : -L);
+	Rect::p2.y = p1.y + ((p1.y < p2.y) ? L : -L);
+}
+
+void Square::setC2(Point p2)
+{
+	double L = sqrt((pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2)) / 2);
+	Rect::p2.x = p1.x + ((p1.x < p2.x) ? L : -L);
+	Rect::p2.y = p1.y + ((p1.y < p2.y) ? L : -L);
 }
 
 Square::~Square()
@@ -12,6 +19,5 @@ Square::~Square()
 
 void Square::Draw(GUI* pUI) const
 {
-	//Call Output::DrawRect to draw a square on the screen	
 	pUI->DrawRect(this);
 }

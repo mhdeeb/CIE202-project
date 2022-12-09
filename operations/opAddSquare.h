@@ -8,7 +8,5 @@ class opAddSquare : public operation
 public:
 	opAddSquare(controller* pCont);
 	virtual ~opAddSquare();
-	//Add Square to the controller
 	virtual void Execute();
-
 };

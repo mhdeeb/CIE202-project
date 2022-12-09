@@ -1,6 +1,6 @@
 #include "Circle.h"
 
-Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo) : origin(origin), radius(radius), shape(shapeGfxInfo) {}
+Circle::Circle(Point origin={}, double radius = 0, GfxInfo shapeGfxInfo = {}) : shape(shapeGfxInfo), origin(origin), radius(radius) {}
 
 Point Circle::getOrigin() const
 {
@@ -12,9 +12,18 @@ double Circle::getRadius() const
 	return radius;
 }
 
+void Circle::setRadius(double radius)
+{
+	this->radius = radius;
+}
+
+void Circle::setOrigin(const Point &origin)
+{
+	this->origin = origin;
+}
+
 Circle::~Circle() {}
 
-void Circle::Draw(GUI* pUI) const {
-	//Call Output::DrawCircle to draw a circle on the screen	
+void Circle::Draw(GUI* pUI) const {	
 	pUI->DrawCircle(this);
 }

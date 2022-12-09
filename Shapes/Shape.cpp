@@ -1,32 +1,32 @@
 #include "shape.h"
 
-shape::shape(GfxInfo shapeGfxInfo)
-{
-	ShpGfxInfo = shapeGfxInfo;	//Default status is non-filled.
-}
+int shape::shapeCount;
+
+shape::shape(GfxInfo gfxInfo = {}) : id(shapeCount++), gfxInfo(gfxInfo)
+{}
 
 void shape::SetSelected(bool s)
 {
-	ShpGfxInfo.isSelected = s;
+	gfxInfo.isSelected = s;
 }
 
 bool shape::IsSelected() const
 {
-	return ShpGfxInfo.isSelected;
+	return gfxInfo.isSelected;
 }
 
 GfxInfo shape::getGfxInfo() const
 {
-	return ShpGfxInfo;
+	return gfxInfo;
 }
 
-void shape::ChngDrawClr(color Dclr)
+void shape::setDrawColor(color drawColor)
 {
-	ShpGfxInfo.DrawClr = Dclr;
+	gfxInfo.DrawClr = drawColor;
 }
 
-void shape::ChngFillClr(color Fclr)
+void shape::setFillColor(color fillColor, int isFilled = true)
 {
-	ShpGfxInfo.isFilled = true;
-	ShpGfxInfo.FillClr = Fclr;
+	gfxInfo.isFilled = isFilled;
+	gfxInfo.FillClr = fillColor;
 }

@@ -1,50 +1,37 @@
 #include "opAddLine.h"
 
 #include "../Shapes/Line.h"
-#include "../Shapes/Circle.h"
+
+#include <format>
 
 opAddLine::opAddLine(controller* pCont) :operation(pCont)
 {}
 opAddLine::~opAddLine()
 {}
 
-//Execute the operation
 void opAddLine::Execute()
 {
-	Point P1, P2;
-
-	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
-
-	//Preapre all rectangle parameters
 	GfxInfo gfxInfo;
-
-	//get drawing, filling colors and pen width from the interface
 	gfxInfo.DrawClr = pUI->getCrntDrawColor();
 	gfxInfo.FillClr = pUI->getCrntFillColor();
 	gfxInfo.BorderWdth = pUI->getCrntPenWidth();
-	gfxInfo.isFilled = false;	//default is not filled
-	gfxInfo.isSelected = false;	//defualt is not selected
-
-	pUI->PrintMessage("New Line: Click at first Line");
-	//Read 1st Line and store in point P1
-	pUI->GetPointClicked(P1.x, P1.y);
-	Circle circ = Circle({ P1.x , P1.y }, 10, gfxInfo);
-	pUI->DrawCircle(&circ);
-	string msg = "First Point is at (" + to_string(P1.x) + ", " + to_string(P1.y) + " )";
-	msg += " ... Click at second corner";
-	pUI->PrintMessage(msg);
-	//Read 2nd Point and store in point P2
-	pUI->GetPointClicked(P2.x, P2.y);
+	gfxInfo.isFilled = false;
+	Point rad;
+	int x, y;
+	Line* L = new Line({}, {}, gfxInfo);
+	pUI->PrintMessage("Line Selected: Click on graph to start drawing");
+	pUI->GetPointClicked(x, y);
+	L->setPoint1({ x, y });
+	pUI->CreateStatusBar(format("({}, {})->", x, y));
+	while (!pUI->GetLeftPointState(rad.x, rad.y)) {
+		L->setPoint2(rad);
+		pUI->DrawLine(L);
+		pControl->getGraph()->Draw(pUI);
+		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", x, y, rad.x, rad.y));
+		Sleep(16);
+		pUI->Clear();
+	}
 	pUI->ClearStatusBar();
-
-	//Create a rectangle with the above parameters
-	Line* R = new Line(P1, P2, gfxInfo);
-
-	//Get a pointer to the graph
-	Graph* pGr = pControl->getGraph();
-
-	//Add the Line to the list of shapes
-	pGr->Addshape(R);
-
+	pControl->getGraph()->Addshape(L);
 }

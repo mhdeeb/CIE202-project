@@ -11,6 +11,8 @@ public:
 	Circle(Point, double, GfxInfo);
 	Point getOrigin() const;
 	double getRadius() const;
+	void setRadius(double);
+	void setOrigin(const Point&);
 	virtual ~Circle();
-	virtual void Draw(GUI* pUI) const;
+	virtual void Draw(GUI*) const;
 };
