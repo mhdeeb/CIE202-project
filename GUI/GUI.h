@@ -125,6 +125,9 @@ public:
 	int getCrntPenWidth() const;	//get current pen width
 	color getMsgColor() const;	//get current message color
 	string getStatusMessage() const;	//get current message color
+	window* getWindow() const;
+	buttonstate GetLeftPointState(int&, int&);
+	color getHoverColor(int& x, int& y);
 
 	void setDrawColor(color);
 	void setFillColor(color);

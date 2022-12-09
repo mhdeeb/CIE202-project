@@ -5,7 +5,7 @@
 #include "operations/opAddSquare.h"
 #include "operations/opAddLine.h"
 #include "operations/opAddIrregPoly.h"
-//#include "operations/opColorPalette.h"
+#include "operations/opColorPalette.h"
 
 //Constructor
 controller::controller()
@@ -51,7 +51,7 @@ operation* controller::createOperation(operationType OpType)
 		pOp = new opAddIrregPoly(this);
 		break;
 	case DRAW_COLOR_PALETTE:
-		//pOp = new opColorPalette(this);
+		pOp = new opColorPalette(this);
 		break;
 	case EXIT:
 		break;

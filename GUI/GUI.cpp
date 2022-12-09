@@ -50,6 +50,17 @@ void GUI::GetPointClicked(int& x, int& y) const
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
+buttonstate GUI::GetLeftPointState(int& x, int& y)
+{
+	return pWind->GetButtonState(LEFT_BUTTON, x, y);
+}
+
+color GUI::getHoverColor(int& x, int& y)
+{
+	pWind->GetMouseCoord(x, y);
+	return pWind->GetColor(x, y);
+}
+
 string GUI::GetSrting()
 {
 	string Label;
@@ -277,6 +288,11 @@ color GUI::getMsgColor() const
 string GUI::getStatusMessage() const
 {
 	return statusMessage;
+}
+
+window* GUI::getWindow() const
+{
+	return pWind;
 }
 
 void GUI::setDrawColor(color drawColor)

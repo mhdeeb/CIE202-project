@@ -172,6 +172,7 @@
     <ClCompile Include="operations\opAddLine.cpp" />
     <ClCompile Include="operations\opAddRect.cpp" />
     <ClCompile Include="operations\opAddSquare.cpp" />
+    <ClCompile Include="operations\opColorPalette.cpp" />
     <ClCompile Include="Shapes\Circle.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
     <ClCompile Include="Shapes\IrregPoly.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="operations\opAddLine.h" />
     <ClInclude Include="operations\opAddRect.h" />
     <ClInclude Include="operations\opAddSquare.h" />
+    <ClInclude Include="operations\opColorPalette.h" />
     <ClInclude Include="operations\operation.h" />
     <ClInclude Include="Shapes\Circle.h" />
     <ClInclude Include="Shapes\Graph.h" />
