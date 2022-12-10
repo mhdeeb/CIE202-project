@@ -96,6 +96,9 @@ public:
 
 	// Input Functions  ---------------------------
 	void GetPointClicked(int& x, int& y) const;//Get coordinate where user clicks
+
+	Point getMouseLocation();
+
 	string GetSrting();	 //Returns a string entered by the user
 	operationType GetUseroperation() const; //Read the user click and map to an operation
 

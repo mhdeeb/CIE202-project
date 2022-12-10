@@ -60,6 +60,12 @@ color GUI::getHoverColor(int& x, int& y)
 	pWind->GetMouseCoord(x, y);
 	return pWind->GetColor(x, y);
 }
+Point GUI::getMouseLocation()
+{
+	int x, y;
+	pWind->GetMouseCoord(x, y);
+	return Point(x,y);
+}
 
 string GUI::GetSrting()
 {
@@ -93,7 +99,7 @@ operationType GUI::GetUseroperation() const
 {
 	int x, y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-
+	
 	if (InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
 		//[1] If user clicks on the Toolbar
