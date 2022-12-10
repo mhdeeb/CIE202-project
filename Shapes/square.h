@@ -8,4 +8,5 @@ public:
 	Square(Point, Point, GfxInfo);
 	virtual ~Square();
 	virtual void Draw(GUI*) const;
+	virtual bool isSelected(Point);
 };

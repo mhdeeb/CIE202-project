@@ -6,6 +6,7 @@
 #include "operations/opAddLine.h"
 #include "operations/opAddIrregPoly.h"
 #include "operations/opColorPalette.h"
+#include "operations/opSelect.h"
 
 //Constructor
 controller::controller()
@@ -57,6 +58,10 @@ operation* controller::createOperation(operationType OpType)
 		break;
 	case STATUS:	//a click on the status bar ==> no operation
 		break;
+	case DRAWING_AREA:
+
+		pOp = new Select(this);
+		break;	
 	}
 	return pOp;
 

@@ -1,4 +1,6 @@
 #include "Graph.h"
+#include<ranges>
+#include<vector>
 
 Graph::Graph()
 {
@@ -30,14 +32,20 @@ void Graph::Draw(GUI* pUI) const
 	pUI->CreateStatusBar();
 }
 
-
-shape* Graph::Getshape(int x, int y) const
+vector <shape* > Graph::GetShapeList() const {
+	return  shapesList;
+}
+shape* Graph::Getshape(Point p)
 {
-	//If a shape is found return a pointer to it.
-	//if this point (x,y) does not belong to any shape return NULL
+	for (auto i : views::reverse(shapesList)) {
+		if (i->isSelected(p)) {
+			selectedShape = i;
+			return selectedShape;
 
-
-	///Add your code here to search for a shape given a point x,y	
-
+		}
+	}	
 	return nullptr;
+}
+void Graph::setSelectedShape(shape* pSsh) {
+	selectedShape = pSsh;
 }

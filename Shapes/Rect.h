@@ -14,4 +14,5 @@ public:
 	Point getC2() const;
 	virtual ~Rect();
 	virtual void Draw(GUI* pUI) const;
+	virtual bool isSelected(Point);
 };

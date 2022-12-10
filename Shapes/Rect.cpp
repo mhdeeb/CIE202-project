@@ -22,3 +22,9 @@ void Rect::Draw(GUI* pUI) const {
 	//Call Output::DrawRect to draw a rectangle on the screen	
 	pUI->DrawRect(this);
 }
+bool Rect::isSelected(Point p){
+	if (p.x <= max(Corner1.x, Corner2.x) && p.x >= min(Corner1.x, Corner2.x) && p.y >= min(Corner1.y, Corner2.y) && p.y <= max(Corner1.y, Corner2.y))
+		return true;
+	return false;
+}
+

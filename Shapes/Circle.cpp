@@ -18,3 +18,6 @@ void Circle::Draw(GUI* pUI) const {
 	//Call Output::DrawCircle to draw a circle on the screen	
 	pUI->DrawCircle(this);
 }
+bool Circle::isSelected(Point) {
+	return false;
+}
