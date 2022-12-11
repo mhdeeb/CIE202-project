@@ -10,32 +10,19 @@ GUI::GUI()
 {
 	//Initialize user interface parameters
 	InterfaceMode = MODE_DRAW;
-
-	width = 1300;
-	height = 1000;
-	wx = 5;
-	wy = 5;
-
-
-	StatusBarHeight = 50;
-	ToolBarHeight = 50;
-	MenuIconWidth = 80;
-
-	DrawColor = BLUE;	//default Drawing color
+	DrawColor = BLACK;	//default Drawing color
 	FillColor = GREEN;	//default Filling color
-	MsgColor = BLACK;		//Messages color
-	BkGrndColor = WHITE;	//Background color
+	MsgColor = RED;		//Messages color
+	BkGrndColor = GREY;	//Background color
 	HighlightColor = MAGENTA;	//This color should NOT be used to draw shapes. use if for highlight only
 	StatusBarColor = LIGHTSEAGREEN;
 	PenWidth = 3;	//default width of the shapes frames
 	perviousLeftButtonState = BUTTON_UP;
-
-
+	LoadDrawToolBar();
 	//Create the output window
 	pWind = CreateWind(width, height, wx, wy);
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
-
 	CreateDrawToolBar();
 	CreateStatusBar("Welcome to Paint Mode!");
 }
@@ -99,10 +86,8 @@ string GUI::GetSrting()
 }
 
 //This function reads the position where the user clicks to determine the desired operation
-operationType GUI::GetUseroperation() const
+operationType GUI::GetUseroperation(int x, int y) const
 {
-	int x, y;
-	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
 	if (InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
 		//[1] If user clicks on the Toolbar
@@ -123,9 +108,8 @@ operationType GUI::GetUseroperation() const
 			case ICON_TRIANGLE: return DRAW_TRIANGLE;
 			case ICON_REG_POLY: return DRAW_REG_POLY;
 			case ICON_IRREG_POLY: return DRAW_IRREG_POLY;
-			case ICON_COLOR_PALETTE: return DRAW_COLOR_PALETTE;
+			case ICON_COLOR_PICKER: return DRAW_COLOR_PALETTE;
 			case ICON_EXIT: return EXIT;
-
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
 		}
@@ -160,7 +144,7 @@ window* GUI::CreateWind(int w, int h, int x, int y) const
 	window* pW = new window(w, h, x, y);
 	pW->SetBrush(BkGrndColor);
 	pW->SetPen(BkGrndColor, 1);
-	pW->DrawRectangle(0, ToolBarHeight, w, h);
+	pW->DrawRectangle(0, 0, w, h);
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -195,45 +179,24 @@ void GUI::ClearStatusBar()
 	statusMessage = "";
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+void GUI::LoadDrawToolBar() {
+	MenuIconImages[ICON_RECT] = new image("images/MenuIcons/Menu_Rectangle.jpg");
+	MenuIconImages[ICON_CIRC] = new image("images/MenuIcons/Menu_Circle.jpg");
+	MenuIconImages[ICON_SQUARE] = new image("images/MenuIcons/Menu_Square.jpg");
+	MenuIconImages[ICON_LINE] = new image("images/MenuIcons/Menu_Line.jpg");
+	MenuIconImages[ICON_TRIANGLE] = new image("images/MenuIcons/Menu_Triangle.jpg");
+	MenuIconImages[ICON_REG_POLY] = new image("images/MenuIcons/Menu_Regular_Polygon.jpg");
+	MenuIconImages[ICON_IRREG_POLY] = new image("images/MenuIcons/Menu_Irregular_Polygon.jpg");
+	MenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Picker.jpg");
+	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
+	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
+	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
+}
 void GUI::CreateDrawToolBar()
 {
 	InterfaceMode = MODE_DRAW;
-
-	//You can draw the tool bar icons in any way you want.
-	//Below is one possible way
-
-	//First prepare List of images for each menu icon
-	//To control the order of these images in the menu, 
-	//reoder them in UI_Info.h ==> enum DrawMenuIcon
-	string MenuIconImages[DRAW_ICON_COUNT];
-	MenuIconImages[ICON_RECT] = "images/MenuIcons/Menu_Rectangle.jpg";
-	MenuIconImages[ICON_CIRC] = "images/MenuIcons/Menu_Circle.jpg";
-	MenuIconImages[ICON_SQUARE] = "images/MenuIcons/Menu_Square.jpg";
-	MenuIconImages[ICON_LINE] = "images/MenuIcons/Menu_Line.jpg";
-	MenuIconImages[ICON_TRIANGLE] = "images/MenuIcons/Menu_Triangle.jpg";
-	MenuIconImages[ICON_REG_POLY] = "images/MenuIcons/Menu_Regular_Polygon.jpg";
-	MenuIconImages[ICON_IRREG_POLY] = "images/MenuIcons/Menu_Irregular_Polygon.jpg";
-	MenuIconImages[ICON_COLOR_PALETTE] = "images/MenuIcons/Menu_Color_Picker.jpg";
-	MenuIconImages[ICON_EXIT] = "images/MenuIcons/Menu_Exit.jpg";
-
-
-	//TODO: Prepare images for each menu icon and add it to the list
-
-	//Draw menu icon one image at a time
-	for (int i = 0; i < DRAW_ICON_COUNT; i++) {
-		if (MenuIconImages[i].empty())
-			pWind->DrawImage("images/MenuIcons/Placeholder.jpg", i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
-		else
-			pWind->DrawImage(MenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
-	}
-
-
-
-
-	//Draw a line under the toolbar
-	pWind->SetPen(BLACK, 3);
-	pWind->DrawLine(0, ToolBarHeight, DRAW_ICON_COUNT * MenuIconWidth - 2, ToolBarHeight);
-
+	for (int i = 0; i < DRAW_ICON_COUNT; i++)
+		pWind->DrawImage((MenuIconImages[i]) ? MenuIconImages[i] : MenuIconImages[ICON_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -256,7 +219,7 @@ void GUI::ClearDrawing() const
 {
 	pWind->SetPen(BkGrndColor, 1);
 	pWind->SetBrush(BkGrndColor);
-	pWind->DrawRectangle(0, ToolBarHeight, width, height-StatusBarHeight);
+	pWind->DrawRectangle(0, ToolBarHeight, width, height - StatusBarHeight);
 	pWind->DrawRectangle(DRAW_ICON_COUNT * MenuIconWidth, 0, width, ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -306,13 +269,13 @@ string GUI::getStatusMessage() const
 	return statusMessage;
 }
 
-color GUI::getClickedColor(int &x, int &y)
+color GUI::getClickedColor(int& x, int& y)
 {
 	pWind->WaitMouseClick(x, y);
 	return pWind->GetColor(x, y);
 }
 
-color GUI::getHoverColor(int &x, int &y)
+color GUI::getHoverColor(int& x, int& y)
 {
 	pWind->GetMouseCoord(x, y);
 	return pWind->GetColor(x, y);
@@ -321,6 +284,15 @@ color GUI::getHoverColor(int &x, int &y)
 window* GUI::getWindow() const
 {
 	return pWind;
+}
+
+image* GUI::getImage(DrawMenuIcon icon) const
+{
+	return MenuIconImages[icon];
+}
+
+bool GUI::isInDrawArea(Point p) {
+	return (p.y < ToolBarHeight&& p.x >(width - DRAW_ICON_COUNT * MenuIconWidth)) || p.y > ToolBarHeight;
 }
 
 void GUI::setDrawColor(color drawColor)
@@ -462,4 +434,6 @@ void GUI::DrawLine(const Line* line) const
 GUI::~GUI()
 {
 	delete pWind;
+	for (int i = 0; i < ICON_COUNT; ++i)
+		delete MenuIconImages[i];
 }
