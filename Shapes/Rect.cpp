@@ -27,3 +27,9 @@ Rect::~Rect() {}
 void Rect::Draw(GUI* pUI) const {	
 	pUI->DrawRect(this);
 }
+bool Rect::isSelected(Point p){
+	if (p.x <= max(p1.x, p2.x) && p.x >= min(p1.x, p2.x) && p.y >= min(p1.y, p2.y) && p.y <= max(p1.y, p2.y))
+		return true;
+	return false;
+}
+

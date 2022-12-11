@@ -26,6 +26,9 @@
     <ClInclude Include="operations\opColorPalette.h">
       <Filter>Operations</Filter>
     </ClInclude>
+    <ClInclude Include="operations\opSelect.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
@@ -199,10 +202,13 @@
     <ClCompile Include="GUI\GUI.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
+    <ClCompile Include="operations\opAddIrregPoly.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
     <ClCompile Include="operations\opColorPalette.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
-    <ClCompile Include="operations\opAddIrregPoly.cpp">
+    <ClCompile Include="operations\opSelect.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
   </ItemGroup>

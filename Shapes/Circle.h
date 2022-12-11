@@ -15,4 +15,5 @@ public:
 	void setOrigin(const Point&);
 	virtual ~Circle();
 	virtual void Draw(GUI*) const;
+	virtual bool isSelected(Point);
 };

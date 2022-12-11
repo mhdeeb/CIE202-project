@@ -25,7 +25,7 @@ void shape::setDrawColor(color drawColor)
 	gfxInfo.DrawClr = drawColor;
 }
 
-void shape::setFillColor(color fillColor, int isFilled = true)
+void shape::setFillColor(color fillColor, bool isFilled = true)
 {
 	gfxInfo.isFilled = isFilled;
 	gfxInfo.FillClr = fillColor;

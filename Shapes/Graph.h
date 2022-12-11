@@ -15,8 +15,9 @@ public:
 	void Addshape(shape* pFig); //Adds a new shape to the shapesList
 	void Draw(GUI*) const;			//Draw the graph (draw all shapes)
 	void Refresh(GUI*) const;
-	shape* Getshape(int x, int y) const; //Search for a shape given a point inside the shape
-
+	shape* Getshape(Point p); //Search for a shape given a point inside the shape
+	void setSelectedShape(shape*);
+	vector<shape*> GetShapeList() const;
 	void Save(ofstream& outfile);	//Save all shapes to a file
 	void load(ifstream& inputfile);	//Load all shapes from a file
 };

@@ -27,3 +27,6 @@ Circle::~Circle() {}
 void Circle::Draw(GUI* pUI) const {	
 	pUI->DrawCircle(this);
 }
+bool Circle::isSelected(Point) {
+	return false;
+}

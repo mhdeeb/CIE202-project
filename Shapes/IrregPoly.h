@@ -15,4 +15,5 @@ public:
 	int getSize() const;
 	virtual ~IrregPoly();
 	virtual void Draw(GUI*) const;
+	virtual bool isSelected(Point);
 };

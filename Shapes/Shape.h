@@ -23,6 +23,7 @@ public:
 	void SetSelected(bool);
 	//Return true if shape is selected 
 	bool IsSelected() const;
+	virtual bool isSelected(Point) = 0;
 	//absrtact function of Drawing the shape
 	virtual void Draw(GUI* pUI) const = 0;
 	//Get shape graphics info
@@ -30,7 +31,7 @@ public:
 	//Change draw color
 	void setDrawColor(color);
 	//Change fill color
-	void setFillColor(color, int);
+	void setFillColor(color, bool);
 	////Rotate the shape
 	//virtual void Rotate() = 0;
 	////Resize the shape

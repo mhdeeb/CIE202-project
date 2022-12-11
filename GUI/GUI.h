@@ -110,6 +110,9 @@ public:
 	buttonstate GetLeftPointState(int&, int&) const;
 	bool GetLeftClick(int&, int&);
 	//Get coordinate where user clicks
+
+	Point getMouseLocation();
+
 	string GetSrting();	 //Returns a string entered by the user
 	operationType GetUseroperation() const; //Read the user click and map to an operation
 

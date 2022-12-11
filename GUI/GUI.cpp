@@ -64,6 +64,13 @@ bool GUI::GetLeftClick(int& x, int& y)
 	return prev || !currentLeftButtonState;
 }
 
+Point GUI::getMouseLocation()
+{
+	int x, y;
+	pWind->GetMouseCoord(x, y);
+	return Point(x, y);
+}
+
 string GUI::GetSrting()
 {
 	string Label;
@@ -96,7 +103,6 @@ operationType GUI::GetUseroperation() const
 {
 	int x, y;
 	pWind->WaitMouseClick(x, y);	//Get the coordinates of the user click
-
 	if (InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
 		//[1] If user clicks on the Toolbar
