@@ -17,18 +17,16 @@ void opAddSquare::Execute()
 	gfxInfo.FillClr = pUI->getCrntFillColor();
 	gfxInfo.BorderWdth = pUI->getCrntPenWidth();
 	gfxInfo.isFilled = false;
-	Point rad;
-	int x, y;
-	Square* S = new Square({}, {}, gfxInfo);
+	Point p1, p2;
 	pUI->PrintMessage("Square Selected: Click on graph to start drawing");
-	pUI->GetPointClicked(x, y);
-	S->setC1({ x, y });
-	pUI->CreateStatusBar(format("({}, {})->", x, y));
-	while (!pUI->GetLeftPointState(rad.x, rad.y)) {
-		S->setC2(rad);
+	pUI->GetPointClicked(p1.x, p1.y);
+	Square* S = new Square({ p1.x, p1.y }, {}, gfxInfo);
+	pUI->CreateStatusBar(format("({}, {})->", p1.x, p1.y));
+	while (!pUI->GetLeftPointState(p2.x, p2.y)) {
+		S->setC2(p2);
 		pUI->DrawRect(S);
 		pControl->getGraph()->Draw(pUI);
-		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", x, y, rad.x, rad.y));
+		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", p1.x, p1.y, p2.x, p2.y));
 		Sleep(16);
 		pUI->Clear();
 	}
