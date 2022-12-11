@@ -141,9 +141,8 @@ operationType GUI::GetUseroperation() const
 	}
 	else	//GUI is in PLAY mode
 	{
-		///TODO:
-		//perform checks similar to Draw mode checks above
-		//and return the correspoding operation
+		/*TODO: perform checks similar to Draw mode checks above
+		and return the correspoding operation*/
 		return TO_PLAY;	//just for now. This should be updated
 	}
 
