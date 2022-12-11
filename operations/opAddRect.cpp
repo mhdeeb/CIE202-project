@@ -17,22 +17,20 @@ void opAddRect::Execute()
 	gfxInfo.FillClr = pUI->getCrntFillColor();
 	gfxInfo.BorderWdth = pUI->getCrntPenWidth();
 	gfxInfo.isFilled = false;
-	Point rad;
-	int x, y;
-	Rect* R = new Rect({}, {}, gfxInfo);
-	pUI->PrintMessage("Rectangle Selected: Click on graph to start drawing");
-	pUI->GetPointClicked(x, y);
-	R->setC1({ x, y });
-	pUI->CreateStatusBar(format("({}, {})->", x, y));
-	while (!pUI->GetLeftPointState(rad.x, rad.y)) {
-		R->setC2(rad);
-		pUI->DrawRect(R);
-		pControl->getGraph()->Draw(pUI);
-		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", x, y, rad.x, rad.y));
-		pUI->CreateDrawToolBar();
-		Sleep(16);
-		pUI->ClearDrawing();
+	Point p1, p2{ 0, 0 };
+	pUI->CreateStatusBar("Rectangle Selected: Click on graph to start drawing");
+	pUI->GetPointClicked(p1.x, p1.y);
+	if (GUI::isInDrawArea(p1)) {
+		Rect* R = new Rect(p1, p2, gfxInfo);
+		while (!pUI->GetLeftPointState(p2.x, p2.y)) {
+			R->setC2(p2);
+			pUI->DrawRect(R);
+			pControl->getGraph()->Draw(pUI);
+			pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", p1.x, p1.y, p2.x, p2.y));
+			pUI->CreateDrawToolBar();
+			Sleep(16);
+			pUI->ClearDrawing();
+		}
+		pControl->getGraph()->Addshape(R);
 	}
-	pUI->ClearStatusBar();
-	pControl->getGraph()->Addshape(R);
 }

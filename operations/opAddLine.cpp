@@ -17,22 +17,20 @@ void opAddLine::Execute()
 	gfxInfo.FillClr = pUI->getCrntFillColor();
 	gfxInfo.BorderWdth = pUI->getCrntPenWidth();
 	gfxInfo.isFilled = false;
-	Point rad;
-	int x, y;
-	Line* L = new Line({}, {}, gfxInfo);
-	pUI->PrintMessage("Line Selected: Click on graph to start drawing");
-	pUI->GetPointClicked(x, y);
-	L->setPoint1({ x, y });
-	pUI->CreateStatusBar(format("({}, {})->", x, y));
-	while (!pUI->GetLeftPointState(rad.x, rad.y)) {
-		L->setPoint2(rad);
-		pUI->DrawLine(L);
-		pControl->getGraph()->Draw(pUI);
-		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", x, y, rad.x, rad.y));
-		pUI->CreateDrawToolBar();
-		Sleep(16);
-		pUI->ClearDrawing();
+	Point p1, p2{ 0, 0 };
+	pUI->CreateStatusBar("Line Selected: Click on graph to start drawing");
+	pUI->GetPointClicked(p1.x, p1.y);
+	Line* L = new Line(p1, p2, gfxInfo);
+	if (GUI::isInDrawArea(p1)) {
+		while (!pUI->GetLeftPointState(p2.x, p2.y)) {
+			L->setPoint2(p2);
+			pUI->DrawLine(L);
+			pControl->getGraph()->Draw(pUI);
+			pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", p1.x, p1.y, p2.x, p2.y));
+			pUI->CreateDrawToolBar();
+			Sleep(16);
+			pUI->ClearDrawing();
+		}
+		pControl->getGraph()->Addshape(L);
 	}
-	pUI->ClearStatusBar();
-	pControl->getGraph()->Addshape(L);
 }

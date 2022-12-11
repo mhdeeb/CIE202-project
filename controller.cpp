@@ -18,10 +18,10 @@ controller::controller()
 //==================================================================================//
 //								operations-Related Functions							//
 //==================================================================================//
-operationType controller::GetUseroperation() const
+operationType controller::GetUseroperation(int x, int y) const
 {
 	//Ask the input to get the operation from the user.
-	return pGUI->GetUseroperation();
+	return pGUI->GetUseroperation(x, y);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Creates an operation and executes it
@@ -105,10 +105,13 @@ controller::~controller()
 void controller::Run()
 {
 	operationType OpType;
+	int x, y;
 	do
 	{
 		//1. Ask the GUI to read the required operation from the user
-		OpType = GetUseroperation();
+		pGUI->PrintMessage("Select an operation");
+		pGUI->getWindow()->WaitMouseClick(x, y);	//Get the coordinates of the user click
+		OpType = GetUseroperation(x, y);
 
 		//2. Create an operation coresspondingly
 		operation* pOpr = createOperation(OpType);
@@ -116,14 +119,10 @@ void controller::Run()
 		//3. Execute the created operation
 		if (pOpr)
 		{
-			pOpr->Execute();//Execute
-			delete pOpr;	//operation is not needed any more ==> delete it
+			pOpr->Execute();
+			delete pOpr;
 			pOpr = nullptr;
 		}
-
-		//Update the interface
 		UpdateInterface();
-
 	} while (OpType != EXIT);
-
 }

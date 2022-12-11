@@ -8,15 +8,14 @@ void opColorPalette::Execute()
 {
 	GUI* pUI = pControl->GetUI();
 	color msgColor = pUI->getMsgColor();
-	Point rad;
-	pUI->PrintMessage("Color Palette selected: Click on a pixel to pick its color");
-	pUI->getWindow()->DrawImage("images/util/Color_palette.jpg", pUI->getWindow()->GetWidth() - 316, 2, 300, 300);
-	while (!pUI->GetLeftPointState(rad.x, rad.y)) {
-		pUI->setMsgColor(pUI->getHoverColor(rad.x, rad.y));
+	Point p;
+	pUI->getWindow()->DrawImage(pUI->getImage(GUI::ICON_COLOR_PALETTE), pUI->getWindow()->GetWidth() - 316, 2, 300, 300);
+	while (!pUI->GetLeftPointState(p.x, p.y)) {
+		pUI->setMsgColor(pUI->getHoverColor(p.x, p.y));
 		pUI->CreateStatusBar(pUI->getMsgColor().hex());
 		Sleep(16);
 	}
-	pUI->setDrawColor(pUI->getHoverColor(rad.x, rad.y));
+	pUI->setDrawColor(pUI->getHoverColor(p.x, p.y));
 	pUI->ClearStatusBar();
 	pUI->setMsgColor(msgColor);
 }

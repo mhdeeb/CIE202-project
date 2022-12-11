@@ -18,7 +18,7 @@ public:
 
 	// -- operation-Related Functions
 	//Reads the input command from the user and returns the corresponding operation type
-	operationType GetUseroperation() const;
+	operationType GetUseroperation(int, int) const;
 	operation* createOperation(operationType); //Creates an operation
 	void Run();
 
