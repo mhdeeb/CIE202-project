@@ -257,6 +257,7 @@ void GUI::ClearDrawing() const
 	pWind->SetPen(BkGrndColor, 1);
 	pWind->SetBrush(BkGrndColor);
 	pWind->DrawRectangle(0, ToolBarHeight, width, height-StatusBarHeight);
+	pWind->DrawRectangle(DRAW_ICON_COUNT * MenuIconWidth, 0, width, ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::PrintMessage(string msg) //Prints a message on status bar

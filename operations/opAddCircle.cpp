@@ -28,8 +28,9 @@ void opAddCircle::Execute()
 		pUI->DrawCircle(C);
 		pControl->getGraph()->Draw(pUI);
 		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})    Radius: {:3.3f}", x, y, rad.x, rad.y, C->getRadius()));
+		pUI->CreateDrawToolBar();
 		Sleep(16);
-		pUI->Clear();
+		pUI->ClearDrawing();
 	}
 	pUI->ClearStatusBar();
 	pControl->getGraph()->Addshape(C);

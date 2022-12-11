@@ -27,8 +27,9 @@ void opAddSquare::Execute()
 		pUI->DrawRect(S);
 		pControl->getGraph()->Draw(pUI);
 		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", p1.x, p1.y, p2.x, p2.y));
+		pUI->CreateDrawToolBar();
 		Sleep(16);
-		pUI->Clear();
+		pUI->ClearDrawing();
 	}
 	pUI->ClearStatusBar();
 	pControl->getGraph()->Addshape(S);

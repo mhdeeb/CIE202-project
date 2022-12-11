@@ -39,8 +39,9 @@ void opAddIrregPoly::Execute()
 			pUI->DrawLine(&l2);
 			pUI->CreateStatusBar(msg + format("Point {}: ({}, {})  ", I->getSize() + 1, rad.x, rad.y));
 			pUI->DrawCircle(&C);
+			pUI->CreateDrawToolBar();
 			Sleep(16);
-			pUI->Clear();
+			pUI->ClearDrawing();
 		}
 		if (I->getPoint(0).distance(rad) < 12)
 			break;

@@ -29,8 +29,9 @@ void opAddLine::Execute()
 		pUI->DrawLine(L);
 		pControl->getGraph()->Draw(pUI);
 		pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", x, y, rad.x, rad.y));
+		pUI->CreateDrawToolBar();
 		Sleep(16);
-		pUI->Clear();
+		pUI->ClearDrawing();
 	}
 	pUI->ClearStatusBar();
 	pControl->getGraph()->Addshape(L);
