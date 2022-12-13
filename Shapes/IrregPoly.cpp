@@ -12,10 +12,18 @@ const int* IrregPoly::getYpoints() const
 	return &ypoints[0];
 }
 
-void IrregPoly::addPoint(const Point &point)
+void IrregPoly::addPoint(const Point& point)
 {
 	xpoints.push_back(point.x);
 	ypoints.push_back(point.y);
+}
+
+void IrregPoly::removePoint(int index)
+{
+	if (index < 0)
+		index = getSize() + index;
+	xpoints.erase(xpoints.begin() + index);
+	ypoints.erase(ypoints.begin() + index);
 }
 
 Point IrregPoly::getPoint(int index)
@@ -23,6 +31,14 @@ Point IrregPoly::getPoint(int index)
 	if (index < 0)
 		index = getSize() + index;
 	return { xpoints[index], ypoints[index] };
+}
+
+void IrregPoly::setPoint(Point p, int index)
+{
+	if (index < 0)
+		index = getSize() + index;
+	xpoints[index] = p.x;
+	ypoints[index] = p.y;
 }
 
 int IrregPoly::getSize() const

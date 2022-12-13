@@ -335,6 +335,16 @@ void GUI::setPenWidth(int penWidth)
 	PenWidth = penWidth;
 }
 
+void GUI::storeImage()
+{
+	pWind->StoreImage(storedImage, 0, 0, width, height - StatusBarHeight);
+}
+
+void GUI::loadImage()
+{
+	pWind->DrawImage(storedImage, 0, 0, width, height - StatusBarHeight);
+}
+
 //======================================================================================//
 //								shapes Drawing Functions								//
 //======================================================================================//

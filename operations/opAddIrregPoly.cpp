@@ -14,39 +14,42 @@ opAddIrregPoly::~opAddIrregPoly()
 void opAddIrregPoly::Execute()
 {
 	GUI* pUI = pControl->GetUI();
-	GfxInfo gfxInfo;
-	gfxInfo.DrawClr = pUI->getCrntDrawColor();
-	gfxInfo.FillClr = pUI->getCrntFillColor();
-	gfxInfo.BorderWdth = pUI->getCrntPenWidth();
-	gfxInfo.isFilled = false;
 	Point p1, p2{ 0, 0 };
-	IrregPoly* I = new IrregPoly(gfxInfo);
 	pUI->CreateStatusBar("Irregular Polygon Selected: Click on graph to start drawing");
 	pUI->GetPointClicked(p1.x, p1.y);
 	if (GUI::isInDrawArea(p1)) {
+		GfxInfo gfxInfo;
+		gfxInfo.DrawClr = pUI->getCrntDrawColor();
+		gfxInfo.FillClr = pUI->getCrntFillColor();
+		gfxInfo.BorderWdth = pUI->getCrntPenWidth();
+		gfxInfo.isFilled = false;
+		IrregPoly* I = new IrregPoly(gfxInfo);
 		I->addPoint(p1);
-		string msg = format("Point 1: ({}, {})  ", p1.x, p1.y);
+		string msg = format("Point   1: ({:>4},{:>4})  ", p1.x, p1.y);
 		pUI->CreateStatusBar(msg);
-		Circle C{ p1, 12, gfxInfo };
+		gfxInfo.DrawClr = LIGHTGRAY;
+		Line l{ p1, p2, gfxInfo };
+		Circle{ p1, 12, gfxInfo }.Draw(pUI);
+		pUI->storeImage();
 		while (true) {
-			while (pUI->GetLeftClick(p2.x, p2.y)) {
-				pControl->getGraph()->Draw(pUI);
-				for (int i = 0; i < I->getSize() - 1; ++i) {
-					Line l{ I->getPoint(i), I->getPoint(i + 1), gfxInfo };
-					pUI->DrawLine(&l);
-				}
-				Line l2{ I->getPoint(-1), p2, gfxInfo };
-				pUI->DrawLine(&l2);
-				pUI->CreateStatusBar(msg + format("Point {}: ({}, {})  ", I->getSize() + 1, p2.x, p2.y));
-				pUI->DrawCircle(&C);
-				pUI->CreateDrawToolBar();
-				Sleep(16);
-				pUI->ClearDrawing();
-			}
-			if (p1.distance(p2) < 12)
-				break;
 			I->addPoint(p2);
-			msg += format("Point {}: ({}, {})  ", I->getSize(), p2.x, p2.y);
+			while (pUI->GetLeftClick(p2.x, p2.y)) {
+				I->setPoint(p2, -1);
+				l.setPoint2(p2);
+				I->Draw(pUI);
+				l.Draw(pUI);
+				pUI->CreateDrawToolBar();
+				pUI->CreateStatusBar(msg + format("Point {:>3}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y));
+				Sleep(16);
+				pUI->loadImage();
+			}
+			if (p1.distance(p2) < 12) {
+				I->removePoint(-1);
+				break;
+			}
+			msg += format("Point {:>3}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y);
+			if(msg.length()>96)
+				msg = msg.substr(24);
 			pUI->CreateStatusBar(msg);
 		}
 		pControl->getGraph()->Addshape(I);

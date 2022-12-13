@@ -11,7 +11,9 @@ public:
 	const int* getXpoints() const;
 	const int* getYpoints() const;
 	void addPoint(const Point&);
+	void removePoint(int index);
 	Point getPoint(int index);
+	void setPoint(Point p, int index);
 	int getSize() const;
 	virtual ~IrregPoly();
 	virtual void Draw(GUI*) const;

@@ -95,6 +95,7 @@ private:
 	buttonstate perviousLeftButtonState;
 	image* MenuIconImages[ICON_COUNT]{};
 	window* pWind;
+	image storedImage;
 public:
 	GUI();
 
@@ -153,6 +154,8 @@ public:
 	void setStatusBarColor(color);
 	void setPaletteColor(color);
 	void setPenWidth(int);
+	void storeImage();
+	void loadImage();
 
 	~GUI();
 };
