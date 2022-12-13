@@ -12,7 +12,7 @@ class Line;
 class IrregPoly;
 class Graph;
 
-const int width = 1300, height = 1000,
+const int width = 1300, height = 700,
 wx = 5, wy = 5,
 StatusBarHeight = 50, ToolBarHeight = 50,
 MenuIconWidth = 80;

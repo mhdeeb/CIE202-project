@@ -12,8 +12,8 @@ GUI::GUI()
 	InterfaceMode = MODE_DRAW;
 	DrawColor = BLACK;	//default Drawing color
 	FillColor = GREEN;	//default Filling color
-	MsgColor = RED;		//Messages color
-	BkGrndColor = GREY;	//Background color
+	MsgColor = BLACK;		//Messages color
+	BkGrndColor = WHITE;	//Background color
 	HighlightColor = MAGENTA;	//This color should NOT be used to draw shapes. use if for highlight only
 	StatusBarColor = LIGHTSEAGREEN;
 	PenWidth = 3;	//default width of the shapes frames
