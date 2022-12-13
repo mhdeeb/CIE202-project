@@ -15,7 +15,6 @@ void opColorPalette::Execute()
 		pUI->CreateStatusBar(pUI->getMsgColor().hex());
 		Sleep(16);
 	}
-	pUI->setDrawColor(pUI->getHoverColor(p.x, p.y));
-	pUI->ClearStatusBar();
+	pUI->setSelectedColor(pUI->getHoverColor(p.x, p.y));
 	pUI->setMsgColor(msgColor);
 }

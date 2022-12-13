@@ -89,7 +89,7 @@ private:
 	color MsgColor;			//Messages color
 	color BkGrndColor;		//Background color
 	color StatusBarColor;	//Status bar color
-	color PaletteColor;		//Select Palette color
+	color selectedColor;	//Selected color
 	int PenWidth;			//width of the pen that draws shapes
 	string statusMessage;
 	buttonstate perviousLeftButtonState;
@@ -152,7 +152,7 @@ public:
 	void setMsgColor(color);
 	void setBkGrndColor(color);
 	void setStatusBarColor(color);
-	void setPaletteColor(color);
+	void setSelectedColor(color);
 	void setPenWidth(int);
 	void storeImage();
 	void loadImage();

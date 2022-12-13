@@ -325,9 +325,9 @@ void GUI::setStatusBarColor(color statusBarColor)
 	StatusBarColor = statusBarColor;
 }
 
-void GUI::setPaletteColor(color paletteColor)
+void GUI::setSelectedColor(color paletteColor)
 {
-	PaletteColor = paletteColor;
+	selectedColor = paletteColor;
 }
 
 void GUI::setPenWidth(int penWidth)
