@@ -128,6 +128,7 @@ public:
 
 	// -- shapes Drawing functions
 	void DrawRect(const Rect*) const;		//Draw a rectangle
+	void DrawSquare(const Square*) const;     // Draw square
 	void DrawLine(const Line*) const;		//Draw a Line
 	void DrawCircle(const Circle*) const;  //Draw a circle
 	void DrawIrregPoly(const IrregPoly*) const;

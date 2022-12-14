@@ -384,6 +384,28 @@ void GUI::DrawRect(const Rect* rect) const
 		style = FRAME;
 	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style);
 }
+void GUI::DrawSquare(const Square* Square) const
+{
+	color DrawingClr;
+	GfxInfo gfxInfo = Square->getGfxInfo();
+	Point c1 = Square->getC1(), c2 = Square->getC2();
+	if (gfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = gfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (Square->getGfxInfo().isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(Square->getGfxInfo().FillClr);
+	}
+	else
+		style = FRAME;
+	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style);
+}
 
 void GUI::DrawCircle(const Circle* circle) const
 {
