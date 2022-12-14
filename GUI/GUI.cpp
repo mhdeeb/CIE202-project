@@ -393,7 +393,7 @@ void GUI::DrawCircle(const Circle* circle) const
 	else
 		style = FRAME;
 
-	pWind->DrawCircle(origin.x, origin.y, circle->getRadius(), style);
+	pWind->DrawCircle(origin.x, origin.y, (int)circle->getRadius(), style);
 }
 
 void GUI::DrawIrregPoly(const IrregPoly* irrePoly) const

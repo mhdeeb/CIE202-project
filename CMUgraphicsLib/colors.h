@@ -25,9 +25,9 @@ public:
 	/// <param name="hex"></param>
 	color(string hex) {
 		if (isHexColor(hex)) {
-			ucRed = stoul(hex.substr(1, 2), nullptr, 16);
-			ucGreen = stoul(hex.substr(3, 2), nullptr, 16);
-			ucBlue = stoul(hex.substr(5, 2), nullptr, 16);
+			ucRed = stoi(hex.substr(1, 2), nullptr, 16);
+			ucGreen = stoi(hex.substr(3, 2), nullptr, 16);
+			ucBlue = stoi(hex.substr(5, 2), nullptr, 16);
 		}
 		else {
 			cout << "Warning: " << hex << " is not a valid hex color value, defaulted to #000000";
