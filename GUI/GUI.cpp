@@ -12,6 +12,7 @@ GUI::GUI()
 	InterfaceMode = MODE_DRAW;
 	DrawColor = BLACK;	//default Drawing color
 	FillColor = GREEN;	//default Filling color
+	Isfilled = false;
 	MsgColor = BLACK;		//Messages color
 	BkGrndColor = WHITE;	//Background color
 	HighlightColor = MAGENTA;	//This color should NOT be used to draw shapes. use if for highlight only
@@ -109,6 +110,8 @@ operationType GUI::GetUseroperation(int x, int y) const
 			case ICON_REG_POLY: return DRAW_REG_POLY;
 			case ICON_IRREG_POLY: return DRAW_IRREG_POLY;
 			case ICON_COLOR_PICKER: return DRAW_COLOR_PALETTE;
+			case ICON_CHANGE_GENERAL_PEN: return CHNG_DRAW_CLR;
+			case ICON_CHANGE_FILL: return CHNG_FILL_CLR;
 			case ICON_EXIT: return EXIT;
 			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
@@ -178,6 +181,7 @@ void GUI::ClearStatusBar()
 	//Clear Status bar message
 	statusMessage = "";
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::LoadDrawToolBar() {
 	MenuIconImages[ICON_RECT] = new image("images/MenuIcons/Menu_Rectangle.jpg");
@@ -187,7 +191,9 @@ void GUI::LoadDrawToolBar() {
 	MenuIconImages[ICON_TRIANGLE] = new image("images/MenuIcons/Menu_Triangle.jpg");
 	MenuIconImages[ICON_REG_POLY] = new image("images/MenuIcons/Menu_Regular_Polygon.jpg");
 	MenuIconImages[ICON_IRREG_POLY] = new image("images/MenuIcons/Menu_Irregular_Polygon.jpg");
-	MenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Picker.jpg");
+	MenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Pick.jpg");
+	MenuIconImages[ICON_CHANGE_GENERAL_PEN] = new image("images/MenuIcons/Menu_PenCol.jpg");
+	MenuIconImages[ICON_CHANGE_FILL] = new image("images/MenuIcons/Menu_FillCol.jpg");
 	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
@@ -252,6 +258,9 @@ color GUI::getCrntFillColor() const	//get current filling color
 {
 	return FillColor;
 }
+bool GUI::getIsfilled() const {
+	return Isfilled;
+}
 //////////////////////////////////////////////////////////////////////////////////////////
 
 int GUI::getCrntPenWidth() const		//get current pen width
@@ -280,6 +289,9 @@ color GUI::getHoverColor(int& x, int& y)
 	pWind->GetMouseCoord(x, y);
 	return pWind->GetColor(x, y);
 }
+color GUI::getSelectedColor() const {
+	return selectedColor;
+}
 
 window* GUI::getWindow() const
 {
@@ -300,8 +312,9 @@ void GUI::setDrawColor(color drawColor)
 	DrawColor = drawColor;
 }
 
-void GUI::setFillColor(color fillColor)
+void GUI::setFillColor(color fillColor, bool isFilled = true)
 {
+	Isfilled = isFilled;
 	FillColor = fillColor;
 }
 
