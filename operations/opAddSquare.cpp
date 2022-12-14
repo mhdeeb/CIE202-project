@@ -21,7 +21,7 @@ void opAddSquare::Execute()
 		gfxInfo.DrawClr = pUI->getCrntDrawColor();
 		gfxInfo.FillClr = pUI->getCrntFillColor();
 		gfxInfo.BorderWdth = pUI->getCrntPenWidth();
-		gfxInfo.isFilled = false;
+		gfxInfo.isFilled = pUI->getIsfilled();
 		Square* S = new Square(p1, p2, gfxInfo);
 		while (!pUI->GetLeftPointState(p2.x, p2.y)) {
 			S->setC2(p2);

@@ -7,6 +7,8 @@
 #include "operations/opAddIrregPoly.h"
 #include "operations/opColorPalette.h"
 #include "operations/opSelect.h"
+#include "operations/opChangeGpenCol.h"
+#include "operations/opChangeGfillCol.h"
 
 //Constructor
 controller::controller()
@@ -53,6 +55,12 @@ operation* controller::createOperation(operationType OpType)
 		break;
 	case DRAW_COLOR_PALETTE:
 		pOp = new opColorPalette(this);
+		break;
+	case CHNG_DRAW_CLR:
+		pOp = new opChangeGpenCol(this);
+		break;
+	case CHNG_FILL_CLR:
+		pOp = new opChangeGfillCol(this);
 		break;
 	case EXIT:
 		exit(0);

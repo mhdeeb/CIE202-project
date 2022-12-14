@@ -21,7 +21,7 @@ void opAddLine::Execute()
 		gfxInfo.DrawClr = pUI->getCrntDrawColor();
 		gfxInfo.FillClr = pUI->getCrntFillColor();
 		gfxInfo.BorderWdth = pUI->getCrntPenWidth();
-		gfxInfo.isFilled = false;
+		gfxInfo.isFilled = pUI->getIsfilled();
 		Line* L = new Line(p1, p2, gfxInfo);
 		while (!pUI->GetLeftPointState(p2.x, p2.y)) {
 			L->setPoint2(p2);

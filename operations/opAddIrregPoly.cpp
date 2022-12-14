@@ -22,7 +22,7 @@ void opAddIrregPoly::Execute()
 		gfxInfo.DrawClr = pUI->getCrntDrawColor();
 		gfxInfo.FillClr = pUI->getCrntFillColor();
 		gfxInfo.BorderWdth = pUI->getCrntPenWidth();
-		gfxInfo.isFilled = false;
+		gfxInfo.isFilled = pUI->getIsfilled();
 		IrregPoly* I = new IrregPoly(gfxInfo);
 		I->addPoint(p1);
 		string msg = format("Point   1: ({:>4},{:>4})  ", p1.x, p1.y);

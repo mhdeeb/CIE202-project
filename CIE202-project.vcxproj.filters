@@ -29,6 +29,12 @@
     <ClInclude Include="operations\opSelect.h">
       <Filter>Operations</Filter>
     </ClInclude>
+    <ClInclude Include="operations\opChangeGpenCol.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opChangeGfillCol.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
@@ -209,6 +215,12 @@
       <Filter>Operations</Filter>
     </ClCompile>
     <ClCompile Include="operations\opSelect.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opChangeGpenCol.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opChangeGfillCol.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
   </ItemGroup>
