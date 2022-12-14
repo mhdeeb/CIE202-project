@@ -304,7 +304,7 @@ image* GUI::getImage(DrawMenuIcon icon) const
 }
 
 bool GUI::isInDrawArea(Point p) {
-	return (p.y < ToolBarHeight&& p.x >(width - DRAW_ICON_COUNT * MenuIconWidth)) || p.y > ToolBarHeight;
+	return p.y > ToolBarHeight || p.x > DRAW_ICON_COUNT * MenuIconWidth;
 }
 
 void GUI::setDrawColor(color drawColor)
@@ -439,7 +439,6 @@ void GUI::DrawLine(const Line* line) const
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
 		DrawingClr = gfxInfo.DrawClr;
-
 	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
 	pWind->DrawLine(p1.x, p1.y, p2.x, p2.y, FRAME);
 }
