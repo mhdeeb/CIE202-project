@@ -441,17 +441,7 @@ void GUI::DrawLine(const Line* line) const
 		DrawingClr = gfxInfo.DrawClr;
 
 	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
-
-	drawstyle style;
-	if (gfxInfo.isFilled)
-	{
-		style = FILLED;
-		pWind->SetBrush(gfxInfo.FillClr);
-	}
-	else
-		style = FRAME;
-
-	pWind->DrawLine(p1.x, p1.y, p2.x, p2.y, style);
+	pWind->DrawLine(p1.x, p1.y, p2.x, p2.y, FRAME);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()
