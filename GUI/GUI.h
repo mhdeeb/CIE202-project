@@ -62,6 +62,8 @@ public:
 		ICON_REG_POLY,
 		ICON_IRREG_POLY,
 		ICON_COLOR_PICKER,
+		ICON_CHANGE_GENERAL_PEN,
+		ICON_CHANGE_FILL,
 		ICON_EXIT,			//Exit icon
 
 		DRAW_ICON_COUNT,	//no. of menu icons ==> This should be the last line in this enum
@@ -85,6 +87,7 @@ private:
 	GUI_MODE InterfaceMode;
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
+	bool Isfilled;
 	color HighlightColor;	//Highlighting color
 	color MsgColor;			//Messages color
 	color BkGrndColor;		//Background color
@@ -137,17 +140,19 @@ public:
 
 	color getCrntDrawColor() const;		//get current drwawing color
 	color getCrntFillColor() const;		//get current filling color
+	bool getIsfilled() const;
 	int getCrntPenWidth() const;		//get current pen width
 	color getMsgColor() const;			//get current message color
+	color getSelectedColor() const;
 	string getStatusMessage() const;	//get current message color
 	color getClickedColor(int&, int&);
-	color getHoverColor(int&, int&);
+	color getHoverColor(int&, int &);
 	window* getWindow() const;
 	image* getImage(DrawMenuIcon) const;
 	static bool isInDrawArea(Point);
 
 	void setDrawColor(color);
-	void setFillColor(color);
+	void setFillColor(color, bool);
 	void setHighlightColor(color);
 	void setMsgColor(color);
 	void setBkGrndColor(color);

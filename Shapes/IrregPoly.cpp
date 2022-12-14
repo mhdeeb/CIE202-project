@@ -55,5 +55,6 @@ void IrregPoly::Draw(GUI* pUI) const {
 	pUI->DrawIrregPoly(this);
 }
 bool IrregPoly::isSelected(Point) {
+
 	return false;
 }

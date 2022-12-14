@@ -22,14 +22,14 @@ void opAddIrregPoly::Execute()
 		gfxInfo.DrawClr = pUI->getCrntDrawColor();
 		gfxInfo.FillClr = pUI->getCrntFillColor();
 		gfxInfo.BorderWdth = pUI->getCrntPenWidth();
-		gfxInfo.isFilled = false;
+		gfxInfo.isFilled = pUI->getIsfilled();
 		IrregPoly* I = new IrregPoly(gfxInfo);
 		I->addPoint(p1);
 		string msg = format("Point   1: ({:>4},{:>4})  ", p1.x, p1.y);
 		pUI->CreateStatusBar(msg);
 		gfxInfo.DrawClr = LIGHTGRAY;
 		Line l{ p1, p2, gfxInfo };
-		Circle{ p1, 12, gfxInfo }.Draw(pUI);
+		Circle c{ p1, 12, gfxInfo };
 		pUI->storeImage();
 		while (true) {
 			I->addPoint(p2);
@@ -40,6 +40,7 @@ void opAddIrregPoly::Execute()
 				l.Draw(pUI);
 				pUI->CreateDrawToolBar();
 				pUI->CreateStatusBar(msg + format("Point {:>3}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y));
+				c.Draw(pUI);
 				Sleep(16);
 				pUI->loadImage();
 			}
@@ -52,6 +53,7 @@ void opAddIrregPoly::Execute()
 				msg = msg.substr(24);
 			pUI->CreateStatusBar(msg);
 		}
-		pControl->getGraph()->Addshape(I);
+		if (I->getSize() > 1)
+			pControl->getGraph()->Addshape(I);
 	}
 }
