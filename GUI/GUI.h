@@ -5,6 +5,7 @@
 
 #include <vector>
 
+class shape;
 class Rect;
 class Circle;
 class Square;
@@ -72,6 +73,11 @@ public:
 		ICON_COUNT,
 	};
 
+	const enum DrawButton {
+		FILL_SWITCH,
+		DRAW_BUTTONS_COUNT,
+	};
+
 	const enum PlayMenuIcon //The icons of the Play menu (you should add more icons)
 	{
 		//Note: Icons are ordered here as they appear in menu
@@ -97,6 +103,7 @@ private:
 	string statusMessage;
 	buttonstate perviousLeftButtonState;
 	image* MenuIconImages[ICON_COUNT]{};
+	shape* DrawButtons[DRAW_BUTTONS_COUNT]{};
 	window* pWind;
 	image storedImage;
 public:
@@ -111,7 +118,7 @@ public:
 	Point getMouseLocation();
 
 	string GetSrting();	 //Returns a string entered by the user
-	operationType GetUseroperation(int, int) const; //Read the user click and map to an operation
+	operationType GetUseroperation(int, int); //Read the user click and map to an operation
 
 	// Output Functions  ---------------------------
 	window* CreateWind(int, int, int, int) const;
@@ -151,6 +158,7 @@ public:
 	window* getWindow() const;
 	image* getImage(DrawMenuIcon) const;
 	static bool isInDrawArea(Point);
+	shape* getDrawButton(DrawButton);
 
 	void setDrawColor(color);
 	void setFillColor(color, bool);
@@ -159,6 +167,7 @@ public:
 	void setBkGrndColor(color);
 	void setStatusBarColor(color);
 	void setSelectedColor(color);
+	void setIsFilled(bool);
 	void setPenWidth(int);
 	void storeImage();
 	void loadImage();

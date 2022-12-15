@@ -87,7 +87,7 @@ string GUI::GetSrting()
 }
 
 //This function reads the position where the user clicks to determine the desired operation
-operationType GUI::GetUseroperation(int x, int y) const
+operationType GUI::GetUseroperation(int x, int y)
 {
 	if (InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
@@ -119,12 +119,10 @@ operationType GUI::GetUseroperation(int x, int y) const
 
 		//[2] User clicks on the drawing area
 		if (y >= ToolBarHeight && y < height - StatusBarHeight)
-		{
 			return DRAWING_AREA;
-		}
 
-		//[3] User clicks on the status bar
-		return STATUS;
+		if (DrawButtons[FILL_SWITCH]->isSelected({ x, y }))
+			Isfilled = !Isfilled;
 	}
 	else	//GUI is in PLAY mode
 	{
@@ -164,6 +162,10 @@ void GUI::CreateStatusBar(string statusMessage, Rect textInput) const
 	pWind->SetPen(MsgColor, 50);
 	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
 	pWind->DrawString(10, height - (int)(0.9 * StatusBarHeight), statusMessage);
+	Circle* c = (Circle*)DrawButtons[FILL_SWITCH];
+	c->setDrawColor(DrawColor);
+	c->setFillColor(FillColor, Isfilled);
+	DrawCircle(c);
 }
 
 void GUI::CreateStatusBar(string statusMessage) const
@@ -197,6 +199,7 @@ void GUI::LoadDrawToolBar() {
 	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
+	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - StatusBarHeight + 15}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
 }
 void GUI::CreateDrawToolBar()
 {
@@ -307,6 +310,11 @@ bool GUI::isInDrawArea(Point p) {
 	return p.y > ToolBarHeight || p.x > DRAW_ICON_COUNT * MenuIconWidth;
 }
 
+shape* GUI::getDrawButton(DrawButton button)
+{
+	return DrawButtons[button];
+}
+
 void GUI::setDrawColor(color drawColor)
 {
 	DrawColor = drawColor;
@@ -341,6 +349,11 @@ void GUI::setStatusBarColor(color statusBarColor)
 void GUI::setSelectedColor(color paletteColor)
 {
 	selectedColor = paletteColor;
+}
+
+void GUI::setIsFilled(bool b)
+{
+	Isfilled = b;
 }
 
 void GUI::setPenWidth(int penWidth)
@@ -470,4 +483,6 @@ GUI::~GUI()
 	delete pWind;
 	for (int i = 0; i < ICON_COUNT; ++i)
 		delete MenuIconImages[i];
+	for (int i = 0; i < DRAW_BUTTONS_COUNT; ++i)
+		delete DrawButtons[i];
 }
