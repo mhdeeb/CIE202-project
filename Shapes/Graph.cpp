@@ -1,6 +1,7 @@
 #include "Graph.h"
 #include<ranges>
 #include<vector>
+using namespace std;
 
 Graph::Graph()
 {
@@ -20,6 +21,19 @@ void Graph::Addshape(shape* pShp)
 {
 	//Add a new shape to the shapes vector
 	shapesList.push_back(pShp);
+}
+
+void Graph::deleteSelectedShape()
+{
+	for (int i = 0; i < shapesList.size(); i++ ) {
+		if (selectedShape == shapesList[i]) {
+			delete selectedShape;
+			selectedShape = nullptr;
+			//delete a shape from the shapes vector
+			shapesList.erase(shapesList.cbegin()+i);
+			break;
+		}
+	}
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
@@ -44,12 +58,16 @@ shape* Graph::Getshape(Point p)
 {
 	for (auto i : views::reverse(shapesList)) {
 		if (i->isSelected(p)) {
-			selectedShape = i;
+			setSelectedShape(i);
 			return selectedShape;
 		}
 	}	
-	return nullptr;
+	setSelectedShape(nullptr);
+	return selectedShape;
 }
 void Graph::setSelectedShape(shape* pSsh) {
 	selectedShape = pSsh;
+}
+shape* Graph::getSelectedShape() const {
+	return selectedShape;
 }
