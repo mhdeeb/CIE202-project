@@ -11,6 +11,7 @@
 #include "operations/opChangeGpenCol.h"
 #include "operations/opChangeGfillCol.h"
 #include "operations/opDelete.h"
+#include "operations/opAddPolygon.h"
 
 //Constructor
 controller::controller()
@@ -53,6 +54,7 @@ operation* controller::createOperation(operationType OpType)
 		pOp = new opAddTri(this);
 		break;
 	case DRAW_REG_POLY:
+		pOp = new opAddRegPoly(this);
 		break;
 	case DRAW_IRREG_POLY:
 		pOp = new opAddIrregPoly(this);
