@@ -9,6 +9,7 @@
 #include "operations/opSelect.h"
 #include "operations/opChangeGpenCol.h"
 #include "operations/opChangeGfillCol.h"
+#include "operations/opDelete.h"
 
 //Constructor
 controller::controller()
@@ -61,6 +62,9 @@ operation* controller::createOperation(operationType OpType)
 		break;
 	case CHNG_FILL_CLR:
 		pOp = new opChangeGfillCol(this);
+		break;
+	case DEL:
+		pOp = new Delete(this);
 		break;
 	case EXIT:
 		exit(0);

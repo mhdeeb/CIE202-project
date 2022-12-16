@@ -175,6 +175,7 @@
     <ClCompile Include="operations\opChangeGfillCol.cpp" />
     <ClCompile Include="operations\opChangeGpenCol.cpp" />
     <ClCompile Include="operations\opColorPalette.cpp" />
+    <ClCompile Include="operations\opDelete.cpp" />
     <ClCompile Include="operations\opSelect.cpp" />
     <ClCompile Include="Shapes\Circle.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="operations\opChangeGfillCol.h" />
     <ClInclude Include="operations\opChangeGpenCol.h" />
     <ClInclude Include="operations\opColorPalette.h" />
+    <ClInclude Include="operations\opDelete.h" />
     <ClInclude Include="operations\operation.h" />
     <ClInclude Include="operations\opSelect.h" />
     <ClInclude Include="Shapes\Circle.h" />
