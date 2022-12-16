@@ -5,6 +5,7 @@
 #include "../Shapes/square.h"
 #include "../Shapes/Line.h"
 #include "../Shapes/IrregPoly.h"
+#include "../Shapes/Poly.h"
 
 GUI::GUI()
 {
@@ -464,6 +465,11 @@ void GUI::DrawIrregPoly(const IrregPoly* irrePoly) const
 }
 
 
+
+void GUI::DrawRegPoly(const RegPoly* RegPoly) const
+{
+	DrawIrregPoly(RegPoly);
+}
 void GUI::DrawLine(const Line* line) const
 {
 	color DrawingClr;

@@ -12,6 +12,7 @@ class Square;
 class Line;
 class IrregPoly;
 class Graph;
+class RegPoly;
 
 const int width = 1300, height = 700,
 wx = 5, wy = 5,
@@ -139,6 +140,7 @@ public:
 	void DrawLine(const Line*) const;		//Draw a Line
 	void DrawCircle(const Circle*) const;  //Draw a circle
 	void DrawIrregPoly(const IrregPoly*) const;
+	void DrawRegPoly(const RegPoly*) const;
 	void DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const;
 	///Make similar functions for drawing all other shapes.
 
