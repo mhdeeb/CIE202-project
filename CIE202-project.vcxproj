@@ -176,7 +176,7 @@
     <ClCompile Include="operations\opChangeGpenCol.cpp" />
     <ClCompile Include="operations\opColorPalette.cpp" />
     <ClCompile Include="operations\opSelect.cpp" />
-    <ClCompile Include="operations\opAddTri.cpp" />
+    <ClCompile Include="operations\opAddTriangle.cpp" />
     <ClCompile Include="Shapes\Circle.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
     <ClCompile Include="Shapes\IrregPoly.cpp" />
@@ -184,7 +184,7 @@
     <ClCompile Include="Shapes\Shape.cpp" />
     <ClCompile Include="Shapes\Rect.cpp" />
     <ClCompile Include="Shapes\Square.cpp" />
-    <ClCompile Include="Shapes\Tri.cpp" />
+    <ClCompile Include="Shapes\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h" />
@@ -218,7 +218,7 @@
     <ClInclude Include="operations\opChangeGfillCol.h" />
     <ClInclude Include="operations\opChangeGpenCol.h" />
     <ClInclude Include="operations\opColorPalette.h" />
-    <ClInclude Include="operations\opAddTri.h" />
+    <ClInclude Include="operations\opAddTriangle.h" />
     <ClInclude Include="operations\operation.h" />
     <ClInclude Include="operations\opSelect.h" />
     <ClInclude Include="Shapes\Circle.h" />
@@ -228,7 +228,7 @@
     <ClInclude Include="Shapes\Shape.h" />
     <ClInclude Include="Shapes\Rect.h" />
     <ClInclude Include="Shapes\Square.h" />
-    <ClInclude Include="Shapes\Tri.h" />
+    <ClInclude Include="Shapes\Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

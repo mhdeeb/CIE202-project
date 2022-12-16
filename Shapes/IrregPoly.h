@@ -15,7 +15,7 @@ public:
 	Point getPoint(int index);
 	void setPoint(Point p, int index);
 	int getSize() const;
-	virtual ~IrregPoly();
-	virtual void Draw(GUI*) const;
-	virtual bool isSelected(Point);
+	virtual ~IrregPoly() override;
+	virtual void Draw(GUI*) const override;
+	virtual bool isSelected(Point) const override;
 };

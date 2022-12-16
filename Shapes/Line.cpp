@@ -23,7 +23,7 @@ void Line::Draw(GUI* pUI) const {
 	pUI->DrawLine(this);
 }
 
-bool Line::isSelected(Point p) {
+bool Line::isSelected(Point p) const {
 	if (Point1.x == Point2.x) {
 		if (p.y >= min(Point1.y, Point2.y) && p.y <= max(Point1.y, Point2.y) && p.x== Point2.x)
 			return true;

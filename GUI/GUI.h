@@ -139,7 +139,7 @@ public:
 	void DrawLine(const Line*) const;		//Draw a Line
 	void DrawCircle(const Circle*) const;  //Draw a circle
 	void DrawIrregPoly(const IrregPoly*) const;
-	void DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo);
+	void DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const;
 	///Make similar functions for drawing all other shapes.
 
 	void ClearDrawing() const;

@@ -2,7 +2,7 @@
 #include "Operations/opAddRect.h"
 #include "Operations/opAddCircle.h"
 #include "Operations/opAddLine.h"
-#include "operations/opAddTri.h"
+#include "operations/opAddTriangle.h"
 #include "operations/opAddRect.h"
 #include "operations/opAddCircle.h"
 #include "operations/opAddSquare.h"

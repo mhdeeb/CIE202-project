@@ -1,5 +1,5 @@
-#include "opAddTri.h"
-#include "..\shapes\Tri.h"
+#include "opAddTriangle.h"
+#include "..\shapes\Triangle.h"
 
 #include "..\controller.h"
 
@@ -44,7 +44,7 @@ void opAddTri::Execute()
 
 
 	//Create a rectangle with the above parameters
-	Tri* R = new Tri(P1, P2,P3,TriGfxInfo);
+	Triangle* R = new Triangle(P1, P2,P3,TriGfxInfo);
 
 	//Get a pointer to the graph
 	Graph* pGr = pControl->getGraph();
