@@ -10,46 +10,35 @@ opAddTri::opAddTri(controller* pCont) :operation(pCont)
 opAddTri::~opAddTri()
 {}
 
-//Execute the operation
 void opAddTri::Execute()
 {
-	Point P1, P2,P3;
-
-	//Get a Pointer to the Input / Output Interfaces
+	Point p1, p2{ 0, 0 };
 	GUI* pUI = pControl->GetUI();
-
-	pUI->PrintMessage("New Triangle: Click at first corner");
-	//Read 1st corner and store in point P1
-	pUI->GetPointClicked(P1.x, P1.y);
-
-	string msg = "First corner is at (" + to_string(P1.x) + ", " + to_string(P1.y) + " )";
-	msg += " ... Click at second corner";
-	pUI->PrintMessage(msg);
-	//Read 2nd corner and store in point P2
-	pUI->GetPointClicked(P2.x, P2.y);
-	pUI->GetPointClicked(P3.x, P3.y);
-	pUI->ClearStatusBar();
-
-	//Preapre all rectangle parameters
-	GfxInfo TriGfxInfo;
-
-	//get drawing, filling colors and pen width from the interface
-	TriGfxInfo.DrawClr = pUI->getCrntDrawColor();
-	TriGfxInfo.FillClr = pUI->getCrntFillColor();
-	TriGfxInfo.BorderWdth = pUI->getCrntPenWidth();
-
-
-	TriGfxInfo.isFilled = false;	//default is not filled
-	TriGfxInfo.isSelected = false;	//defualt is not selected
-
-
-	//Create a rectangle with the above parameters
-	Triangle* R = new Triangle(P1, P2,P3,TriGfxInfo);
-
-	//Get a pointer to the graph
-	Graph* pGr = pControl->getGraph();
-
-	//Add the rectangle to the list of shapes
-	pGr->Addshape(R);
-
+	pUI->PrintMessage("New Triangle: Click at first point");
+	pUI->GetPointClicked(p1.x, p1.y);
+	if (GUI::isInDrawArea(p1)) {
+		pUI->storeImage();
+		GfxInfo gfxInfo;
+		gfxInfo.DrawClr = pUI->getCrntDrawColor();
+		gfxInfo.FillClr = pUI->getCrntFillColor();
+		gfxInfo.BorderWdth = pUI->getCrntPenWidth();
+		gfxInfo.isFilled = pUI->getIsfilled();
+		string msg = format("Point  1: ({:>4},{:>4})  ", p1.x, p1.y);
+		Triangle* T = new Triangle(gfxInfo);
+		T->addPoint(p1);
+		for (int i = 0; i < 2; ++i)
+		{
+			T->addPoint(p2);
+			while (pUI->GetLeftClick(p2.x, p2.y)) {
+				T->setPoint(p2, -1);
+				T->Draw(pUI);
+				pUI->CreateDrawToolBar();
+				pUI->CreateStatusBar(msg + format("Point{:>3}: ({:>4},{:>4})  ", T->getSize(), p2.x, p2.y));
+				Sleep(16);
+				pUI->loadImage();
+			}
+			msg += format("Point {:>3}: ({:>4},{:>4})  ", T->getSize(), p2.x, p2.y);
+		}
+		pControl->getGraph()->Addshape(T);
+	}
 }

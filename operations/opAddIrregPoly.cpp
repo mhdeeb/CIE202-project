@@ -39,7 +39,7 @@ void opAddIrregPoly::Execute()
 				I->Draw(pUI);
 				l.Draw(pUI);
 				pUI->CreateDrawToolBar();
-				pUI->CreateStatusBar(msg + format("Point {:>3}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y));
+				pUI->CreateStatusBar(msg + format("Point{:>4}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y));
 				c.Draw(pUI);
 				Sleep(16);
 				pUI->loadImage();
@@ -48,7 +48,7 @@ void opAddIrregPoly::Execute()
 				I->removePoint(-1);
 				break;
 			}
-			msg += format("Point {:>3}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y);
+			msg += format("Point{:>4}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y);
 			if(msg.length()>96)
 				msg = msg.substr(24);
 			pUI->CreateStatusBar(msg);

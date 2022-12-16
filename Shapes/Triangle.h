@@ -1,15 +1,11 @@
 #pragma once
 
-#include "Shape.h"
+#include "IrregPoly.h"
 
-class Triangle : public shape
+class Triangle : public IrregPoly
 {
-private:
-	Point Corner1;
-	Point Corner2;
-	Point Corner3;
 public:
-	Triangle(Point, Point, Point, GfxInfo shapeGfxInfo);
+	Triangle(GfxInfo shapeGfxInfo);
 	virtual ~Triangle();
 	virtual void Draw(GUI* pUI) const;
 	virtual bool isSelected(Point) const override;
