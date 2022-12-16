@@ -7,6 +7,7 @@
 #include "operations/opAddIrregPoly.h"
 #include "operations/opColorPalette.h"
 #include "operations/opSelect.h"
+#include "operations/opExit.h"
 #include "operations/opChangeGpenCol.h"
 #include "operations/opChangeGfillCol.h"
 #include "operations/opAddPolygon.h"
@@ -16,6 +17,7 @@ controller::controller()
 {
 	pGraph = new Graph;
 	pGUI = new GUI;	//Create GUI object
+	isRunning = true;
 }
 
 //==================================================================================//
@@ -66,7 +68,7 @@ operation* controller::createOperation(operationType OpType)
 		pOp = new opChangeGfillCol(this);
 		break;
 	case EXIT:
-		exit(0);
+		pOp = new opExit(this);
 		break;
 	case STATUS:	//a click on the status bar ==> no operation
 		break;
@@ -135,5 +137,9 @@ void controller::Run()
 			pOpr = nullptr;
 		}
 		UpdateInterface();
-	} while (OpType != EXIT);
+	} while (isRunning);
+}
+
+void controller::close() {
+	isRunning = false;
 }

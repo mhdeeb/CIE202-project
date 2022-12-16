@@ -46,7 +46,6 @@ shape* Graph::Getshape(Point p)
 		if (i->isSelected(p)) {
 			selectedShape = i;
 			return selectedShape;
-
 		}
 	}	
 	return nullptr;

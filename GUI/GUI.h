@@ -37,7 +37,7 @@ struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 {
 	color DrawClr = BLACK;		//Draw color of the shape
 	color FillClr = BLACK;		//Fill color of the shape
-	bool isFilled = true;		//shape Filled or not
+	bool isFilled = false;		//shape Filled or not
 	int BorderWdth = 1;			//Width of shape borders
 	bool isSelected = false;	//true if the shape is selected.
 };
@@ -66,6 +66,7 @@ public:
 		ICON_COLOR_PICKER,
 		ICON_CHANGE_GENERAL_PEN,
 		ICON_CHANGE_FILL,
+		ICON_DELETE,
 		ICON_EXIT,			//Exit icon
 
 		DRAW_ICON_COUNT,	//no. of menu icons ==> This should be the last line in this enum
@@ -94,7 +95,7 @@ private:
 	GUI_MODE InterfaceMode;
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
-	bool Isfilled;
+	bool Isfilled;          // is the shape filled
 	color HighlightColor;	//Highlighting color
 	color MsgColor;			//Messages color
 	color BkGrndColor;		//Background color

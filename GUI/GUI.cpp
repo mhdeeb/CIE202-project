@@ -26,7 +26,6 @@ GUI::GUI()
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 	CreateDrawToolBar();
-	CreateStatusBar("Welcome to Paint Mode!");
 }
 
 
@@ -113,6 +112,7 @@ operationType GUI::GetUseroperation(int x, int y)
 			case ICON_COLOR_PICKER: return DRAW_COLOR_PALETTE;
 			case ICON_CHANGE_GENERAL_PEN: return CHNG_DRAW_CLR;
 			case ICON_CHANGE_FILL: return CHNG_FILL_CLR;
+			case ICON_DELETE:return DEL;
 			case ICON_EXIT: return EXIT;
 			}
 		}
@@ -196,6 +196,7 @@ void GUI::LoadDrawToolBar() {
 	MenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Pick.jpg");
 	MenuIconImages[ICON_CHANGE_GENERAL_PEN] = new image("images/MenuIcons/Menu_PenCol.jpg");
 	MenuIconImages[ICON_CHANGE_FILL] = new image("images/MenuIcons/Menu_FillCol.jpg");
+	MenuIconImages[ICON_DELETE] = new image("images/MenuIcons/Menu_Delete.jpg");
 	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
