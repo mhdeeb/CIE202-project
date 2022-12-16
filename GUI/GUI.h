@@ -119,7 +119,7 @@ public:
 
 	Point getMouseLocation();
 
-	string GetSrting();	 //Returns a string entered by the user
+	string GetSrting(string msg="Taking Input...");	 //Returns a string entered by the user
 	operationType GetUseroperation(int, int); //Read the user click and map to an operation
 
 	// Output Functions  ---------------------------

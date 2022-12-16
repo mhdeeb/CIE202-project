@@ -2,10 +2,7 @@
 
 int shape::shapeCount;
 
-shape::shape(GfxInfo gfxInfo = {}) : id(shapeCount++), gfxInfo(gfxInfo)
-{}
-
-shape::shape() : shape({})
+shape::shape(GfxInfo gfxInfo) : id(shapeCount++), gfxInfo(gfxInfo)
 {}
 
 void shape::SetSelected(bool s)

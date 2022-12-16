@@ -14,9 +14,7 @@ protected:
 	GfxInfo gfxInfo;
 public:
 	//Shape constructor
-	shape(GfxInfo);
-	//Shape default constructor
-	shape();
+	shape(GfxInfo gfxInfo = {});
 	//Shape destructor
 	virtual ~shape() {}
 	//Set shape selection

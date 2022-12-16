@@ -5,7 +5,7 @@
 #include "../Shapes/square.h"
 #include "../Shapes/Line.h"
 #include "../Shapes/IrregPoly.h"
-#include "../Shapes/Poly.h"
+#include "../Shapes/RegPoly.h"
 
 GUI::GUI()
 {
@@ -59,12 +59,12 @@ Point GUI::getMouseLocation()
 	return Point(x, y);
 }
 
-string GUI::GetSrting()
+string GUI::GetSrting(string msg)
 {
 	string Label;
 	char Key;
 	keytype ktype;
-	PrintMessage("Taking input...");
+	PrintMessage(msg);
 	pWind->FlushKeyQueue();
 	while (true)
 	{

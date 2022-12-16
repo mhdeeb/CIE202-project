@@ -310,6 +310,9 @@
     <ClInclude Include="operations\opDelete.h">
       <Filter>Operations</Filter>
     </ClInclude>
+    <ClInclude Include="operations\opAddTriangle.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">

@@ -8,7 +8,7 @@ private:
 	Point origin;
 	double radius;
 public:
-	Circle(Point, double, GfxInfo);
+	Circle(Point origin = {}, double radius = 0, GfxInfo shapeGfxInfo = {});
 	Point getOrigin() const;
 	double getRadius() const;
 	void setRadius(double);

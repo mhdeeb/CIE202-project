@@ -220,6 +220,7 @@
     <ClInclude Include="operations\opAddRegPoly.h" />
     <ClInclude Include="operations\opAddRect.h" />
     <ClInclude Include="operations\opAddSquare.h" />
+    <ClInclude Include="operations\opAddTriangle.h" />
     <ClInclude Include="operations\opChangeGfillCol.h" />
     <ClInclude Include="operations\opChangeGpenCol.h" />
     <ClInclude Include="operations\opColorPalette.h" />

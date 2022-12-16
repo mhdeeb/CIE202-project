@@ -4,7 +4,7 @@
 
 class IrregPoly : public shape
 {
-private:
+protected:
 	vector<int> xpoints, ypoints;
 public:
 	IrregPoly(GfxInfo);
