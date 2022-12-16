@@ -13,10 +13,12 @@ public:
 	Graph();
 	~Graph();
 	void Addshape(shape* pFig); //Adds a new shape to the shapesList
+	void deleteSelectedShape();   // delete a shpe from the shape List
 	void Draw(GUI*) const;			//Draw the graph (draw all shapes)
 	void Refresh(GUI*) const;
 	shape* Getshape(Point p); //Search for a shape given a point inside the shape
 	void setSelectedShape(shape*);
+	shape* getSelectedShape() const;
 	vector<shape*> GetShapeList() const;
 	void Save(ofstream& outfile);	//Save all shapes to a file
 	void load(ifstream& inputfile);	//Load all shapes from a file
