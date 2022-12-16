@@ -2,7 +2,7 @@
 
 int main()
 {
-	ShowWindow(GetConsoleWindow(), SW_SHOW);		// Toggle Console terminal
+	ShowWindow(GetConsoleWindow(), SW_SHOW);	// Toggle Console terminal
 	controller Control;
 	Control.Run();
 }

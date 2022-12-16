@@ -7,11 +7,10 @@ class operation;
 //Main class that manages everything in the application.
 class controller
 {
-
+private:
 	Graph* pGraph;	//pointe to the grapg
 	GUI* pGUI;		//Pointer to UI class
-
-
+	bool isRunning;
 public:
 	controller();
 	~controller();
@@ -21,6 +20,7 @@ public:
 	operationType GetUseroperation(int, int) const;
 	operation* createOperation(operationType); //Creates an operation
 	void Run();
+	void close();
 
 	Graph* getGraph() const;
 

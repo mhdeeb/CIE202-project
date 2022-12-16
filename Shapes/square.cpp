@@ -36,7 +36,7 @@ void Square::Draw(GUI* pUI) const
 {
 	pUI->DrawSquare(this);
 }
-bool Square::isSelected(Point p) {
+bool Square::isSelected(Point p) const {
 	if (p.x <= max(p1.x, p2.x) && p.x >= min(p1.x, p2.x) && p.y >= min(p1.y, p2.y) && p.y <= max(p1.y, p2.y))
 		return true;
 	return false;

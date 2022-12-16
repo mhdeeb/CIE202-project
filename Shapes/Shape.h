@@ -23,7 +23,7 @@ public:
 	void SetSelected(bool);
 	//Return true if shape is selected 
 	bool IsSelected() const;
-	virtual bool isSelected(Point) = 0;
+	virtual bool isSelected(Point) const = 0;
 	//absrtact function of Drawing the shape
 	virtual void Draw(GUI* pUI) const = 0;
 	//Get shape graphics info

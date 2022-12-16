@@ -13,7 +13,7 @@ public:
 	Point getC2() const;
 	void setC1(Point);
 	void setC2(Point);
-	virtual ~Rect();
-	virtual void Draw(GUI* pUI) const;
-	virtual bool isSelected(Point);
+	virtual ~Rect() override;
+	virtual void Draw(GUI* pUI) const override;
+	virtual bool isSelected(Point) const override;
 };

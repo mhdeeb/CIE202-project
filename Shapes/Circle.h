@@ -13,7 +13,7 @@ public:
 	double getRadius() const;
 	void setRadius(double);
 	void setOrigin(const Point&);
-	virtual ~Circle();
-	virtual void Draw(GUI*) const;
-	virtual bool isSelected(Point);
+	virtual ~Circle() override;
+	virtual void Draw(GUI*) const override;
+	virtual bool isSelected(Point) const override;
 };

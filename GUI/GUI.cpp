@@ -25,8 +25,6 @@ GUI::GUI()
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 	CreateDrawToolBar();
-	CreateStatusBar("Welcome to Paint Mode!");
-	Sleep(1500);
 }
 
 
@@ -115,7 +113,6 @@ operationType GUI::GetUseroperation(int x, int y)
 			case ICON_CHANGE_FILL: return CHNG_FILL_CLR;
 			case ICON_DELETE:return DEL;
 			case ICON_EXIT: return EXIT;
-			default: return EMPTY;	//A click on empty place in desgin toolbar
 			}
 		}
 
@@ -132,7 +129,7 @@ operationType GUI::GetUseroperation(int x, int y)
 		and return the correspoding operation*/
 		return TO_PLAY;	//just for now. This should be updated
 	}
-
+	return EMPTY;
 }
 ////////////////////////////////////////////////////
 
@@ -479,6 +476,29 @@ void GUI::DrawLine(const Line* line) const
 		DrawingClr = gfxInfo.DrawClr;
 	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
 	pWind->DrawLine(p1.x, p1.y, p2.x, p2.y, FRAME);
+}
+
+void GUI::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const
+{
+	color DrawingClr;
+	if (TriGfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = TriGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, TriGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (TriGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(TriGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y ,style);
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 GUI::~GUI()
