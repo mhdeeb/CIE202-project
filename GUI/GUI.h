@@ -40,6 +40,7 @@ class GUI
 		ICON_RECT,		//Recangle icon in menu
 		ICON_CIRC,		//Circle icon in menu
 		ICON_LINE,      //Line icon in menu
+		ICON_TRIG,      //Triangle icon in menu
 		//TODO: Add more icons names here
 
 		ICON_EXIT,		//Exit icon
@@ -105,6 +106,7 @@ public:
 	void DrawRect(Point P1, Point P2, GfxInfo RectGfxInfo) const;  //Draw a rectangle
 	void DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo) const;  //Draw a Line
 	void DrawCircle(Point, double, GfxInfo) const;  //Draw a circle
+	void DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const;
 
 	///Make similar functions for drawing all other shapes.
 

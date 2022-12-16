@@ -23,13 +23,13 @@ void opAddLine::Execute()
 	pUI->GetPointClicked(P1.x, P1.y);
 
 	string msg = "First Point is at (" + to_string(P1.x) + ", " + to_string(P1.y) + " )";
-	msg += " ... Click at second corner";
+	msg += " ... Click at second point";
 	pUI->PrintMessage(msg);
 	//Read 2nd Point and store in point P2
 	pUI->GetPointClicked(P2.x, P2.y);
 	pUI->ClearStatusBar();
 
-	//Preapre all rectangle parameters
+	//Preapre all line parameters
 	GfxInfo LineGfxInfo;
 
 	//get drawing, filling colors and pen width from the interface

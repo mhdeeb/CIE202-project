@@ -90,6 +90,7 @@ operationType GUI::GetUseroperation() const
 			case ICON_RECT: return DRAW_RECT;
 			case ICON_CIRC: return DRAW_CIRC;
 			case ICON_LINE: return DRAW_LINE;
+			case ICON_TRIG: return DRAW_TRI;
 			case ICON_EXIT: return EXIT;
 
 			default: return EMPTY;	//A click on empty place in desgin toolbar
@@ -161,6 +162,7 @@ void GUI::CreateDrawToolBar()
 	MenuIconImages[ICON_CIRC] = "images\\MenuIcons\\Menu_Circ.jpg";
 	MenuIconImages[ICON_EXIT] = "images\\MenuIcons\\Menu_Exit.jpg";
 	MenuIconImages[ICON_LINE] = "images\\MenuIcons\\Menu_Exit.jpg";
+	MenuIconImages[ICON_TRIG] = "images\\MenuIcons\\Menu_Exit.jpg";
 	
 
 	//TODO: Prepare images for each menu icon and add it to the list
@@ -292,6 +294,29 @@ void GUI::DrawLine(Point P1, Point P2, GfxInfo LineGfxInfo) const
 		style = FRAME;
 
 	pWind->DrawLine(P1.x, P1.y, P2.x, P2.y, style);
+
+}
+
+void GUI::DrawTri(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const
+{
+	color DrawingClr;
+	if (TriGfxInfo.isSelected)	//shape is selected
+		DrawingClr = HighlightColor; //shape should be drawn highlighted
+	else
+		DrawingClr = TriGfxInfo.DrawClr;
+
+	pWind->SetPen(DrawingClr, TriGfxInfo.BorderWdth);	//Set Drawing color & width
+
+	drawstyle style;
+	if (TriGfxInfo.isFilled)
+	{
+		style = FILLED;
+		pWind->SetBrush(TriGfxInfo.FillClr);
+	}
+	else
+		style = FRAME;
+
+	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y ,style);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
