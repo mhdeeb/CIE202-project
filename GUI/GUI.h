@@ -14,7 +14,7 @@ class IrregPoly;
 class Graph;
 class RegPoly;
 
-const int width = 1300, height = 700,
+inline const int width = 1300, height = 700,
 wx = 5, wy = 5,
 StatusBarHeight = 50, ToolBarHeight = 50,
 MenuIconWidth = 80;

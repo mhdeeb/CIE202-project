@@ -1,73 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="DEFS.h" />
-    <ClInclude Include="controller.h" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="main.cpp" />
-    <Filter Include="GraphicsLib">
-      <UniqueIdentifier>{c076192c-7f4c-49d2-a595-55ff119d3ef7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI">
-      <UniqueIdentifier>{cc4dfad3-3220-4da0-a755-b6f30c107ea1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Operations">
-      <UniqueIdentifier>{5b559cbb-08f2-4197-993f-7a3028ee6b52}</UniqueIdentifier>
-    </Filter>
-    <ClInclude Include="operations\opAddIrregPoly.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\opColorPalette.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\opSelect.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\opChangeGpenCol.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\opChangeGfillCol.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\opDelete.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="operations\opAddPolygon.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\Circle.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\Graph.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\IrregPoly.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\Line.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\Poly.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\Rect.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\Shape.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\square.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-    <ClInclude Include="Shapes\Triangle.h">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="CMUgraphicsLib\auxil.cpp">
       <Filter>GraphicsLib</Filter>
     </ClCompile>
-    <ClCompile Include="CMUgraphicsLib\image.cpp">
+    <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp">
       <Filter>GraphicsLib</Filter>
     </ClCompile>
     <ClCompile Include="CMUgraphicsLib\jpeg\jcomapi.c">
@@ -166,13 +105,89 @@
     <ClCompile Include="CMUgraphicsLib\windowinput.cpp">
       <Filter>GraphicsLib</Filter>
     </ClCompile>
+    <ClCompile Include="CMUgraphicsLib\image.cpp">
+      <Filter>GraphicsLib</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Circle.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Graph.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\IrregPoly.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Line.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Poly.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Rect.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Square.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Triangle.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI\GUI.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddCircle.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddIrregPoly.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddLine.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddPolygon.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddRect.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddSquare.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opAddTriangle.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opChangeGfillCol.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opChangeGpenCol.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opColorPalette.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opExit.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opSelect.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Shape.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opDelete.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="controller.h" />
+    <ClInclude Include="DEFS.h" />
     <ClInclude Include="CMUgraphicsLib\auxil.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
-    <ClInclude Include="CMUgraphicsLib\error.h">
+    <ClInclude Include="CMUgraphicsLib\CMUgraphics.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
-    <ClInclude Include="CMUgraphicsLib\image.h">
+    <ClInclude Include="CMUgraphicsLib\colors.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
     <ClInclude Include="CMUgraphicsLib\jpeg\jconfig.h">
@@ -214,124 +229,100 @@
     <ClInclude Include="CMUgraphicsLib\mousequeue.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
-    <ClInclude Include="CMUgraphicsLib\version.h">
-      <Filter>GraphicsLib</Filter>
-    </ClInclude>
     <ClInclude Include="CMUgraphicsLib\windowinput.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
-    <ClInclude Include="CMUgraphicsLib\CMUgraphics.h">
+    <ClInclude Include="CMUgraphicsLib\version.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
-    <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp">
-      <Filter>GraphicsLib</Filter>
-    </ClCompile>
-    <ClInclude Include="CMUgraphicsLib\colors.h">
+    <ClInclude Include="CMUgraphicsLib\error.h">
       <Filter>GraphicsLib</Filter>
     </ClInclude>
-    <ClCompile Include="GUI\GUI.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\opAddIrregPoly.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\opColorPalette.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\opSelect.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\opChangeGpenCol.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\opChangeGfillCol.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\opDelete.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GUI\GUI.h">
-      <Filter>GUI</Filter>
+    <ClInclude Include="CMUgraphicsLib\image.h">
+      <Filter>GraphicsLib</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Shapes\Circle.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Graph.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\IrregPoly.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Line.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Poly.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Rect.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
     <ClInclude Include="Shapes\Shape.h">
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
-    <ClCompile Include="Shapes\Shape.cpp">
-    <ClCompile Include="operations\opAddTriangle.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClCompile Include="operations\opAddPolygon.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\Circle.cpp">
+    <ClInclude Include="Shapes\square.h">
       <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\Graph.cpp">
+    </ClInclude>
+    <ClInclude Include="Shapes\Triangle.h">
       <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\IrregPoly.cpp">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\Line.cpp">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\Poly.cpp">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\Rect.cpp">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\Shape.cpp">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\square.cpp">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-    <ClCompile Include="Shapes\Triangle.cpp">
-      <Filter>Shapes&amp;Graph</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
+    </ClInclude>
     <ClInclude Include="GUI\GUI.h">
       <Filter>GUI</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="operations\operation.h">
+    <ClInclude Include="operations\opAddCircle.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opAddIrregPoly.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opAddLine.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opAddPolygon.h">
       <Filter>Operations</Filter>
     </ClInclude>
     <ClInclude Include="operations\opAddRect.h">
       <Filter>Operations</Filter>
     </ClInclude>
-    <ClCompile Include="operations\opAddRect.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClInclude Include="operations\opAddCircle.h">
-      <Filter>Operations</Filter>
-    </ClInclude>
-    <ClCompile Include="operations\opAddCircle.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
     <ClInclude Include="operations\opAddSquare.h">
       <Filter>Operations</Filter>
     </ClInclude>
-    <ClCompile Include="operations\opAddSquare.cpp">
-      <Filter>Operations</Filter>
-    </ClCompile>
-    <ClInclude Include="operations\opAddLine.h">
+    <ClInclude Include="operations\opChangeGfillCol.h">
       <Filter>Operations</Filter>
     </ClInclude>
-    <ClCompile Include="operations\opAddLine.cpp">
+    <ClInclude Include="operations\opChangeGpenCol.h">
       <Filter>Operations</Filter>
-    </ClCompile>
+    </ClInclude>
+    <ClInclude Include="operations\opColorPalette.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\operation.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opExit.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opSelect.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opDelete.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">
-      <UniqueIdentifier>{8669e267-1a5a-43ad-b595-5222bd18a41e}</UniqueIdentifier>
+      <UniqueIdentifier>{34b0ca5d-778a-49f3-aa5d-43d943ff781c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GraphicsLib">
+      <UniqueIdentifier>{19240320-bc12-40a2-89c7-0589b06fc917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Operations">
+      <UniqueIdentifier>{d6bfa990-ddb5-4583-a895-69fe33f7833d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{fbc5fee7-b829-4801-8f21-a57e487b9ede}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -5,6 +5,9 @@ int shape::shapeCount;
 shape::shape(GfxInfo gfxInfo = {}) : id(shapeCount++), gfxInfo(gfxInfo)
 {}
 
+shape::shape() : shape({})
+{}
+
 void shape::SetSelected(bool s)
 {
 	gfxInfo.isSelected = s;

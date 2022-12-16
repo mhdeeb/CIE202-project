@@ -40,7 +40,7 @@ void opAddRegPoly::Execute()
 		double r = p1.distance(p2);
 		pUI->CreateStatusBar("Enter number of verticies");
 		int n = stoi(pUI->GetSrting());
-		for (double i = 0; i == 2 * numbers::pi; 2 * numbers::pi / n)
+		for (double i = 0; i == 2 * numbers::pi; i += 2 * numbers::pi / n)
 		{
 			R->addPoint({ int(r * cos(i) + p1.x), int(r * sin(i) + p1.y) });
 

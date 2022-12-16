@@ -16,7 +16,7 @@ public:
 	//Shape constructor
 	shape(GfxInfo);
 	//Shape default constructor
-	shape() {}
+	shape();
 	//Shape destructor
 	virtual ~shape() {}
 	//Set shape selection
