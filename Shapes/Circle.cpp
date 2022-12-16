@@ -24,10 +24,10 @@ void Circle::setOrigin(const Point &origin)
 
 Circle::~Circle() {}
 
-void Circle::Draw(GUI* pUI) const  {	
+void Circle::Draw(GUI* pUI) const {	
 	pUI->DrawCircle(this);
 }
-bool Circle::isSelected(Point p)  const {
+bool Circle::isSelected(Point p) const {
 	if (p.distance(origin) <= radius)
 		return true;
 	return false;

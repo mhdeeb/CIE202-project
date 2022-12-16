@@ -1,7 +1,4 @@
 #include "controller.h"
-#include "Operations/opAddRect.h"
-#include "Operations/opAddCircle.h"
-#include "Operations/opAddLine.h"
 #include "operations/opAddTriangle.h"
 #include "operations/opAddRect.h"
 #include "operations/opAddCircle.h"
@@ -49,7 +46,8 @@ operation* controller::createOperation(operationType OpType)
 	case DRAW_LINE:
 		pOp = new opAddLine(this);
 		break;
-	case DRAW_TRIANGLE:pOp = new opAddTri(this);
+	case DRAW_TRIANGLE:
+		pOp = new opAddTri(this);
 		break;
 	case DRAW_REG_POLY:
 		break;
