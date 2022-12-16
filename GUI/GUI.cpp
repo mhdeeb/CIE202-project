@@ -25,8 +25,6 @@ GUI::GUI()
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 	CreateDrawToolBar();
-	CreateStatusBar("Welcome to Paint Mode!");
-	Sleep(1500);
 }
 
 
