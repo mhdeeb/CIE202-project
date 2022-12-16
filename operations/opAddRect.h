@@ -3,14 +3,13 @@
 #include "operation.h"
 
 //Add Rectangle operation class
-class opAddRect: public operation
+class opAddRect : public operation
 {
 public:
-	opAddRect(controller *pCont);
+	opAddRect(controller* pCont);
 	virtual ~opAddRect();
-	
-	//Add rectangle to the controller
-	virtual void Execute() ;
-	
-};
 
+	//Add rectangle to the controller
+	virtual void Execute();
+
+};

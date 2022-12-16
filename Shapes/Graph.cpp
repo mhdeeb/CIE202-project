@@ -1,5 +1,6 @@
 #include "Graph.h"
-#include "../GUI/GUI.h"
+#include<ranges>
+#include<vector>
 
 Graph::Graph()
 {
@@ -18,25 +19,38 @@ Graph::~Graph()
 void Graph::Addshape(shape* pShp)
 {
 	//Add a new shape to the shapes vector
-	shapesList.push_back(pShp);	
+	shapesList.push_back(pShp);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
 void Graph::Draw(GUI* pUI) const
 {
-	pUI->ClearDrawArea();
 	for (auto shapePointer : shapesList)
 		shapePointer->Draw(pUI);
 }
 
-
-shape* Graph::Getshape(int x, int y) const
+void Graph::Refresh(GUI* pUI) const
 {
-	//If a shape is found return a pointer to it.
-	//if this point (x,y) does not belong to any shape return NULL
+	pUI->Clear();
+	Draw(pUI);
+	pUI->CreateDrawToolBar();
+	pUI->CreateStatusBar();
+}
 
+vector <shape* > Graph::GetShapeList() const {
+	return  shapesList;
+}
+shape* Graph::Getshape(Point p)
+{
+	for (auto i : views::reverse(shapesList)) {
+		if (i->isSelected(p)) {
+			selectedShape = i;
+			return selectedShape;
 
-	///Add your code here to search for a shape given a point x,y	
-
+		}
+	}	
 	return nullptr;
+}
+void Graph::setSelectedShape(shape* pSsh) {
+	selectedShape = pSsh;
 }

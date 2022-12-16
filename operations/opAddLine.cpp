@@ -1,54 +1,35 @@
 #include "opAddLine.h"
-#include "..\shapes\Line.h"
 
-#include "..\controller.h"
+#include "../Shapes/Line.h"
 
-#include "..\GUI\GUI.h"
+#include <format>
 
 opAddLine::opAddLine(controller* pCont) :operation(pCont)
 {}
 opAddLine::~opAddLine()
 {}
 
-//Execute the operation
 void opAddLine::Execute()
 {
-	Point P1, P2;
-
-	//Get a Pointer to the Input / Output Interfaces
 	GUI* pUI = pControl->GetUI();
-
-	pUI->PrintMessage("New Line: Click at first Line");
-	//Read 1st Line and store in point P1
-	pUI->GetPointClicked(P1.x, P1.y);
-
-	string msg = "First Point is at (" + to_string(P1.x) + ", " + to_string(P1.y) + " )";
-	msg += " ... Click at second point";
-	pUI->PrintMessage(msg);
-	//Read 2nd Point and store in point P2
-	pUI->GetPointClicked(P2.x, P2.y);
-	pUI->ClearStatusBar();
-
-	//Preapre all line parameters
-	GfxInfo LineGfxInfo;
-
-	//get drawing, filling colors and pen width from the interface
-	LineGfxInfo.DrawClr = pUI->getCrntDrawColor();
-	LineGfxInfo.FillClr = pUI->getCrntFillColor();
-	LineGfxInfo.BorderWdth = pUI->getCrntPenWidth();
-
-
-	LineGfxInfo.isFilled = false;	//default is not filled
-	LineGfxInfo.isSelected = false;	//defualt is not selected
-
-
-	//Create a rectangle with the above parameters
-	Line* R = new Line(P1, P2, LineGfxInfo);
-
-	//Get a pointer to the graph
-	Graph* pGr = pControl->getGraph();
-
-	//Add the Line to the list of shapes
-	pGr->Addshape(R);
-
+	Point p1, p2{ 0, 0 };
+	pUI->CreateStatusBar("Line Selected: Click on graph to start drawing");
+	pUI->GetPointClicked(p1.x, p1.y);
+	if (GUI::isInDrawArea(p1)) {
+		pUI->storeImage();
+		GfxInfo gfxInfo;
+		gfxInfo.DrawClr = pUI->getCrntDrawColor();
+		gfxInfo.FillClr = pUI->getCrntFillColor();
+		gfxInfo.BorderWdth = pUI->getCrntPenWidth();
+		Line* L = new Line(p1, p2, gfxInfo);
+		while (!pUI->GetLeftPointState(p2.x, p2.y)) {
+			L->setPoint2(p2);
+			L->Draw(pUI);
+			pUI->CreateDrawToolBar();
+			pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", p1.x, p1.y, p2.x, p2.y));
+			Sleep(16);
+			pUI->loadImage();
+		}
+		pControl->getGraph()->Addshape(L);
+	}
 }

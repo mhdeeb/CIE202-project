@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../operations/operation.h"
+#include "operation.h"
 
 //Add Circle operation class
 class opAddCircle : public operation
