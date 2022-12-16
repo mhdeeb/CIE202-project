@@ -55,5 +55,7 @@ void opAddIrregPoly::Execute()
 		}
 		if (I->getSize() > 1)
 			pControl->getGraph()->Addshape(I);
+		else
+			delete I;
 	}
 }

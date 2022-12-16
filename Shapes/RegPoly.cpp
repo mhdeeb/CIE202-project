@@ -1,10 +1,7 @@
-#include "Poly.h"
+#include "RegPoly.h"
 
 
 RegPoly::RegPoly(GfxInfo shapeGfxInfo) : IrregPoly(shapeGfxInfo) {}
-
-
-
 
 RegPoly::~RegPoly() {
 	IrregPoly::~IrregPoly();

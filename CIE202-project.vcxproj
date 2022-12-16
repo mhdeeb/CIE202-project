@@ -107,7 +107,7 @@
       <BrowseInformation>true</BrowseInformation>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
@@ -170,7 +170,7 @@
     <ClCompile Include="operations\opAddCircle.cpp" />
     <ClCompile Include="operations\opAddIrregPoly.cpp" />
     <ClCompile Include="operations\opAddLine.cpp" />
-    <ClCompile Include="operations\opAddPolygon.cpp" />
+    <ClCompile Include="operations\opAddRegPoly.cpp" />
     <ClCompile Include="operations\opAddRect.cpp" />
     <ClCompile Include="operations\opAddSquare.cpp" />
     <ClCompile Include="operations\opChangeGfillCol.cpp" />
@@ -184,7 +184,7 @@
     <ClCompile Include="Shapes\Graph.cpp" />
     <ClCompile Include="Shapes\IrregPoly.cpp" />
     <ClCompile Include="Shapes\Line.cpp" />
-    <ClCompile Include="Shapes\Poly.cpp" />
+    <ClCompile Include="Shapes\RegPoly.cpp" />
     <ClCompile Include="Shapes\Rect.cpp" />
     <ClCompile Include="Shapes\Shape.cpp" />
     <ClCompile Include="Shapes\Square.cpp" />
@@ -217,7 +217,7 @@
     <ClInclude Include="operations\opAddCircle.h" />
     <ClInclude Include="operations\opAddIrregPoly.h" />
     <ClInclude Include="operations\opAddLine.h" />
-    <ClInclude Include="operations\opAddPolygon.h" />
+    <ClInclude Include="operations\opAddRegPoly.h" />
     <ClInclude Include="operations\opAddRect.h" />
     <ClInclude Include="operations\opAddSquare.h" />
     <ClInclude Include="operations\opChangeGfillCol.h" />
@@ -231,7 +231,7 @@
     <ClInclude Include="Shapes\Graph.h" />
     <ClInclude Include="Shapes\IrregPoly.h" />
     <ClInclude Include="Shapes\Line.h" />
-    <ClInclude Include="Shapes\Poly.h" />
+    <ClInclude Include="Shapes\RegPoly.h" />
     <ClInclude Include="Shapes\Rect.h" />
     <ClInclude Include="Shapes\Shape.h" />
     <ClInclude Include="Shapes\square.h" />

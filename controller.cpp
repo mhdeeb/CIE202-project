@@ -11,7 +11,7 @@
 #include "operations/opChangeGpenCol.h"
 #include "operations/opChangeGfillCol.h"
 #include "operations/opDelete.h"
-#include "operations/opAddPolygon.h"
+#include "operations/opAddRegPoly.h"
 
 //Constructor
 controller::controller()
