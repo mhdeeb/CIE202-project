@@ -63,6 +63,12 @@ IrregPoly::~IrregPoly() {
 void IrregPoly::Draw(GUI* pUI) const {
 	pUI->DrawIrregPoly(this);
 }
+
+
+void IrregPoly::PrintInfo(GUI* pUI) const {
+	pUI->PrintMessage("");
+}
+
 double IrregPoly::Area(Point p1, Point p2, Point p3) {
 	return abs(p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y)) / 2.0;
 }
@@ -74,8 +80,8 @@ void IrregPoly::updateCenter() {
 
 bool IrregPoly::isSelected(Point p) const {
 	double area = 0, testArea = 0;
-	int limit = xpoints.size() - 1;
-	for (int i = -1; i < limit; ++i)
+	int nupberOfPoints = xpoints.size() - 1;
+	for (int i = -1; i < nupberOfPoints; ++i)
 	{
 		area += Area(center, getPoint(i), getPoint(i + 1));
 		testArea += Area(p, getPoint(i), getPoint(i + 1));

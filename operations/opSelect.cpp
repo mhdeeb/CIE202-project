@@ -21,8 +21,9 @@ bool Select::Execute() {
 		if (i)
 			i->SetSelected(false);
 	}
-	if (pSsh)
+	if (pSsh) {
 		pSsh->SetSelected(true);
-
+		pSsh->PrintInfo(pUI);
+	}
 	return false;
 }

@@ -15,5 +15,6 @@ public:
 	void setOrigin(const Point&);
 	virtual ~Circle() override;
 	virtual void Draw(GUI*) const override;
+	virtual void PrintInfo(GUI* pUI) const override;
 	virtual bool isSelected(Point) const override;
 };

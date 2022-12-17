@@ -2,6 +2,8 @@
 #define DEFS_H
 
 
+
+
 //This file contais some global constants and definitions to be used in the project.
 enum operationType //The operations supported (you can add more if needed)
 {
@@ -36,5 +38,24 @@ enum operationType //The operations supported (you can add more if needed)
 
 	///TODO: Add more operation types (if needed)
 };
+enum shapeName {
+	RECTANGLE,
+	CIRCLE,
+	SQUARE,
+	LINE,
+	TRIANGLE,
+	REGULAR_POLYGON,
+	IRREGULAR_POLYGON,
+};
+const string ShapesArray[]{
+	"RECTANGLE", 
+	"CIRCLE",
+	"SQUARE",
+	"LINE",
+	"TRIANGLE",
+	"REGULAR_POLYGON",
+	"IRREGULAR_POLYGON",
+};
+
 
 #endif

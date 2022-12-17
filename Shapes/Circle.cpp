@@ -27,6 +27,12 @@ Circle::~Circle() {}
 void Circle::Draw(GUI* pUI) const {	
 	pUI->DrawCircle(this);
 }
+
+void Circle::PrintInfo(GUI* pUI) const {
+	pUI->PrintMessage("");
+}
+
+
 bool Circle::isSelected(Point p) const {
 	if (p.distance(origin) <= radius)
 		return true;

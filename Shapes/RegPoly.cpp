@@ -20,3 +20,7 @@ RegPoly::~RegPoly() {
 void RegPoly::Draw(GUI* pUI) const {
 	pUI->DrawRegPoly(this);
 }
+
+void RegPoly::PrintInfo(GUI* pUI) const {
+	pUI->PrintMessage("");
+}

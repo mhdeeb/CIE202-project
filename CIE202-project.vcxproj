@@ -235,7 +235,7 @@
     <ClInclude Include="Shapes\RegPoly.h" />
     <ClInclude Include="Shapes\Rect.h" />
     <ClInclude Include="Shapes\Shape.h" />
-    <ClInclude Include="Shapes\square.h" />
+    <ClInclude Include="Shapes\Square.h" />
     <ClInclude Include="Shapes\Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
