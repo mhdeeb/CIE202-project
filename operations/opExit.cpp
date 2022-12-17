@@ -8,7 +8,8 @@ opExit::~opExit()
 {
 }
 
-void opExit::Execute()
+bool opExit::Execute()
 {
 	pControl->close();
+	return false;
 }

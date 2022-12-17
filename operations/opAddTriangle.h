@@ -10,7 +10,7 @@ public:
 	virtual ~opAddTri();
 
 	//Add Triangle to the controller
-	virtual void Execute();
+	virtual bool Execute();
 
 };
 

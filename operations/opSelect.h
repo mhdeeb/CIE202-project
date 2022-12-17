@@ -6,5 +6,5 @@ class Select : public operation
 public:
 	Select(controller* pCont);
 	virtual ~Select();
-	virtual void Execute();
+	virtual bool Execute();
 };

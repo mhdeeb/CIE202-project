@@ -10,6 +10,6 @@ public:
 	virtual ~opAddRect();
 
 	//Add rectangle to the controller
-	virtual void Execute();
+	virtual bool Execute();
 
 };

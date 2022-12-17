@@ -6,8 +6,9 @@
 #include "../Shapes/Line.h"
 #include "../Shapes/IrregPoly.h"
 #include "../Shapes/RegPoly.h"
+#include "../operations/opDelete.h"
 
-GUI::GUI()
+GUI::GUI(controller* pCont): pCont(pCont)
 {
 	//Initialize user interface parameters
 	InterfaceMode = MODE_DRAW;
@@ -34,30 +35,36 @@ GUI::GUI()
 //======================================================================================//
 //								Input Functions										//
 //======================================================================================//
-void GUI::GetPointClicked(int& x, int& y) const
+bool GUI::GetPointClicked(int& x, int& y)
 {
+	char c;
 	pWind->FlushMouseQueue();
-	pWind->WaitMouseClick(x, y);	//Wait for mouse click
+	pWind->FlushKeyQueue();
+	while (GetLeftClick(x, y)) {
+		if (GetKeyPress(c) == ESCAPE) {
+			return false;
+		}
+		if (c == 'd')
+			Delete(pCont).Execute();
+		Sleep(16);
+	}
+	return true;
 }
 
-buttonstate GUI::GetLeftPointState(int& x, int& y) const
-{
-	return pWind->GetButtonState(LEFT_BUTTON, x, y);
+keytype GUI::GetKeyPress(char& c) const {
+	return pWind->GetKeyPress(c);
 }
 
 bool GUI::GetLeftClick(int& x, int& y)
 {
-
 	buttonstate currentLeftButtonState = pWind->GetButtonState(LEFT_BUTTON, x, y), prev = perviousLeftButtonState;
 	perviousLeftButtonState = currentLeftButtonState;
 	return prev || !currentLeftButtonState;
 }
 
-Point GUI::getMouseLocation()
+void GUI::getMouseLocation(int &x, int &y)
 {
-	int x, y;
 	pWind->GetMouseCoord(x, y);
-	return Point(x, y);
 }
 
 string GUI::GetSrting(string msg)
@@ -502,7 +509,7 @@ void GUI::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const
 	else
 		style = FRAME;
 
-	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y ,style);
+	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////

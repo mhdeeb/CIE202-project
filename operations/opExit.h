@@ -5,5 +5,5 @@ class opExit: public operation
 public:
 	opExit(controller* pCont);
 	virtual ~opExit();
-	virtual void Execute();
+	virtual bool Execute();
 };

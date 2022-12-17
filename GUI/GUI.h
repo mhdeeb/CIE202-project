@@ -13,6 +13,7 @@ class Line;
 class IrregPoly;
 class Graph;
 class RegPoly;
+class controller;
 
 inline const int width = 1300, height = 700,
 wx = 5, wy = 5,
@@ -108,16 +109,17 @@ private:
 	shape* DrawButtons[DRAW_BUTTONS_COUNT]{};
 	window* pWind;
 	image storedImage;
+	controller* pCont;
 public:
-	GUI();
+	GUI(controller*);
 
 	// Input Functions  ---------------------------
-	void GetPointClicked(int& x, int& y) const;//Get coordinate where user clicks
-	buttonstate GetLeftPointState(int&, int&) const;
+	bool GetPointClicked(int& x, int& y);
+	keytype GetKeyPress(char& c) const;
 	bool GetLeftClick(int&, int&);
 	//Get coordinate where user clicks
 
-	Point getMouseLocation();
+	void getMouseLocation(int &x, int &y);
 
 	string GetSrting(string msg="Taking Input...");	 //Returns a string entered by the user
 	operationType GetUseroperation(int, int); //Read the user click and map to an operation

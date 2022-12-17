@@ -7,5 +7,5 @@ class opAddLine : public operation
 public:
 	opAddLine(controller* pCont);
 	virtual ~opAddLine();
-	virtual void Execute();
+	virtual bool Execute();
 };

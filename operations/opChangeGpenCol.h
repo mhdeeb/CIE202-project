@@ -6,5 +6,5 @@ class opChangeGpenCol : public operation
 public:
 	opChangeGpenCol(controller* pCont);
 	virtual ~opChangeGpenCol();
-	virtual void Execute();
+	virtual bool Execute();
 };

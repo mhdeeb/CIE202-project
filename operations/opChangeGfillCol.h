@@ -5,5 +5,5 @@ class opChangeGfillCol : public operation
 public:
 	opChangeGfillCol(controller* pCont);
 	virtual ~opChangeGfillCol();
-	virtual void Execute();
+	virtual bool Execute();
 };

@@ -10,6 +10,6 @@ public:
 	virtual ~opAddCircle();
 
 	//Add circle to the controller
-	virtual void Execute();
+	virtual bool Execute();
 
 };

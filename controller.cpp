@@ -17,7 +17,7 @@
 controller::controller()
 {
 	pGraph = new Graph;
-	pGUI = new GUI;	//Create GUI object
+	pGUI = new GUI(this);	//Create GUI object
 	isRunning = true;
 }
 
@@ -78,7 +78,7 @@ operation* controller::createOperation(operationType OpType)
 		break;
 	case DRAWING_AREA:
 		pOp = new Select(this);
-		break;	
+		break;
 	}
 	return pOp;
 
@@ -123,19 +123,23 @@ void controller::Run()
 {
 	operationType OpType;
 	int x, y;
+	bool skipInput = false;
 	do
 	{
-		//1. Ask the GUI to read the required operation from the user
-		pGUI->PrintMessage("Select an operation");
-		pGUI->GetPointClicked(x, y);	//Get the coordinates of the user click
+		if (!skipInput) {
+			pGUI->PrintMessage("Select an operation");
+			pGUI->GetPointClicked(x, y);
+		}
+		else
+			pGUI->getMouseLocation(x, y);
 		OpType = GetUseroperation(x, y);
-		//2. Create an operation coresspondingly
+		pGUI->getWindow()->FlushKeyQueue();
 		operation* pOpr = createOperation(OpType);
 
 		//3. Execute the created operation
 		if (pOpr)
 		{
-			pOpr->Execute();
+			skipInput = pOpr->Execute();
 			delete pOpr;
 			pOpr = nullptr;
 		}

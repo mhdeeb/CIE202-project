@@ -7,5 +7,5 @@ class opAddIrregPoly : public operation
 public:
 	opAddIrregPoly(controller* pCont);
 	virtual ~opAddIrregPoly();
-	virtual void Execute();
+	virtual bool Execute();
 };

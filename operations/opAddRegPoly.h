@@ -7,5 +7,5 @@ class opAddRegPoly : public operation
 public:
 	opAddRegPoly(controller* pCont);
 	virtual ~opAddRegPoly();
-	virtual void Execute();
+	virtual bool Execute();
 };
