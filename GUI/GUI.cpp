@@ -208,8 +208,8 @@ void GUI::LoadDrawToolBar() {
 	MenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Pick.jpg");
 	MenuIconImages[ICON_CHANGE_GENERAL_PEN] = new image("images/MenuIcons/Menu_PenCol.jpg");
 	MenuIconImages[ICON_CHANGE_FILL] = new image("images/MenuIcons/Menu_FillCol.jpg");
-	MenuIconImages[ICON_PLAY_MODE] = new image("images/MenuIcons/Menu_Delete.jpg");
 	MenuIconImages[ICON_DELETE] = new image("images/MenuIcons/Menu_Delete.jpg");
+	MenuIconImages[ICON_PLAY_MODE] = new image("images/MenuIcons/Menu_Play.jpg");
 	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
