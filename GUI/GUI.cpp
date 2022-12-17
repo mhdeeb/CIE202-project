@@ -206,7 +206,7 @@ void GUI::LoadDrawToolBar() {
 	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
-	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - StatusBarHeight + 15}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
+	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - StatusBarHeight + 18}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
 }
 void GUI::CreateDrawToolBar()
 {
