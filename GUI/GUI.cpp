@@ -36,6 +36,7 @@ GUI::GUI()
 //======================================================================================//
 void GUI::GetPointClicked(int& x, int& y) const
 {
+	pWind->FlushMouseQueue();
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
@@ -69,13 +70,11 @@ string GUI::GetSrting(string msg)
 	while (true)
 	{
 		ktype = pWind->WaitKeyPress(Key);
-		if (ktype == ESCAPE)	//ESCAPE key is pressed
-			return "";	//returns nothing as user has cancelled label
-		if (Key == 13) { //ENTER key is pressed
-			PrintMessage("Input Saved!");
+		if (ktype == ESCAPE)
+			return "";
+		if (Key == 13)
 			return Label;
-		}
-		if (Key == 8)	//BackSpace is pressed
+		if (Key == 8)
 			if (Label.size() > 0)
 				Label.resize(Label.size() - 1);
 			else
@@ -308,7 +307,7 @@ image* GUI::getImage(DrawMenuIcon icon) const
 }
 
 bool GUI::isInDrawArea(Point p) {
-	return p.y > ToolBarHeight || p.x > DRAW_ICON_COUNT * MenuIconWidth;
+	return  height - StatusBarHeight > p.y && (p.y > ToolBarHeight || p.x > DRAW_ICON_COUNT * MenuIconWidth);
 }
 
 shape* GUI::getDrawButton(DrawButton button)

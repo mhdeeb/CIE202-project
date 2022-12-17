@@ -127,9 +127,8 @@ void controller::Run()
 	{
 		//1. Ask the GUI to read the required operation from the user
 		pGUI->PrintMessage("Select an operation");
-		pGUI->getWindow()->WaitMouseClick(x, y);	//Get the coordinates of the user click
+		pGUI->GetPointClicked(x, y);	//Get the coordinates of the user click
 		OpType = GetUseroperation(x, y);
-
 		//2. Create an operation coresspondingly
 		operation* pOpr = createOperation(OpType);
 
