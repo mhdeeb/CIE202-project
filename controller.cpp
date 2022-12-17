@@ -129,6 +129,7 @@ void controller::Run()
 		if (!skipInput) {
 			pGUI->GetPointClicked(x, y);
 		}
+
 		else
 			pGUI->getMouseLocation(x, y);
 		OpType = GetUseroperation(x, y);
@@ -142,6 +143,7 @@ void controller::Run()
 			delete pOpr;
 			pOpr = nullptr;
 		}
+
 		UpdateInterface();
 	} while (isRunning);
 }

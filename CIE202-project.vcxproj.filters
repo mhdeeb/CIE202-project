@@ -262,7 +262,7 @@
     <ClInclude Include="Shapes\Shape.h">
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
-    <ClInclude Include="Shapes\square.h">
+    <ClInclude Include="Shapes\Square.h">
       <Filter>Shapes&amp;Graph</Filter>
     </ClInclude>
     <ClInclude Include="Shapes\Triangle.h">

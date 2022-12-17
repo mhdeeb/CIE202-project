@@ -54,7 +54,7 @@ public:
 	/// Returns Hex color code
 	/// </summary>
 	/// <returns></returns>
-	string hex() {
+	string hex() const {
 		return std::format("#{:02x}{:02x}{:02x}", ucRed, ucGreen, ucBlue);
 	}
 

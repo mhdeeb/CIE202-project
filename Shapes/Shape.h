@@ -30,16 +30,23 @@ public:
 	void setDrawColor(color);
 	//Change fill color
 	void setFillColor(color, bool);
+
+	////print all shape info on the status bar
+	virtual void PrintInfo(GUI* pUI) const = 0;
+
+	////Save the shape parameters to the file
+    //virtual void Save(ofstream &OutFile) = 0;
+    //Load the shape parameters to the file
+    //virtual void Load(ifstream &Infile) = 0;
+
+
+
 	////Rotate the shape
 	//virtual void Rotate() = 0;
 	////Resize the shape
 	//virtual void Resize() = 0;
 	////Move the shape
 	//virtual void Move() = 0;
-	////Save the shape parameters to the file
-	//virtual void Save(ofstream &OutFile) = 0;
-	//Load the shape parameters to the file
-	//virtual void Load(ifstream &Infile) = 0;
-	////print all shape info on the status bar
-	//virtual void PrintInfo(Output* pOut) = 0;
+
+
 };

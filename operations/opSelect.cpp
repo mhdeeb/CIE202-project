@@ -23,9 +23,7 @@ bool Select::Execute() {
 	}
 	if (pSsh) {
 		pSsh->SetSelected(true);
-		pUI->PrintMessage(pSsh->getGfxInfo().DrawClr.hex());
+		pSsh->PrintInfo(pUI);
 	}
-		
-
 	return false;
 }
