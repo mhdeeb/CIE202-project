@@ -6,10 +6,12 @@ class IrregPoly : public shape
 {
 protected:
 	vector<int> xpoints, ypoints;
+	Point center;
 public:
 	IrregPoly(GfxInfo);
 	const int* getXpoints() const;
 	const int* getYpoints() const;
+	Point getCenter() const;
 	void addPoint(const Point&);
 	void removePoint(int index);
 	Point getPoint(int index) const;
@@ -19,4 +21,5 @@ public:
 	virtual void Draw(GUI*) const override;
 	virtual bool isSelected(Point) const override;
 	static double Area(Point, Point, Point);
+	void updateCenter();
 };
