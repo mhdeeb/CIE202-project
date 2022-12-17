@@ -1,5 +1,7 @@
 #include "GUI.h"
 
+#include <sstream>
+
 #include "../Shapes/Rect.h"
 #include "../Shapes/Circle.h"
 #include "../Shapes/square.h"
@@ -157,6 +159,9 @@ window* GUI::CreateWind(int w, int h, int x, int y) const
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::CreateStatusBar(string statusMessage, Rect textInput) const
 {
+	stringstream ss(statusMessage);
+	string line;
+	getline(ss, line);
 	Point c1 = textInput.getC1(), c2 = textInput.getC2();
 	GfxInfo gfxInfo = textInput.getGfxInfo();
 	pWind->SetPen(StatusBarColor, 1);

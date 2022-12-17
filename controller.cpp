@@ -127,7 +127,6 @@ void controller::Run()
 	do
 	{
 		if (!skipInput) {
-			pGUI->PrintMessage("Select an operation");
 			pGUI->GetPointClicked(x, y);
 		}
 		else
