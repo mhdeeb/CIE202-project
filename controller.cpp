@@ -92,6 +92,9 @@ operation* controller::createOperation(operationType OpType)
 		case DRAWING_AREA:
 			pOp = new Select(this);
 			break;
+		case EMPTY:
+			pOp = new noOp(this);
+			break;
 		}
 		return pOp;
 	}
@@ -116,9 +119,6 @@ operation* controller::createOperation(operationType OpType)
 			break;
 		case DRAWING_AREA:
 			pOp = new Select(this);
-			break;
-		case EMPTY:
-			pOp = new noOp(this);
 			break;
 		}
 		return pOp;

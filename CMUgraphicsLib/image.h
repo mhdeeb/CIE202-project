@@ -48,6 +48,8 @@ class image {
     // Transparency?
 	int iTransparent;
 
+	string path;
+
     // Allow the window class to get at us
 	friend class window;
 
@@ -56,6 +58,7 @@ class image {
     image();
 	image(string strFileName, imagetype itThisType = JPEG);
     image(const char *cpFileName, imagetype itThisType = JPEG);
+	string getPath() const;
 	~image();
 	
 	// Open an image file, currently the only value imagetype is 

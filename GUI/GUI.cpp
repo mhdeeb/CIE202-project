@@ -1,6 +1,7 @@
 #include "GUI.h"
 
 #include <sstream>
+#include <filesystem>
 
 #include "../Shapes/Rect.h"
 #include "../Shapes/Circle.h"
@@ -10,7 +11,7 @@
 #include "../Shapes/RegPoly.h"
 #include "../operations/opDelete.h"
 
-GUI::GUI(controller* pCont): pCont(pCont)
+GUI::GUI(controller* pCont) : pCont(pCont)
 {
 	//Initialize user interface parameters
 	InterfaceMode = MODE_DRAW;
@@ -183,6 +184,7 @@ window* GUI::CreateWind(int w, int h, int x, int y) const
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::PrintMessage(string statusMessage, bool isTextInput)
 {
+	int prevn = (getStatusBarHeight() - 5) / StatusBarHeight;
 	this->statusMessage = statusMessage;
 	if (isTextInput && !statusMessage.size())
 		statusMessage = "Enter Input: ";
@@ -192,13 +194,19 @@ void GUI::PrintMessage(string statusMessage, bool isTextInput)
 	stringstream ss(statusMessage);
 	string line;
 	bool adaptiveResize = statusMessage.size() > 3;
+	if (prevn * StatusBarHeight > getStatusBarHeight()) {
+		pWind->SetPen(BkGrndColor, 1);
+		pWind->SetBrush(BkGrndColor);
+		pWind->DrawRectangle(0, height - prevn * StatusBarHeight - 5, width - 12, height, FILLED, 15, 15);
+	}
+
 	pWind->SetPen(StatusBarColor, 1);
 	pWind->SetBrush(StatusBarColor);
-	pWind->DrawRectangle(0, height - getStatusBarHeight(), width - 12, height, FILLED, 20, 20);
+	pWind->DrawRectangle(0, height - getStatusBarHeight(), width - 12, height, FILLED, 15, 15);
 	if (isTextInput) {
 		pWind->SetPen(BLACK, 2);
 		pWind->SetBrush(WHITE);
-		pWind->DrawRectangle(5, height - getStatusBarHeight(), (adaptiveResize) ? 11 * (statusMessage.size() + 1) : 49, height - 20, FILLED, 20, 20);
+		pWind->DrawRectangle(5, height - getStatusBarHeight() + 4, (adaptiveResize) ? 10 * statusMessage.size() + 16 : 49, height - 20, FILLED, 5, 5);
 	}
 	pWind->SetPen(msgColor, 50);
 	int n = count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2, i = 0;
@@ -252,8 +260,12 @@ void GUI::LoadDrawToolBar() {
 }
 void GUI::CreateDrawToolBar()
 {
-	for (int i = 0; i < DRAW_ICON_COUNT; i++)
-		pWind->DrawImage((DrawMenuIconImages[i]) ? DrawMenuIconImages[i] : DrawMenuIconImages[ICON_DRAW_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+	for (int i = 0; i < DRAW_ICON_COUNT; i++) {
+		if (filesystem::exists(DrawMenuIconImages[i]->getPath()))
+			pWind->DrawImage(DrawMenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+		else
+			pWind->DrawImage(DrawMenuIconImages[ICON_DRAW_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -269,9 +281,12 @@ void GUI::LoadPlayToolBar() {
 }
 void GUI::CreatePlayToolBar()
 {
-	for (int i = 0; i < PLAY_ICON_COUNT; i++)
-		pWind->DrawImage((PlayMenuIconImages[i]) ? PlayMenuIconImages[i] : PlayMenuIconImages[ICON_PLAY_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
-	///TODO: write code to create Play mode menu
+	for (int i = 0; i < PLAY_ICON_COUNT; i++) {
+		if (filesystem::exists(PlayMenuIconImages[i]->getPath()))
+			pWind->DrawImage(PlayMenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+		else
+			pWind->DrawImage(PlayMenuIconImages[ICON_PLAY_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+	}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 

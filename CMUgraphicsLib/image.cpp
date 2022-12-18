@@ -17,11 +17,13 @@ image::image() {
     ucpImageData = NULL;
 
     usWidth = 0;
-    usHeight = 0;    
+    usHeight = 0;
 
 }  
   
 image::image(string strFileName, imagetype itThisType) {
+
+	path = strFileName;
 
 	bmiImage = NULL;
     ucpImageData = NULL;
@@ -32,6 +34,8 @@ image::image(string strFileName, imagetype itThisType) {
 
 image::image(const char *cpFileName, imagetype itThisType) {
 
+	path = cpFileName;
+
 	bmiImage = NULL;
     ucpImageData = NULL;
     
@@ -41,6 +45,10 @@ image::image(const char *cpFileName, imagetype itThisType) {
     
     Open(cpFileName, itThisType);
     
+}
+
+string image::getPath() const {
+	return path;
 }
 
 image::~image() {
