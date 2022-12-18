@@ -4,6 +4,6 @@ class opLoad : public operation
 {
 public:
 	opLoad(controller* pCont);
-	virtual ~opLoad();
-	virtual bool Execute();
+	virtual ~opLoad() override;
+	virtual bool Execute() override;
 };

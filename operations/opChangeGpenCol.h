@@ -5,6 +5,6 @@ class opChangeGpenCol : public operation
 {
 public:
 	opChangeGpenCol(controller* pCont);
-	virtual ~opChangeGpenCol();
-	virtual bool Execute();
+	virtual ~opChangeGpenCol() override;
+	virtual bool Execute() override;
 };

@@ -5,6 +5,6 @@ class Select : public operation
 {
 public:
 	Select(controller* pCont);
-	virtual ~Select();
-	virtual bool Execute();
+	virtual ~Select() override;
+	virtual bool Execute() override;
 };

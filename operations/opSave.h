@@ -4,6 +4,6 @@ class opSave : public operation
 {
 public:
 	opSave(controller* pCont);
-	virtual ~opSave();
-	virtual bool Execute();
+	virtual ~opSave() override;
+	virtual bool Execute() override;
 };

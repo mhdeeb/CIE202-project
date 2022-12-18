@@ -2,14 +2,11 @@
 
 #include "operation.h"
 
-//Add Circle operation class
 class opAddCircle : public operation
 {
 public:
 	opAddCircle(controller* pCont);
-	virtual ~opAddCircle();
-
-	//Add circle to the controller
-	virtual bool Execute();
+	virtual ~opAddCircle() override;
+	virtual bool Execute() override;
 
 };

@@ -2,11 +2,10 @@
 
 #include "operation.h"
 
-//Add Square operation class
 class opAddSquare : public operation
 {
 public:
 	opAddSquare(controller* pCont);
-	virtual ~opAddSquare();
-	virtual bool Execute();
+	virtual ~opAddSquare() override;
+	virtual bool Execute() override;
 };

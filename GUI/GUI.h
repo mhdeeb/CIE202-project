@@ -131,7 +131,8 @@ public:
 
 	void getMouseLocation(int& x, int& y);
 
-	string GetSrting(string msg);	 //Returns a string entered by the user
+	string GetSrting(string prompt);	 //Returns a string entered by the user
+
 	operationType GetUseroperation(int, int); //Read the user click and map to an operation
 
 	// Output Functions  ---------------------------
@@ -142,9 +143,11 @@ public:
 	//creates the application window
 	void CreateDrawToolBar();	//creates Draw mode toolbar & menu
 	void CreatePlayToolBar();	//creates Play mode toolbar & menu
-	void PrintMessage(string, bool);	//create the status bar
+	void CreateStatusBar(string statusMessage);	//create the status bar
+	void CreateStatusBar();
 	void PrintMessage(string);
-	void PrintMessage();
+
+	void PrintMessage(string message, Point pos) const;
 
 	void Clear() const;	//Clears the display
 	void ClearStatusMessage();
@@ -161,6 +164,8 @@ public:
 
 	void ClearDrawing() const;
 
+	int getWidth() const;
+	int getHeight() const;
 	color getCrntDrawColor() const;		//get current drwawing color
 	color getCrntFillColor() const;		//get current filling color
 	bool getIsfilled() const;

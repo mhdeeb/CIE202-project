@@ -78,28 +78,116 @@ void GUI::getMouseLocation(int& x, int& y)
 	pWind->GetMouseCoord(x, y);
 }
 
-string GUI::GetSrting(string msg)
+string GUI::GetSrting(string message)
 {
-	string Label;
+	string Label, displayed;
 	char Key;
 	keytype ktype;
-	PrintMessage(msg);
-	pWind->FlushKeyQueue();
+	const int
+		charWidth = 10,
+		marginx = 4,
+		marginy = 4,
+		charHeight = charWidth * 2,
+		messageHeight = charHeight,
+		messageWidth = message.size() * charWidth,
+		textInputHeight = charHeight + 2 * marginy,
+		promptHeight = textInputHeight + messageWidth / 4,
+		textInputWidth = messageWidth,
+		promptWidth = messageWidth + 2 * marginx,
+		textHeight = messageWidth - 2 * marginy,
+		textWidth = messageWidth - 2 * marginx,
+		centerY = height / 2,
+		centerX = width / 2,
+		promptY = centerY - promptHeight / 2,
+		promptX = centerX - promptWidth / 2,
+		messageY = promptY + marginy,
+		messageX = promptX + marginx,
+		textInputY = promptY + promptHeight - marginy - textInputHeight,
+		textInputX = promptX + marginx,
+		textY = textInputY + marginy,
+		textX = textInputX + marginx;
+	int cursorY = textY,
+		cursorX = textX,
+		cursor = 0,
+		offset = 0;
+
+	storeImage();
+
 	while (true)
 	{
+		displayed = Label.substr(offset, message.size() - 1);
+
+		pWind->SetPen(BLACK);
+		pWind->SetBrush(GREY);
+		pWind->DrawRectangle(promptX, promptY, promptX + promptWidth + 1, promptY + promptHeight + 1, FILLED, 10, 10);
+
+		PrintMessage(message, { messageX, messageY });
+
+		pWind->SetPen(BLACK);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(textInputX, textInputY, textInputX + textInputWidth, textInputY + textInputHeight, FILLED, 10, 10);
+
+
+		PrintMessage(displayed, { textX, textY });
+
+		pWind->SetPen(BLACK);
+		pWind->DrawLine(cursorX, cursorY, cursorX, cursorY + charHeight);
+
+		pWind->FlushKeyQueue();
+
 		ktype = pWind->WaitKeyPress(Key);
-		if (ktype == ESCAPE)
-			return "";
-		if (Key == 13)
-			return Label;
-		if (Key == 8)
-			if (Label.size() > 0)
-				Label.resize(Label.size() - 1);
+		if (ktype == ARROW) {
+			if (Key == 4) {
+				cursor--;
+				if (cursor == -1) {
+					cursor++;
+					offset--;
+					if (offset == -1)
+						offset++;
+				}
+			}
+			else if (Key == 6) {
+				cursor++;
+				if (cursor == displayed.size() + 1) {
+					cursor--;
+					offset++;
+					if (offset == Label.size() - message.size()) {
+						offset--;
+					}
+				}
+			}
+		}
+		else if (Key == 8)
+			if (Label.size() > 0 && cursor) {
+				Label.erase(Label.begin() + cursor + offset - 1);
+				cursor--;
+				if (cursor == -1) {
+					cursor++;
+					offset--;
+					if (offset == -1)
+						offset++;
+				}
+			}
 			else
 				Key = '\0';
-		else
-			Label += Key;
-		PrintMessage(Label, true);
+		else if (ktype == ESCAPE) {
+			loadImage();
+			return "";
+		}
+		else if (Key == 13) {
+			loadImage();
+			return Label;
+		}
+		else {
+			Label.insert(Label.begin() + cursor + offset, Key);
+			cursor++;
+			if (cursor == message.size()) {
+				cursor--;
+				offset++;
+			}
+		}
+		cursorX = cursor * charWidth + textX;
+		loadImage();
 	}
 }
 
@@ -182,18 +270,10 @@ window* GUI::CreateWind(int w, int h, int x, int y) const
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void GUI::PrintMessage(string statusMessage, bool isTextInput)
+void GUI::CreateStatusBar(string statusMessage)
 {
 	int prevn = (getStatusBarHeight() - 5) / StatusBarHeight;
 	this->statusMessage = statusMessage;
-	if (isTextInput && !statusMessage.size())
-		statusMessage = "Enter Input: ";
-	color msgColor = MsgColor;
-	if (color::isHexColor(statusMessage))
-		setMsgColor(statusMessage);
-	stringstream ss(statusMessage);
-	string line;
-	bool adaptiveResize = statusMessage.size() > 3;
 	if (prevn * StatusBarHeight > getStatusBarHeight()) {
 		pWind->SetPen(BkGrndColor, 1);
 		pWind->SetBrush(BkGrndColor);
@@ -203,38 +283,44 @@ void GUI::PrintMessage(string statusMessage, bool isTextInput)
 	pWind->SetPen(StatusBarColor, 1);
 	pWind->SetBrush(StatusBarColor);
 	pWind->DrawRectangle(0, height - getStatusBarHeight(), width - 12, height, FILLED, 15, 15);
-	if (isTextInput) {
-		pWind->SetPen(BLACK, 2);
-		pWind->SetBrush(WHITE);
-		pWind->DrawRectangle(5, height - getStatusBarHeight() + 4, (adaptiveResize) ? 10 * statusMessage.size() + 16 : 49, height - 18, FILLED, 5, 5);
-	}
-	pWind->SetPen(msgColor, 50);
+
+	color msgColor = MsgColor;
+	if (color::isHexColor(statusMessage))
+		setMsgColor(statusMessage);
+
 	int n = count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2, i = 0;
-	while (getline(ss, line)) {
-		pWind->SetFont(StatusBarHeight, PLAIN, BY_NAME, "Courier New");
-		pWind->DrawString(10, height - StatusBarHeight * (n - i++), line);
-	}
+	stringstream ss(statusMessage);
+	string line;
+	while (getline(ss, line))
+		PrintMessage(line, { 10, height - StatusBarHeight * (n - i++) });
+
+	setMsgColor(msgColor);
+
 	Circle* c = (Circle*)DrawButtons[FILL_SWITCH];
 	c->setDrawColor(DrawColor);
 	c->setFillColor(FillColor, Isfilled);
 	DrawCircle(c);
-	setMsgColor(msgColor);
+}
+
+void GUI::CreateStatusBar() {
+	CreateStatusBar(statusMessage);
 }
 
 void GUI::PrintMessage(string statusMessage)
 {
-	PrintMessage(statusMessage, false);
+	CreateStatusBar(statusMessage);
 }
 
-void GUI::PrintMessage()
+void GUI::PrintMessage(string message, Point pos) const
 {
-	PrintMessage(statusMessage, false);
+	pWind->SetPen(MsgColor, 50);
+	pWind->SetFont(StatusBarHeight, PLAIN, BY_NAME, "Courier New");
+	pWind->DrawString(pos.x, pos.y, message);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ClearStatusMessage()
 {
-	statusMessage = "";
-	PrintMessage();
+	PrintMessage("");
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -294,6 +380,14 @@ void GUI::ClearDrawing() const
 	pWind->SetBrush(BkGrndColor);
 	pWind->DrawRectangle(0, ToolBarHeight, width, height - getStatusBarHeight());
 	pWind->DrawRectangle(DRAW_ICON_COUNT * MenuIconWidth, 0, width, ToolBarHeight);
+}
+int GUI::getWidth() const
+{
+	return width;
+}
+int GUI::getHeight() const
+{
+	return height;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 

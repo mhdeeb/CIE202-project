@@ -6,6 +6,6 @@ class opAddLine : public operation
 {
 public:
 	opAddLine(controller* pCont);
-	virtual ~opAddLine();
-	virtual bool Execute();
+	virtual ~opAddLine() override;
+	virtual bool Execute() override;
 };

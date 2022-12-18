@@ -1,4 +1,5 @@
 #include "opAddRegPoly.h"
+#include "opPrompt.h"
 #include "../Shapes/RegPoly.h"
 #include "../Shapes/Circle.h"
 #include "../Shapes/Line.h"
@@ -25,7 +26,9 @@ bool opAddRegPoly::Execute()
 		}
 		if (pUI->isInDrawArea(p1)) {
 			do {
-				s = pUI->GetSrting("Enter no of vertices(more than 1)");
+				opPrompt prompt = opPrompt(pControl, "Enter no of vertices(more than 1)");
+				prompt.Execute();
+				s = prompt.response();
 				if (s.empty() || !all_of(s.begin(), s.end(), ::isdigit)) {
 					pUI->PrintMessage("Error: Select another operation");
 					return false;

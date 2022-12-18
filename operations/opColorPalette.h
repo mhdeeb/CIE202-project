@@ -6,6 +6,6 @@ class opColorPalette : public operation
 {
 public:
 	opColorPalette(controller*);
-	virtual ~opColorPalette();
-	virtual bool Execute();
+	virtual ~opColorPalette() override;
+	virtual bool Execute() override;
 };

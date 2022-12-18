@@ -5,6 +5,6 @@ class Delete : public operation
 {
 public:
 	Delete(controller* pCont);
-	virtual ~Delete();
-	virtual bool Execute();
+	virtual ~Delete() override;
+	virtual bool Execute() override;
 };

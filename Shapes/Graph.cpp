@@ -51,7 +51,7 @@ void Graph::Refresh(GUI* pUI) const
 		pUI->CreatePlayToolBar();
 	else
 		pUI->CreateDrawToolBar();
-	pUI->PrintMessage();
+	pUI->CreateStatusBar();
 }
 
 vector <shape* > Graph::GetShapeList() const {

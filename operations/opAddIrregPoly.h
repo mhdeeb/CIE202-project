@@ -6,6 +6,6 @@ class opAddIrregPoly : public operation
 {
 public:
 	opAddIrregPoly(controller* pCont);
-	virtual ~opAddIrregPoly();
-	virtual bool Execute();
+	virtual ~opAddIrregPoly() override;
+	virtual bool Execute() override;
 };
