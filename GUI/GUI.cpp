@@ -206,7 +206,7 @@ void GUI::PrintMessage(string statusMessage, bool isTextInput)
 	if (isTextInput) {
 		pWind->SetPen(BLACK, 2);
 		pWind->SetBrush(WHITE);
-		pWind->DrawRectangle(5, height - getStatusBarHeight() + 4, (adaptiveResize) ? 10 * statusMessage.size() + 16 : 49, height - 20, FILLED, 5, 5);
+		pWind->DrawRectangle(5, height - getStatusBarHeight() + 4, (adaptiveResize) ? 10 * statusMessage.size() + 16 : 49, height - 18, FILLED, 5, 5);
 	}
 	pWind->SetPen(msgColor, 50);
 	int n = count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2, i = 0;
@@ -254,18 +254,13 @@ void GUI::LoadDrawToolBar() {
 	DrawMenuIconImages[ICON_LOAD] = new image("images/MenuIcons/Menu_Load.jpg");
 	DrawMenuIconImages[ICON_PLAY_MODE] = new image("images/MenuIcons/Menu_Play.jpg");
 	DrawMenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
-	DrawMenuIconImages[ICON_DRAW_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	DrawMenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
 	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
 }
 void GUI::CreateDrawToolBar()
 {
-	for (int i = 0; i < DRAW_ICON_COUNT; i++) {
-		if (filesystem::exists(DrawMenuIconImages[i]->getPath()))
-			pWind->DrawImage(DrawMenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
-		else
-			pWind->DrawImage(DrawMenuIconImages[ICON_DRAW_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
-	}
+	for (int i = 0; i < DRAW_ICON_COUNT; i++)
+		pWind->DrawImage(DrawMenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -276,17 +271,12 @@ void GUI::LoadPlayToolBar() {
 	PlayMenuIconImages[ICON_START_GAME] = new image("images/PlayMode/Menu_Play.jpg");
 	PlayMenuIconImages[ICON_DRAW_MODE] = new image("images/PlayMode/Menu_Draw_Mode.jpg");
 	PlayMenuIconImages[ICON_EXIT2] = new image("images/MenuIcons/Menu_Exit.jpg");
-	PlayMenuIconImages[ICON_PLAY_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - StatusBarHeight + 18}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
 }
 void GUI::CreatePlayToolBar()
 {
-	for (int i = 0; i < PLAY_ICON_COUNT; i++) {
-		if (filesystem::exists(PlayMenuIconImages[i]->getPath()))
-			pWind->DrawImage(PlayMenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
-		else
-			pWind->DrawImage(PlayMenuIconImages[ICON_PLAY_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
-	}
+	for (int i = 0; i < PLAY_ICON_COUNT; i++)
+		pWind->DrawImage(PlayMenuIconImages[i], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 

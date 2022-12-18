@@ -168,6 +168,9 @@
     <ClCompile Include="operations\opExit.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
+    <ClCompile Include="operations\noOp.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
     <ClCompile Include="operations\opSelect.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
@@ -181,6 +184,12 @@
       <Filter>Operations</Filter>
     </ClCompile>
     <ClCompile Include="operations\SwitchToDrawMode.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opLoad.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opSave.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
   </ItemGroup>
@@ -310,6 +319,9 @@
     <ClInclude Include="operations\opExit.h">
       <Filter>Operations</Filter>
     </ClInclude>
+    <ClInclude Include="operations\noOp.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
     <ClInclude Include="operations\opSelect.h">
       <Filter>Operations</Filter>
     </ClInclude>
@@ -323,6 +335,12 @@
       <Filter>Operations</Filter>
     </ClInclude>
     <ClInclude Include="operations\SwitchToDrawMode.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opLoad.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opSave.h">
       <Filter>Operations</Filter>
     </ClInclude>
   </ItemGroup>

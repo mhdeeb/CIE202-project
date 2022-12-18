@@ -7,6 +7,8 @@
 #include "operations/opAddIrregPoly.h"
 #include "operations/opColorPalette.h"
 #include "operations/opSelect.h"
+#include "operations/opSave.h"
+#include "operations/opLoad.h"
 #include "operations/opExit.h"
 #include "operations/opChangeGpenCol.h"
 #include "operations/opChangeGfillCol.h"
@@ -76,10 +78,10 @@ operation* controller::createOperation(operationType OpType)
 			pOp = new Delete(this);
 			break;
 		case SAVE:
-			//pOp=new Save(this);
+			pOp=new opSave(this);
 			break;
 		case LOAD:
-			//pOp=new Load(this);
+			pOp=new opLoad(this);
 			break;
 		case TO_PLAY:
 			pOp = new SwitchToPlayMode(this);  // this operation is supposed to Clear the draw toolbar and draw the play toolbar

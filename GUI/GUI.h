@@ -66,7 +66,6 @@ public:
 		ICON_EXIT,			//Exit icon
 
 		DRAW_ICON_COUNT,	//no. of menu icons ==> This should be the last line in this enum
-		ICON_DRAW_PLACE_HOLDER,
 		ICON_COLOR_PALETTE,
 		TOTAL_DRAW_ICON_COUNT,
 	};
@@ -92,7 +91,6 @@ public:
 		//TODO: Add more icons names here
 
 		PLAY_ICON_COUNT,		//no. of menu icons ==> This should be the last line in this enum
-		ICON_PLAY_PLACE_HOLDER,
 		TOTAL_PLAY_ICON_COUNT,
 	};
 
