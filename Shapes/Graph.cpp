@@ -47,7 +47,10 @@ void Graph::Refresh(GUI* pUI) const
 {
 	pUI->Clear();
 	Draw(pUI);
-	pUI->CreateDrawToolBar();
+	if (pUI->getInterfaceMode())
+		pUI->CreatePlayToolBar();
+	else
+		pUI->CreateDrawToolBar();
 	pUI->PrintMessage();
 }
 

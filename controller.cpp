@@ -12,6 +12,8 @@
 #include "operations/opChangeGfillCol.h"
 #include "operations/opDelete.h"
 #include "operations/opAddRegPoly.h"
+#include "operations/SwitchToPlayMode.h"
+#include "operations/SwitchToDrawMode.h"
 #include "operations/noOp.h"
 
 //Constructor
@@ -37,55 +39,90 @@ operation* controller::createOperation(operationType OpType)
 	operation* pOp = nullptr;
 
 	//According to operation Type, create the corresponding operation object
-	switch (OpType)
-	{
-	case DRAW_RECT:
-		pOp = new opAddRect(this);
-		break;
-	case DRAW_CIRC:
-		pOp = new opAddCircle(this);
-		break;
-	case DRAW_SQUARE:
-		pOp = new opAddSquare(this);
-		break;
-	case DRAW_LINE:
-		pOp = new opAddLine(this);
-		break;
-	case DRAW_TRIANGLE:
-		pOp = new opAddTri(this);
-		break;
-	case DRAW_REG_POLY:
-		pOp = new opAddRegPoly(this);
-		break;
-	case DRAW_IRREG_POLY:
-		pOp = new opAddIrregPoly(this);
-		break;
-	case DRAW_COLOR_PALETTE:
-		pOp = new opColorPalette(this);
-		break;
-	case CHNG_DRAW_CLR:
-		pOp = new opChangeGpenCol(this);
-		break;
-	case CHNG_FILL_CLR:
-		pOp = new opChangeGfillCol(this);
-		break;
-	case DEL:
-		pOp = new Delete(this);
-		break;
-	case EXIT:
-		pOp = new opExit(this);
-		break;
-	case STATUS:	//a click on the status bar ==> no operation
-		break;
-	case DRAWING_AREA:
-		pOp = new Select(this);
-		break;
-	case EMPTY:
-		pOp = new noOp(this);
-		break;
+	if (!pGUI->getInterfaceMode()) {
+		switch (OpType)
+		{
+		case DRAW_RECT:
+			pOp = new opAddRect(this);
+			break;
+		case DRAW_CIRC:
+			pOp = new opAddCircle(this);
+			break;
+		case DRAW_SQUARE:
+			pOp = new opAddSquare(this);
+			break;
+		case DRAW_LINE:
+			pOp = new opAddLine(this);
+			break;
+		case DRAW_TRIANGLE:
+			pOp = new opAddTri(this);
+			break;
+		case DRAW_REG_POLY:
+			pOp = new opAddRegPoly(this);
+			break;
+		case DRAW_IRREG_POLY:
+			pOp = new opAddIrregPoly(this);
+			break;
+		case DRAW_COLOR_PALETTE:
+			pOp = new opColorPalette(this);
+			break;
+		case CHNG_DRAW_CLR:
+			pOp = new opChangeGpenCol(this);
+			break;
+		case CHNG_FILL_CLR:
+			pOp = new opChangeGfillCol(this);
+			break;
+		case DEL:
+			pOp = new Delete(this);
+			break;
+		case SAVE:
+			//pOp=new Save(this);
+			break;
+		case LOAD:
+			//pOp=new Load(this);
+			break;
+		case TO_PLAY:
+			pOp = new SwitchToPlayMode(this);  // this operation is supposed to Clear the draw toolbar and draw the play toolbar
+			break;
+		case EXIT:
+			pOp = new opExit(this);
+			break;
+		case STATUS:	//a click on the status bar ==> no operation
+			break;
+		case DRAWING_AREA:
+			pOp = new Select(this);
+			break;
+		}
+		return pOp;
 	}
-	return pOp;
-
+	else if (pGUI->getInterfaceMode()) {
+		switch (OpType)
+		{
+		case HIDE:
+			break;
+		case UNHIDE:
+			break;
+		case MATCH:
+			break;
+		case START_GAME:
+			break;
+		case TO_DRAW:
+			pOp = new SwitchToDrawMode(this);  // this operation is supposed to Clear the Play toolbar and draw the Draw toolbar
+			break;
+		case EXIT:
+			pOp = new opExit(this);
+			break;
+		case STATUS:	//a click on the status bar ==> no operation
+			break;
+		case DRAWING_AREA:
+			pOp = new Select(this);
+			break;
+		case EMPTY:
+			pOp = new noOp(this);
+			break;
+		}
+		return pOp;
+	}
 }
 //==================================================================================//
 //							Interface Management Functions							//

@@ -181,6 +181,8 @@
     <ClCompile Include="operations\opExit.cpp" />
     <ClCompile Include="operations\opSelect.cpp" />
     <ClCompile Include="operations\opAddTriangle.cpp" />
+    <ClCompile Include="operations\SwitchToDrawMode.cpp" />
+    <ClCompile Include="operations\SwitchToPlayMode.cpp" />
     <ClCompile Include="Shapes\Circle.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
     <ClCompile Include="Shapes\IrregPoly.cpp" />
@@ -230,6 +232,8 @@
     <ClInclude Include="operations\operation.h" />
     <ClInclude Include="operations\opExit.h" />
     <ClInclude Include="operations\opSelect.h" />
+    <ClInclude Include="operations\SwitchToDrawMode.h" />
+    <ClInclude Include="operations\SwitchToPlayMode.h" />
     <ClInclude Include="Shapes\Circle.h" />
     <ClInclude Include="Shapes\Graph.h" />
     <ClInclude Include="Shapes\IrregPoly.h" />

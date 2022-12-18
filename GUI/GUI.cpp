@@ -10,7 +10,7 @@
 #include "../Shapes/RegPoly.h"
 #include "../operations/opDelete.h"
 
-GUI::GUI(controller* pCont) : pCont(pCont)
+GUI::GUI(controller* pCont): pCont(pCont)
 {
 	//Initialize user interface parameters
 	InterfaceMode = MODE_DRAW;
@@ -129,19 +129,38 @@ operationType GUI::GetUseroperation(int x, int y)
 			case ICON_COLOR_PICKER: return DRAW_COLOR_PALETTE;
 			case ICON_CHANGE_GENERAL_PEN: return CHNG_DRAW_CLR;
 			case ICON_CHANGE_FILL: return CHNG_FILL_CLR;
-			case ICON_PLAY_MODE: return TO_PLAY;
 			case ICON_DELETE:return DEL;
+			case ICON_SAVE:return SAVE;
+			case ICON_LOAD:return LOAD;
+			case ICON_PLAY_MODE: return TO_PLAY;
 			case ICON_EXIT: return EXIT;
 			}
 		}
 		else if (DrawButtons[FILL_SWITCH]->isSelected({ x, y }))
 			Isfilled = !Isfilled;
 	}
-	else	//GUI is in PLAY mode
+
+
+	else if (InterfaceMode == MODE_PLAY)	//GUI is in PLAY mode
 	{
-		/*TODO: perform checks similar to Draw mode checks above
-		and return the correspoding operation*/
-		return TO_PLAY;	//just for now. This should be updated
+		if (y >= 0 && y < ToolBarHeight) {
+			//Check whick Menu icon was clicked
+			 //==> This assumes that menu icons are lined up horizontally <==
+			int ClickedIconOrder = (x / MenuIconWidth);
+			//Divide x coord of the point clicked by the menu icon width (int division)
+			//if division result is 0 ==> first icon is clicked, if 1 ==> 2nd icon and so on
+
+			switch (ClickedIconOrder)
+			{
+			case ICON_HIDE: return HIDE;
+			case ICON_UNHIDE: return UNHIDE;
+			case ICON_MATCH: return MATCH;
+			case ICON_START_GAME: return START_GAME;
+			case ICON_DRAW_MODE: return TO_DRAW;
+			case ICON_EXIT2: return EXIT;
+
+			}
+		}
 	}
 	return EMPTY;
 }
@@ -212,36 +231,46 @@ void GUI::ClearStatusMessage()
 
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::LoadDrawToolBar() {
-	MenuIconImages[ICON_RECT] = new image("images/MenuIcons/Menu_Rectangle.jpg");
-	MenuIconImages[ICON_CIRC] = new image("images/MenuIcons/Menu_Circle.jpg");
-	MenuIconImages[ICON_SQUARE] = new image("images/MenuIcons/Menu_Square.jpg");
-	MenuIconImages[ICON_LINE] = new image("images/MenuIcons/Menu_Line.jpg");
-	MenuIconImages[ICON_TRIANGLE] = new image("images/MenuIcons/Menu_Triangle.jpg");
-	MenuIconImages[ICON_REG_POLY] = new image("images/MenuIcons/Menu_Regular_Polygon.jpg");
-	MenuIconImages[ICON_IRREG_POLY] = new image("images/MenuIcons/Menu_Irregular_Polygon.jpg");
-	MenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Pick.jpg");
-	MenuIconImages[ICON_CHANGE_GENERAL_PEN] = new image("images/MenuIcons/Menu_PenCol.jpg");
-	MenuIconImages[ICON_CHANGE_FILL] = new image("images/MenuIcons/Menu_FillCol.jpg");
-	MenuIconImages[ICON_PLAY_MODE] = new image("images/MenuIcons/Menu_Delete.jpg");
-	MenuIconImages[ICON_DELETE] = new image("images/MenuIcons/Menu_Delete.jpg");
-	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
-	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
-	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
+	DrawMenuIconImages[ICON_RECT] = new image("images/MenuIcons/Menu_Rect.jpg");
+	DrawMenuIconImages[ICON_CIRC] = new image("images/MenuIcons/Menu_Circle.jpg");
+	DrawMenuIconImages[ICON_SQUARE] = new image("images/MenuIcons/Menu_Square.jpg");
+	DrawMenuIconImages[ICON_LINE] = new image("images/MenuIcons/Menu_Line.jpg");
+	DrawMenuIconImages[ICON_TRIANGLE] = new image("images/MenuIcons/Menu_Triangle.jpg");
+	DrawMenuIconImages[ICON_REG_POLY] = new image("images/MenuIcons/Menu_Regular_Polygon.jpg");
+	DrawMenuIconImages[ICON_IRREG_POLY] = new image("images/MenuIcons/Menu_Irregular_Polygon.jpg");
+	DrawMenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Pick.jpg");
+	DrawMenuIconImages[ICON_CHANGE_GENERAL_PEN] = new image("images/MenuIcons/Menu_PenCol.jpg");
+	DrawMenuIconImages[ICON_CHANGE_FILL] = new image("images/MenuIcons/Menu_FillCol.jpg");
+	DrawMenuIconImages[ICON_DELETE] = new image("images/MenuIcons/Menu_Delete.jpg");
+	DrawMenuIconImages[ICON_SAVE] = new image("images/MenuIcons/Menu_Save.jpg");
+	DrawMenuIconImages[ICON_LOAD] = new image("images/MenuIcons/Menu_Load.jpg");
+	DrawMenuIconImages[ICON_PLAY_MODE] = new image("images/MenuIcons/Menu_Play.jpg");
+	DrawMenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
+	DrawMenuIconImages[ICON_DRAW_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
+	DrawMenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
 	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
 }
 void GUI::CreateDrawToolBar()
 {
-	InterfaceMode = MODE_DRAW;
 	for (int i = 0; i < DRAW_ICON_COUNT; i++)
-		pWind->DrawImage((MenuIconImages[i]) ? MenuIconImages[i] : MenuIconImages[ICON_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+		pWind->DrawImage((DrawMenuIconImages[i]) ? DrawMenuIconImages[i] : DrawMenuIconImages[ICON_DRAW_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
+void GUI::LoadPlayToolBar() {
+	PlayMenuIconImages[ICON_HIDE] = new image("images/PlayMode/Menu_Hide.jpg");
+	PlayMenuIconImages[ICON_UNHIDE] = new image("images/PlayMode/Menu_Unhide.jpg");
+	PlayMenuIconImages[ICON_MATCH] = new image("images/PlayMode/Menu_Match.jpg");
+	PlayMenuIconImages[ICON_START_GAME] = new image("images/PlayMode/Menu_Play.jpg");
+	PlayMenuIconImages[ICON_DRAW_MODE] = new image("images/PlayMode/Menu_Draw_Mode.jpg");
+	PlayMenuIconImages[ICON_EXIT2] = new image("images/MenuIcons/Menu_Exit.jpg");
+	PlayMenuIconImages[ICON_PLAY_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
+	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - StatusBarHeight + 18}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
+}
 void GUI::CreatePlayToolBar()
 {
-	InterfaceMode = MODE_PLAY;
 	for (int i = 0; i < PLAY_ICON_COUNT; i++)
-		pWind->DrawImage((MenuIconImages[i]) ? MenuIconImages[i] : MenuIconImages[ICON_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
+		pWind->DrawImage((PlayMenuIconImages[i]) ? PlayMenuIconImages[i] : PlayMenuIconImages[ICON_PLAY_PLACE_HOLDER], i * MenuIconWidth, 0, MenuIconWidth, ToolBarHeight);
 	///TODO: write code to create Play mode menu
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -321,7 +350,7 @@ window* GUI::getWindow() const
 
 image* GUI::getImage(DrawMenuIcon icon) const
 {
-	return MenuIconImages[icon];
+	return DrawMenuIconImages[icon];
 }
 
 bool GUI::isInDrawArea(Point p) {
@@ -377,6 +406,17 @@ void GUI::setIsFilled(bool b)
 void GUI::setPenWidth(int penWidth)
 {
 	PenWidth = penWidth;
+}
+
+void GUI::setInterfaceModeToPlay() {
+	InterfaceMode = MODE_PLAY;
+}
+void GUI::setInterfaceModeToDraw() {
+	InterfaceMode = MODE_DRAW;
+}
+
+int GUI::getInterfaceMode() const {
+	return InterfaceMode;
 }
 
 void GUI::storeImage()
@@ -528,8 +568,10 @@ void GUI::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const
 GUI::~GUI()
 {
 	delete pWind;
-	for (int i = 0; i < ICON_COUNT; ++i)
-		delete MenuIconImages[i];
+	for (int i = 0; i < TOTAL_DRAW_ICON_COUNT; ++i)
+		delete DrawMenuIconImages[i];
 	for (int i = 0; i < DRAW_BUTTONS_COUNT; ++i)
 		delete DrawButtons[i];
+	for (int i = 0; i < TOTAL_PLAY_ICON_COUNT; ++i)
+		delete PlayMenuIconImages[i];
 }

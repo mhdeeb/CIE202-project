@@ -177,6 +177,12 @@
     <ClCompile Include="operations\opDelete.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
+    <ClCompile Include="operations\SwitchToPlayMode.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\SwitchToDrawMode.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -311,6 +317,12 @@
       <Filter>Operations</Filter>
     </ClInclude>
     <ClInclude Include="operations\opAddTriangle.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\SwitchToPlayMode.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\SwitchToDrawMode.h">
       <Filter>Operations</Filter>
     </ClInclude>
   </ItemGroup>
