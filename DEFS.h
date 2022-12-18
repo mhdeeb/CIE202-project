@@ -44,7 +44,7 @@ enum operationType //The operations supported (you can add more if needed)
 
 	///TODO: Add more operation types (if needed)
 };
-enum shapeName {
+enum shapeType {
 	RECTANGLE,
 	CIRCLE,
 	SQUARE,
@@ -52,6 +52,7 @@ enum shapeName {
 	TRIANGLE,
 	REGULAR_POLYGON,
 	IRREGULAR_POLYGON,
+	shapesCount,
 };
 const string ShapesArray[]{
 	"RECTANGLE", 

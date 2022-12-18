@@ -25,12 +25,12 @@ void Graph::Addshape(shape* pShp)
 
 void Graph::deleteSelectedShape()
 {
-	for (size_t i = 0; i < shapesList.size(); i++ ) {
+	for (size_t i = 0; i < shapesList.size(); i++) {
 		if (selectedShape == shapesList[i]) {
 			delete selectedShape;
 			selectedShape = nullptr;
 			//delete a shape from the shapes vector
-			shapesList.erase(shapesList.cbegin()+i);
+			shapesList.erase(shapesList.cbegin() + i);
 			break;
 		}
 	}
@@ -64,7 +64,7 @@ shape* Graph::Getshape(Point p)
 			setSelectedShape(i);
 			return selectedShape;
 		}
-	}	
+	}
 	setSelectedShape(nullptr);
 	return selectedShape;
 }
@@ -73,4 +73,11 @@ void Graph::setSelectedShape(shape* pSsh) {
 }
 shape* Graph::getSelectedShape() const {
 	return selectedShape;
+}
+
+void Graph::Clear() {
+	while (!shapesList.empty()) {
+		delete shapesList.back();
+		shapesList.pop_back();
+	}
 }

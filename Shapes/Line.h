@@ -15,6 +15,8 @@ public:
 	void setPoint2(const Point&);
 	virtual ~Line() override;
 	virtual void Draw(GUI* pUI) const override;
+	virtual string PrintInfo() const override;
 	virtual string Serialize() const override;
 	virtual bool isSelected(Point) const override;
+	static Line* Load(string data);
 };

@@ -6,7 +6,7 @@ class Rect : public shape
 {
 protected:
 	Point p1, p2;
-	shapeName type;
+	shapeType type;
 public:
 	Rect(Point, Point, GfxInfo);
 	Rect() : p1{}, p2{} {}
@@ -17,5 +17,7 @@ public:
 	virtual ~Rect() override;
 	virtual void Draw(GUI* pUI) const override;
 	virtual string Serialize() const override;
+	virtual string PrintInfo() const override;
 	virtual bool isSelected(Point) const override;
+	static Rect* Load(string data);
 };

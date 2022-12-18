@@ -10,4 +10,5 @@ public:
 	virtual ~opPrompt() override;
 	virtual bool Execute() override;
 	string response() const;
+	int isYes() const ;
 };

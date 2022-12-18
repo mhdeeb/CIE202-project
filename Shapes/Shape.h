@@ -12,6 +12,7 @@ protected:
 	int id;
 	//Shape graphics info
 	GfxInfo gfxInfo;
+	void setID(int id);
 public:
 	//Shape constructor
 	shape(GfxInfo gfxInfo = {});
@@ -30,15 +31,9 @@ public:
 	void setDrawColor(color);
 	//Change fill color
 	void setFillColor(color, bool);
-
+	void setGfx(GfxInfo gfxInfo);
 	virtual string Serialize() const = 0;
-
-	////Save the shape parameters to the file
-    //virtual void Save(ofstream &OutFile) = 0;
-    //Load the shape parameters to the file
-    //virtual void Load(ifstream &Infile) = 0;
-
-
+	virtual string PrintInfo() const = 0;
 
 	////Rotate the shape
 	//virtual void Rotate() = 0;
@@ -46,6 +41,4 @@ public:
 	//virtual void Resize() = 0;
 	////Move the shape
 	//virtual void Move() = 0;
-
-
 };

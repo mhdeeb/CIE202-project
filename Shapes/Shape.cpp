@@ -30,3 +30,13 @@ void shape::setFillColor(color fillColor, bool isFilled = true)
 	gfxInfo.isFilled = isFilled;
 	gfxInfo.FillClr = fillColor;
 }
+
+void shape::setGfx(GfxInfo gfxInfo)
+{
+	this->gfxInfo = gfxInfo;
+}
+
+void shape::setID(int ID)
+{
+	id = ID;
+}

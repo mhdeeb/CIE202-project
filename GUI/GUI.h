@@ -9,6 +9,7 @@ class shape;
 class Rect;
 class Circle;
 class Square;
+class Triangle;
 class Line;
 class IrregPoly;
 class Graph;
@@ -156,10 +157,10 @@ public:
 	void DrawRect(const Rect*) const;		//Draw a rectangle
 	void DrawSquare(const Square*) const;     // Draw square
 	void DrawLine(const Line*) const;		//Draw a Line
+	void DrawTriangle(const Triangle* triangle) const;
 	void DrawCircle(const Circle*) const;  //Draw a circle
 	void DrawIrregPoly(const IrregPoly*) const;
 	void DrawRegPoly(const RegPoly*) const;
-	void DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const;
 	///Make similar functions for drawing all other shapes.
 
 	void ClearDrawing() const;
@@ -197,6 +198,8 @@ public:
 
 	void storeImage();
 	void loadImage();
+
+	static shape* ParseShape(string line);
 
 	~GUI();
 };

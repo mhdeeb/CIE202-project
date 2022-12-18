@@ -1,5 +1,7 @@
 #include "Line.h"
 
+#include <sstream>
+
 Line::Line(Point P1, Point P2, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo), Point1(P1), Point2(P2) {}
 Point Line::getPoint1() const
 {
@@ -23,9 +25,15 @@ void Line::Draw(GUI* pUI) const {
 	pUI->DrawLine(this);
 }
 
-string Line::Serialize() const {
+string Line::PrintInfo() const {
 	string color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
 	return format("type: {: <20} fill: {: <20} draw: {: <20} {} {}", ShapesArray[RECTANGLE], color, gfxInfo.DrawClr.hex(), Point1.toString("p1"), Point2.toString("p2"));
+}
+
+string Line::Serialize() const {
+	stringstream ss;
+	ss << ShapesArray[LINE] << ' ' << id << ' ' << Point1.x << ' ' << Point1.y << ' ' << Point2.x << ' ' << Point2.y << ' ' << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
+	return ss.str();
 }
 
 bool Line::isSelected(Point p) const {
@@ -40,4 +48,21 @@ bool Line::isSelected(Point p) const {
 		&& abs(p.y - (slope * p.x + yIntercept)) < 6)
 		return true;
 	return false;
+}
+
+Line* Line::Load(string data)
+{
+	stringstream ss(data);
+	int id, p1x, p1y, p2x, p2y, borderWidth;
+	string draw, fill;
+	bool isFilled;
+	GfxInfo gfx;
+	ss >> id >> p1x >> p1y >> p2x >> p2y >> draw >> isFilled >> fill >> borderWidth;
+	gfx.BorderWdth = borderWidth;
+	gfx.DrawClr = draw;
+	gfx.FillClr = fill;
+	gfx.isFilled = isFilled;
+	Line* shape = new Line({ p1x, p1y }, { p2x, p2y }, gfx);
+	shape->setID(id);
+	return shape;
 }

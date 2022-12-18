@@ -7,6 +7,7 @@
 #include "../Shapes/Circle.h"
 #include "../Shapes/square.h"
 #include "../Shapes/Line.h"
+#include "../Shapes/Triangle.h"
 #include "../Shapes/IrregPoly.h"
 #include "../Shapes/RegPoly.h"
 #include "../operations/opDelete.h"
@@ -641,29 +642,68 @@ void GUI::DrawLine(const Line* line) const
 	pWind->DrawLine(p1.x, p1.y, p2.x, p2.y, FRAME);
 }
 
-void GUI::DrawTriangle(Point P1, Point P2, Point P3, GfxInfo TriGfxInfo) const
+void GUI::DrawTriangle(const Triangle* triangle) const
 {
 	color DrawingClr;
-	if (TriGfxInfo.isSelected)	//shape is selected
+	GfxInfo gfxInfo = triangle->getGfxInfo();
+	if (gfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
-		DrawingClr = TriGfxInfo.DrawClr;
+		DrawingClr = gfxInfo.DrawClr;
 
-	pWind->SetPen(DrawingClr, TriGfxInfo.BorderWdth);	//Set Drawing color & width
+	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
 
 	drawstyle style;
-	if (TriGfxInfo.isFilled)
+	if (gfxInfo.isFilled)
 	{
 		style = FILLED;
-		pWind->SetBrush(TriGfxInfo.FillClr);
+		pWind->SetBrush(gfxInfo.FillClr);
 	}
 	else
 		style = FRAME;
 
-	pWind->DrawTriangle(P1.x, P1.y, P2.x, P2.y, P3.x, P3.y, style);
+	pWind->DrawTriangle(triangle->getPoint(0).x, triangle->getPoint(0).y, triangle->getPoint(1).x, triangle->getPoint(1).y, triangle->getPoint(2).x, triangle->getPoint(2).y, style);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+
+shape* GUI::ParseShape(string line) {
+	stringstream ss(line);
+	string type, rest;
+	ss >> type;
+	getline(ss, rest);
+	getline(ss, rest);
+	shapeType t;
+	shape* sh;
+	for (int i = 0; i < shapesCount; ++i)
+		if (ShapesArray[i] == type)
+			t = (shapeType)i;
+	switch (t) {
+	case RECTANGLE:
+		sh = Rect::Load(rest);
+		break;
+	case CIRCLE:
+		sh = Circle::Load(rest);
+		break;
+	case SQUARE:
+		sh = Square::Load(rest);;
+		break;
+	case LINE:
+		sh = Line::Load(rest);
+		break;
+	case TRIANGLE:
+		sh = Triangle::Load(rest);
+		break;
+	case REGULAR_POLYGON:
+		sh = RegPoly::Load(rest);
+		break;
+	case IRREGULAR_POLYGON:
+		sh = IrregPoly::Load(rest);
+		break;
+	}
+	return sh;
+}
+
 GUI::~GUI()
 {
 	delete pWind;

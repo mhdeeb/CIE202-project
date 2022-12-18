@@ -1,6 +1,7 @@
 #include "IrregPoly.h"
 
 #include <numeric>
+#include <sstream>
 
 IrregPoly::IrregPoly(GfxInfo shapeGfxInfo) : shape(shapeGfxInfo), type(IRREGULAR_POLYGON), center({ 0,0 }) {}
 
@@ -65,13 +66,22 @@ void IrregPoly::Draw(GUI* pUI) const {
 }
 
 
-string IrregPoly::Serialize() const {
+string IrregPoly::PrintInfo() const {
 	string color, data, points = "";
 	color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
 	data = format("type: {: <20} fill: {: <20} draw: {: <20}\n", ShapesArray[type], color, gfxInfo.DrawClr.hex());
 	for (size_t i = 0; i < xpoints.size(); i++)
 		points += getPoint(i).toString(format("p{}", i)) + "  ";
 	return data + points;
+}
+
+string IrregPoly::Serialize() const {
+	stringstream ss;
+	ss << ShapesArray[IRREGULAR_POLYGON] << ' ' << id << ' ' << xpoints.size() << ' ';
+	for (int i = 0; i < xpoints.size(); i++)
+		ss << xpoints[i] << ' ' << ypoints[i] << ' ';
+	ss << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
+	return ss.str();
 }
 
 double IrregPoly::Area(Point p1, Point p2, Point p3) {
@@ -81,6 +91,30 @@ double IrregPoly::Area(Point p1, Point p2, Point p3) {
 void IrregPoly::updateCenter() {
 	center.x = accumulate(xpoints.cbegin(), xpoints.cend(), 0) / xpoints.size();
 	center.y = accumulate(ypoints.cbegin(), ypoints.cend(), 0) / ypoints.size();
+}
+
+IrregPoly* IrregPoly::Load(string data)
+{
+	stringstream ss(data);
+	int id, px, py, n, borderWidth;
+	string draw, fill;
+	bool isFilled;
+	GfxInfo gfx;
+	ss >> id >> n;
+	IrregPoly* shape = new IrregPoly({});
+	for (int i = 0; i < n; i++)
+	{
+		ss >> px >> py;
+		shape->addPoint({ px, py });
+	}
+	ss >> draw >> isFilled >> fill >> borderWidth;
+	gfx.BorderWdth = borderWidth;
+	gfx.DrawClr = draw;
+	gfx.FillClr = fill;
+	gfx.isFilled = isFilled;
+	shape->setGfx(gfx);
+	shape->setID(id);
+	return shape;
 }
 
 bool IrregPoly::isSelected(Point p) const {

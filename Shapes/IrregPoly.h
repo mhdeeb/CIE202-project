@@ -7,7 +7,7 @@ class IrregPoly : public shape
 protected:
 	vector<int> xpoints, ypoints;
 	Point center;
-	shapeName type;
+	shapeType type;
 public:
 	IrregPoly(GfxInfo);
 	const int* getXpoints() const;
@@ -21,7 +21,9 @@ public:
 	virtual ~IrregPoly() override;
 	virtual void Draw(GUI*) const override;
 	virtual bool isSelected(Point) const override;
+	virtual string PrintInfo() const override;
 	virtual string Serialize() const override;
 	static double Area(Point, Point, Point);
 	void updateCenter();
+	static IrregPoly* Load(string data);
 };

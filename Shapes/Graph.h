@@ -19,7 +19,6 @@ public:
 	shape* Getshape(Point p); //Search for a shape given a point inside the shape
 	void setSelectedShape(shape*);
 	shape* getSelectedShape() const;
+	void Clear();
 	vector<shape*> GetShapeList() const;
-	void Save(ofstream& outfile);	//Save all shapes to a file
-	void load(ifstream& inputfile);	//Load all shapes from a file
 };
