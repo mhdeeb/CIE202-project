@@ -17,9 +17,12 @@ bool opAddIrregPoly::Execute()
 	Point p1, p2{ 0, 0 };
 	char ch;
 	while (true) {
-		pUI->CreateStatusBar("Irregular Polygon Selected: Click on graph to start drawing");
-		if (!pUI->GetPointClicked(p1.x, p1.y))return false;
-		if (GUI::isInDrawArea(p1)) {
+		pUI->PrintMessage("Irregular Polygon Selected: Click on graph to start drawing");
+		if (!pUI->GetPointClicked(p1.x, p1.y)) {
+			pUI->ClearStatusMessage();
+			return false;
+		}
+		if (pUI->isInDrawArea(p1)) {
 			GfxInfo gfxInfo;
 			gfxInfo.DrawClr = pUI->getCrntDrawColor();
 			gfxInfo.FillClr = pUI->getCrntFillColor();
@@ -27,8 +30,8 @@ bool opAddIrregPoly::Execute()
 			gfxInfo.isFilled = pUI->getIsfilled();
 			IrregPoly* I = new IrregPoly(gfxInfo);
 			I->addPoint(p1);
-			string msg = format("Point   1: ({:>4},{:>4})  ", p1.x, p1.y);
-			pUI->CreateStatusBar(msg);
+			string msg = format("Point   1: ({: >4}, {: >4})  ", p1.x, p1.y);
+			pUI->PrintMessage(msg);
 			gfxInfo.DrawClr = LIGHTGRAY;
 			Line l{ p1, p2, gfxInfo };
 			Circle c{ p1, 12, gfxInfo };
@@ -38,6 +41,7 @@ bool opAddIrregPoly::Execute()
 				while (pUI->GetLeftClick(p2.x, p2.y)) {
 					if (pUI->GetKeyPress(ch) == ESCAPE) {
 						delete I;
+						pUI->ClearStatusMessage();
 						return false;
 					}
 					I->setPoint(p2, -1);
@@ -45,7 +49,7 @@ bool opAddIrregPoly::Execute()
 					I->Draw(pUI);
 					l.Draw(pUI);
 					pUI->CreateDrawToolBar();
-					pUI->CreateStatusBar(msg + format("Point{:>4}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y));
+					pUI->PrintMessage(msg + format("Point{: >4}: ({: >4}, {: >4})  ", I->getSize(), p2.x, p2.y));
 					c.Draw(pUI);
 					Sleep(16);
 					pUI->loadImage();
@@ -54,10 +58,10 @@ bool opAddIrregPoly::Execute()
 					I->removePoint(-1);
 					break;
 				}
-				msg += format("Point{:>4}: ({:>4},{:>4})  ", I->getSize(), p2.x, p2.y);
+				msg += format("Point{: >4}: ({: >4}, {: >4})  ", I->getSize(), p2.x, p2.y);
 				if (msg.length() > 96)
 					msg = msg.substr(24);
-				pUI->CreateStatusBar(msg);
+				pUI->PrintMessage(msg);
 			}
 			if (I->getSize() > 1)
 				pControl->getGraph()->Addshape(I);
@@ -65,7 +69,9 @@ bool opAddIrregPoly::Execute()
 				delete I;
 			pControl->getGraph()->Refresh(pUI);
 		}
-		else
+		else {
+			pUI->ClearStatusMessage();
 			return true;
+		}
 	}
 }

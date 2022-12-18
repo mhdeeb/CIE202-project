@@ -31,8 +31,7 @@ public:
 	//Change fill color
 	void setFillColor(color, bool);
 
-	////print all shape info on the status bar
-	virtual void PrintInfo(GUI* pUI) const = 0;
+	virtual string Serialize() const = 0;
 
 	////Save the shape parameters to the file
     //virtual void Save(ofstream &OutFile) = 0;

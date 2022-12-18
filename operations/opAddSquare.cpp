@@ -15,9 +15,12 @@ bool opAddSquare::Execute()
 	Point p1, p2{ 0, 0 };
 	char c;
 	while (true) {
-		pUI->CreateStatusBar("Square Selected: Click on graph to start drawing");
-		if (!pUI->GetPointClicked(p1.x, p1.y))return false;
-		if (GUI::isInDrawArea(p1)) {
+		pUI->PrintMessage("Square Selected: Click on graph to start drawing");
+		if (!pUI->GetPointClicked(p1.x, p1.y)) {
+			pUI->ClearStatusMessage();
+			return false;
+		}
+		if (pUI->isInDrawArea(p1)) {
 			pUI->storeImage();
 			GfxInfo gfxInfo;
 			gfxInfo.DrawClr = pUI->getCrntDrawColor();
@@ -28,19 +31,22 @@ bool opAddSquare::Execute()
 			while (pUI->GetLeftClick(p2.x, p2.y)) {
 				if (pUI->GetKeyPress(c) == ESCAPE) {
 					delete S;
+					pUI->ClearStatusMessage();
 					return false;
 				}
 				S->setC2(p2);
 				S->Draw(pUI);
 				pUI->CreateDrawToolBar();
-				pUI->CreateStatusBar(format("Point 1: ({}, {})    Point 2: ({}, {})", p1.x, p1.y, p2.x, p2.y));
+				pUI->PrintMessage(format("Point 1: ({: >4}, {: >4})    Point 2: ({: >4}, {: >4})", p1.x, p1.y, p2.x, p2.y));
 				Sleep(16);
 				pUI->loadImage();
 			}
 			pControl->getGraph()->Addshape(S);
 			pControl->getGraph()->Refresh(pUI);
 		}
-		else
+		else {
+			pUI->ClearStatusMessage();
 			return true;
+		}
 	}
 }

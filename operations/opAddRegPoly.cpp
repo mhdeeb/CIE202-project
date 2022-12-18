@@ -18,13 +18,18 @@ bool opAddRegPoly::Execute()
 	string s;
 	char c;
 	while (true) {
-		pUI->CreateStatusBar("Regular Polygon Selected: Click on graph to start drawing");
-		if (!pUI->GetPointClicked(p1.x, p1.y))return false;
-		if (GUI::isInDrawArea(p1)) {
+		pUI->PrintMessage("Regular Polygon Selected: Click on graph to start drawing");
+		if (!pUI->GetPointClicked(p1.x, p1.y)) {
+			pUI->ClearStatusMessage();
+			return false;
+		}
+		if (pUI->isInDrawArea(p1)) {
 			do {
-				s = pUI->GetSrting("Enter no of vertices(more than 1): ");
-				if (s.empty() || !all_of(s.begin(), s.end(), ::isdigit))
+				s = pUI->GetSrting("Enter no of vertices(more than 1)");
+				if (s.empty() || !all_of(s.begin(), s.end(), ::isdigit)) {
+					pUI->PrintMessage("Error: Select another operation");
 					return false;
+				}
 			} while ((n = stoi(s)) < 2);
 			GfxInfo gfxInfo;
 			gfxInfo.DrawClr = pUI->getCrntDrawColor();
@@ -37,20 +42,23 @@ bool opAddRegPoly::Execute()
 			while (pUI->GetLeftClick(p2.x, p2.y)) {
 				if (pUI->GetKeyPress(c) == ESCAPE) {
 					delete R;
+					pUI->ClearStatusMessage();
 					return false;
 				}
 				radius = p1.distance(p2);
 				R->update(p1, radius);
 				R->Draw(pUI);
 				pUI->CreateDrawToolBar();
-				pUI->CreateStatusBar(format("Point 1: ({:>4},{:>4})  Point 2: ({:>4},{:>4})  Radius:{:4.1f}", p1.x, p1.y, p2.x, p2.y, radius));
+				pUI->PrintMessage(format("Point 1: ({: >4}, {: >4})  Point 2: ({: >4}, {: >4})  Radius: {:4.1f}", p1.x, p1.y, p2.x, p2.y, radius));
 				Sleep(16);
 				pUI->loadImage();
 			}
 			pControl->getGraph()->Addshape(R);
 			pControl->getGraph()->Refresh(pUI);
 		}
-		else
+		else {
+			pUI->ClearStatusMessage();
 			return true;
+		}
 	}
 }

@@ -1,19 +1,12 @@
 #pragma once
 
-#include "Shape.h"
+#include "Rect.h"
 
-class Square : public shape
+class Square : public Rect
 {
 	Point p1, p2;
 
 public:
 	Square(Point, Point, GfxInfo);
-	Point getC1() const;
-	Point getC2() const;
-	void setC1(const Point&);
-	void setC2(const Point&);
 	virtual ~Square() override;
-	virtual void Draw(GUI*) const override;
-	virtual void PrintInfo(GUI* pUI) const override;
-	virtual bool isSelected(Point) const override;
 };

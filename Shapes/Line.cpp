@@ -23,8 +23,9 @@ void Line::Draw(GUI* pUI) const {
 	pUI->DrawLine(this);
 }
 
-void Line::PrintInfo(GUI* pUI) const {
-	pUI->PrintMessage("");
+string Line::Serialize() const {
+	string color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
+	return format("type: {: <20} fill: {: <20} draw: {: <20} {} {}", ShapesArray[RECTANGLE], color, gfxInfo.DrawClr.hex(), Point1.toString("p1"), Point2.toString("p2"));
 }
 
 bool Line::isSelected(Point p) const {

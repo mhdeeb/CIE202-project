@@ -12,5 +12,4 @@ public:
 	void update(Point center, double radius);
 	virtual ~RegPoly() override;
 	virtual void Draw(GUI*) const override;
-	virtual void PrintInfo(GUI* pUI) const override;
 };

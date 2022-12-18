@@ -3,7 +3,7 @@
 #include <format>
 using namespace std;
 
-Rect::Rect(Point p1, Point p2, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo), p1(p1), p2(p2) {}
+Rect::Rect(Point p1, Point p2, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo), p1(p1), p2(p2), type(RECTANGLE) {}
 
 Point Rect::getC1() const
 {
@@ -31,9 +31,9 @@ void Rect::Draw(GUI* pUI) const {
 	pUI->DrawRect(this);
 }
 
-void Rect::PrintInfo(GUI* pUI) const {
-
-	pUI->PrintMessage(format("type: {}  Filled?: {}  Fill Col:{}  Draw clr: {}\n Point1: ({},{}) Point2: ({},{})", ShapesArray[RECTANGLE], gfxInfo.isFilled, gfxInfo.FillClr.hex(), gfxInfo.DrawClr.hex(), p1.x, p1.y, p2.x, p2.y));
+string Rect::Serialize() const {
+	string color = (gfxInfo.isFilled)? gfxInfo.FillClr.hex() : "null";
+	return format("type: {: <20} fill: {: <20} draw: {: <20} {} {}", ShapesArray[type], color, gfxInfo.DrawClr.hex(), p1.toString("p1"), p2.toString("p2"));
 }
 
 bool Rect::isSelected(Point p) const {

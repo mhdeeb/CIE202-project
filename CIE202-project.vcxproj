@@ -167,6 +167,7 @@
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="operations\noOp.cpp" />
     <ClCompile Include="operations\opAddCircle.cpp" />
     <ClCompile Include="operations\opAddIrregPoly.cpp" />
     <ClCompile Include="operations\opAddLine.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="operations\noOp.h" />
     <ClInclude Include="operations\opAddCircle.h" />
     <ClInclude Include="operations\opAddIrregPoly.h" />
     <ClInclude Include="operations\opAddLine.h" />

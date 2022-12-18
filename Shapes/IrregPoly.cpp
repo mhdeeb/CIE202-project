@@ -2,7 +2,7 @@
 
 #include <numeric>
 
-IrregPoly::IrregPoly(GfxInfo shapeGfxInfo) : shape(shapeGfxInfo) {}
+IrregPoly::IrregPoly(GfxInfo shapeGfxInfo) : shape(shapeGfxInfo), type(IRREGULAR_POLYGON), center({ 0,0 }) {}
 
 const int* IrregPoly::getXpoints() const
 {
@@ -65,8 +65,13 @@ void IrregPoly::Draw(GUI* pUI) const {
 }
 
 
-void IrregPoly::PrintInfo(GUI* pUI) const {
-	pUI->PrintMessage("");
+string IrregPoly::Serialize() const {
+	string color, data, points = "";
+	color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
+	data = format("type: {: <20} fill: {: <20} draw: {: <20}\n", ShapesArray[type], color, gfxInfo.DrawClr.hex());
+	for (size_t i = 0; i < xpoints.size(); i++)
+		points += getPoint(i).toString(format("p{}", i)) + "  ";
+	return data + points;
 }
 
 double IrregPoly::Area(Point p1, Point p2, Point p3) {

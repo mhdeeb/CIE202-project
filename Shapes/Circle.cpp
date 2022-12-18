@@ -1,4 +1,5 @@
 #include "Circle.h"
+//#include <format>
 
 Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo), origin(origin), radius(radius) {}
 
@@ -28,10 +29,10 @@ void Circle::Draw(GUI* pUI) const {
 	pUI->DrawCircle(this);
 }
 
-void Circle::PrintInfo(GUI* pUI) const {
-	pUI->PrintMessage("");
+string Circle::Serialize() const {
+	string color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
+	return format("type: {: <20} fill: {: <20} draw: {: <20} {} radius: {:3.3f}", ShapesArray[CIRCLE], color, gfxInfo.DrawClr.hex(), origin.toString("center"), radius);
 }
-
 
 bool Circle::isSelected(Point p) const {
 	if (p.distance(origin) <= radius)

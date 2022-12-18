@@ -15,22 +15,14 @@ class Graph;
 class RegPoly;
 class controller;
 
-inline const int width = 1300, height = 700,
-wx = 5, wy = 5,
-StatusBarHeight = 50, ToolBarHeight = 50,
-MenuIconWidth = 80;
-
 struct Point
 {
 	int x, y;
-	int& getX() {
-		return x;
-	}
-	int& getY() {
-		return y;
-	}
-	double distance(const Point& p2) {
+	double distance(const Point& p2) const {
 		return sqrt(pow(p2.x - x, 2) + pow(p2.y - y, 2));
+	}
+	string toString(string name) const {
+		return format("{}: ({: >4}, {: >4})", name, x, y);
 	}
 };
 
@@ -94,6 +86,13 @@ public:
 	};
 
 private:
+	int width,
+		height,
+		wx,
+		wy,
+		StatusBarHeight,
+		ToolBarHeight,
+		MenuIconWidth;
 	GUI_MODE InterfaceMode;
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
@@ -120,9 +119,9 @@ public:
 	bool GetLeftClick(int&, int&);
 	//Get coordinate where user clicks
 
-	void getMouseLocation(int &x, int &y);
+	void getMouseLocation(int& x, int& y);
 
-	string GetSrting(string msg="Taking Input...");	 //Returns a string entered by the user
+	string GetSrting(string msg);	 //Returns a string entered by the user
 	operationType GetUseroperation(int, int); //Read the user click and map to an operation
 
 	// Output Functions  ---------------------------
@@ -131,12 +130,12 @@ public:
 	//creates the application window
 	void CreateDrawToolBar();	//creates Draw mode toolbar & menu
 	void CreatePlayToolBar();	//creates Play mode toolbar & menu
-	void CreateStatusBar(string, Rect) const;	//create the status bar
-	void CreateStatusBar(string) const;
-	void CreateStatusBar() const;
+	void PrintMessage(string, bool);	//create the status bar
+	void PrintMessage(string);
+	void PrintMessage();
 
 	void Clear() const;	//Clears the display
-	void ClearStatusBar();
+	void ClearStatusMessage();
 
 	// -- shapes Drawing functions
 	void DrawRect(const Rect*) const;		//Draw a rectangle
@@ -150,8 +149,6 @@ public:
 
 	void ClearDrawing() const;
 
-	void PrintMessage(string msg); //Print a message on Status bar
-
 	color getCrntDrawColor() const;		//get current drwawing color
 	color getCrntFillColor() const;		//get current filling color
 	bool getIsfilled() const;
@@ -159,11 +156,12 @@ public:
 	color getMsgColor() const;			//get current message color
 	color getSelectedColor() const;
 	string getStatusMessage() const;	//get current message color
+	int getStatusBarHeight() const;
 	color getClickedColor(int&, int&);
-	color getHoverColor(int&, int &);
+	color getHoverColor(int&, int&);
 	window* getWindow() const;
 	image* getImage(DrawMenuIcon) const;
-	static bool isInDrawArea(Point);
+	bool isInDrawArea(Point);
 	shape* getDrawButton(DrawButton);
 
 	void setDrawColor(color);

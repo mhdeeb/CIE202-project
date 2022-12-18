@@ -17,15 +17,18 @@ bool opAddTri::Execute()
 	char c;
 	while (true) {
 		pUI->PrintMessage("New Triangle: Click at first point");
-		if (!pUI->GetPointClicked(p1.x, p1.y))return false;
-		if (GUI::isInDrawArea(p1)) {
+		if (!pUI->GetPointClicked(p1.x, p1.y)) {
+			pUI->ClearStatusMessage();
+			return false;
+		}
+		if (pUI->isInDrawArea(p1)) {
 			pUI->storeImage();
 			GfxInfo gfxInfo;
 			gfxInfo.DrawClr = pUI->getCrntDrawColor();
 			gfxInfo.FillClr = pUI->getCrntFillColor();
 			gfxInfo.BorderWdth = pUI->getCrntPenWidth();
 			gfxInfo.isFilled = pUI->getIsfilled();
-			string msg = format("Point  1: ({:>4},{:>4})  ", p1.x, p1.y);
+			string msg = format("Point  1: ({: >4},{: >4})  ", p1.x, p1.y);
 			Triangle* T = new Triangle(gfxInfo);
 			T->addPoint(p1);
 			for (int i = 0; i < 2; ++i)
@@ -34,21 +37,24 @@ bool opAddTri::Execute()
 				while (pUI->GetLeftClick(p2.x, p2.y)) {
 					if (pUI->GetKeyPress(c) == ESCAPE) {
 						delete T;
+						pUI->ClearStatusMessage();
 						return false;
 					}
 					T->setPoint(p2, -1);
 					T->Draw(pUI);
 					pUI->CreateDrawToolBar();
-					pUI->CreateStatusBar(msg + format("Point{:>3}: ({:>4},{:>4})  ", T->getSize(), p2.x, p2.y));
+					pUI->PrintMessage(msg + format("Point{: >4}: ({: >4}, {: >4})  ", T->getSize(), p2.x, p2.y));
 					Sleep(16);
 					pUI->loadImage();
 				}
-				msg += format("Point {:>3}: ({:>4},{:>4})  ", T->getSize(), p2.x, p2.y);
+				msg += format("Point {: >4}: ({: >4}, {: >4})  ", T->getSize(), p2.x, p2.y);
 			}
 			pControl->getGraph()->Addshape(T);
 			pControl->getGraph()->Refresh(pUI);
 		}
-		else
-			return true;;
+		else {
+			pUI->ClearStatusMessage();
+			return true;
+		}
 	}
 }

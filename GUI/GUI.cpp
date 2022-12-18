@@ -10,7 +10,7 @@
 #include "../Shapes/RegPoly.h"
 #include "../operations/opDelete.h"
 
-GUI::GUI(controller* pCont): pCont(pCont)
+GUI::GUI(controller* pCont) : pCont(pCont)
 {
 	//Initialize user interface parameters
 	InterfaceMode = MODE_DRAW;
@@ -23,12 +23,20 @@ GUI::GUI(controller* pCont): pCont(pCont)
 	StatusBarColor = LIGHTSEAGREEN;
 	PenWidth = 3;	//default width of the shapes frames
 	perviousLeftButtonState = BUTTON_UP;
+	width = 1300;
+	height = 700;
+	wx = 5;
+	wy = 5;
+	StatusBarHeight = 20;
+	ToolBarHeight = 50;
+	MenuIconWidth = 80;
 	LoadDrawToolBar();
 	//Create the output window
 	pWind = CreateWind(width, height, wx, wy);
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 	CreateDrawToolBar();
+	PrintMessage("Welcome to Draw Mode!\nSelect an operation...");
 }
 
 
@@ -64,7 +72,7 @@ bool GUI::GetLeftClick(int& x, int& y)
 	return prev || !currentLeftButtonState;
 }
 
-void GUI::getMouseLocation(int &x, int &y)
+void GUI::getMouseLocation(int& x, int& y)
 {
 	pWind->GetMouseCoord(x, y);
 }
@@ -90,7 +98,7 @@ string GUI::GetSrting(string msg)
 				Key = '\0';
 		else
 			Label += Key;
-		PrintMessage(Label);
+		PrintMessage(Label, true);
 	}
 }
 
@@ -99,8 +107,9 @@ operationType GUI::GetUseroperation(int x, int y)
 {
 	if (InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
-		//[1] If user clicks on the Toolbar
-		if (y >= 0 && y < ToolBarHeight)
+		if (isInDrawArea({ x, y }))
+			return DRAWING_AREA;
+		else if (y >= 0 && y < ToolBarHeight)
 		{
 			//Check whick Menu icon was clicked
 			//==> This assumes that menu icons are lined up horizontally <==
@@ -125,12 +134,7 @@ operationType GUI::GetUseroperation(int x, int y)
 			case ICON_EXIT: return EXIT;
 			}
 		}
-
-		//[2] User clicks on the drawing area
-		if (y >= ToolBarHeight && y < height - StatusBarHeight)
-			return DRAWING_AREA;
-
-		if (DrawButtons[FILL_SWITCH]->isSelected({ x, y }))
+		else if (DrawButtons[FILL_SWITCH]->isSelected({ x, y }))
 			Isfilled = !Isfilled;
 	}
 	else	//GUI is in PLAY mode
@@ -158,42 +162,52 @@ window* GUI::CreateWind(int w, int h, int x, int y) const
 	return pW;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void GUI::CreateStatusBar(string statusMessage, Rect textInput) const
+void GUI::PrintMessage(string statusMessage, bool isTextInput)
 {
+	this->statusMessage = statusMessage;
+	if (isTextInput && !statusMessage.size())
+		statusMessage = "Enter Input: ";
+	color msgColor = MsgColor;
+	if (color::isHexColor(statusMessage))
+		setMsgColor(statusMessage);
 	stringstream ss(statusMessage);
 	string line;
-	getline(ss, line);
-	Point c1 = textInput.getC1(), c2 = textInput.getC2();
-	GfxInfo gfxInfo = textInput.getGfxInfo();
+	bool adaptiveResize = statusMessage.size() > 3;
 	pWind->SetPen(StatusBarColor, 1);
 	pWind->SetBrush(StatusBarColor);
-	pWind->DrawRectangle(0, height - StatusBarHeight, width, height);
-	pWind->SetPen(gfxInfo.DrawClr, gfxInfo.BorderWdth);
-	pWind->SetBrush(gfxInfo.FillClr);
-	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y);
-	pWind->SetPen(MsgColor, 50);
-	pWind->SetFont(24, BOLD, BY_NAME, "Arial");
-	pWind->DrawString(10, height - (int)(0.9 * StatusBarHeight), statusMessage);
+	pWind->DrawRectangle(0, height - getStatusBarHeight(), width - 12, height, FILLED, 20, 20);
+	if (isTextInput) {
+		pWind->SetPen(BLACK, 2);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(5, height - getStatusBarHeight(), (adaptiveResize) ? 11 * (statusMessage.size() + 1) : 49, height - 20, FILLED, 20, 20);
+	}
+	pWind->SetPen(msgColor, 50);
+	int n = count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2, i = 0;
+	while (getline(ss, line)) {
+		pWind->SetFont(StatusBarHeight, PLAIN, BY_NAME, "Courier New");
+		pWind->DrawString(10, height - StatusBarHeight * (n - i++), line);
+	}
 	Circle* c = (Circle*)DrawButtons[FILL_SWITCH];
 	c->setDrawColor(DrawColor);
 	c->setFillColor(FillColor, Isfilled);
 	DrawCircle(c);
+	setMsgColor(msgColor);
 }
 
-void GUI::CreateStatusBar(string statusMessage) const
+void GUI::PrintMessage(string statusMessage)
 {
-	CreateStatusBar(statusMessage, {});
+	PrintMessage(statusMessage, false);
 }
 
-void GUI::CreateStatusBar() const
+void GUI::PrintMessage()
 {
-	CreateStatusBar(statusMessage, {});
+	PrintMessage(statusMessage, false);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-void GUI::ClearStatusBar()
+void GUI::ClearStatusMessage()
 {
-	//Clear Status bar message
 	statusMessage = "";
+	PrintMessage();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -213,7 +227,7 @@ void GUI::LoadDrawToolBar() {
 	MenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	MenuIconImages[ICON_PLACE_HOLDER] = new image("images/MenuIcons/Placeholder.jpg");
 	MenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
-	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - StatusBarHeight + 18}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
+	DrawButtons[FILL_SWITCH] = new Circle{ {width - 30, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth } };
 }
 void GUI::CreateDrawToolBar()
 {
@@ -244,26 +258,8 @@ void GUI::ClearDrawing() const
 {
 	pWind->SetPen(BkGrndColor, 1);
 	pWind->SetBrush(BkGrndColor);
-	pWind->DrawRectangle(0, ToolBarHeight, width, height - StatusBarHeight);
+	pWind->DrawRectangle(0, ToolBarHeight, width, height - getStatusBarHeight());
 	pWind->DrawRectangle(DRAW_ICON_COUNT * MenuIconWidth, 0, width, ToolBarHeight);
-}
-//////////////////////////////////////////////////////////////////////////////////////////
-void GUI::PrintMessage(string msg) //Prints a message on status bar
-{
-	statusMessage = msg;
-	if (color::isHexColor(msg))	//Preview written color
-	{
-		GfxInfo r;
-		r.FillClr = WHITE;
-		Rect rect = Rect({ 10, height - StatusBarHeight + 10 }, { 90, height - StatusBarHeight + 50 }, r);
-		DrawRect(&rect);
-		color msgColor = getMsgColor();
-		setMsgColor(msg);
-		CreateStatusBar(msg);
-		setMsgColor(msgColor);
-	}
-	else
-		CreateStatusBar(msg);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -297,6 +293,12 @@ string GUI::getStatusMessage() const
 	return statusMessage;
 }
 
+int GUI::getStatusBarHeight() const
+{
+	int n = count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2;
+	return StatusBarHeight * n + 5;
+}
+
 color GUI::getClickedColor(int& x, int& y)
 {
 	pWind->WaitMouseClick(x, y);
@@ -323,7 +325,7 @@ image* GUI::getImage(DrawMenuIcon icon) const
 }
 
 bool GUI::isInDrawArea(Point p) {
-	return  height - StatusBarHeight > p.y && (p.y > ToolBarHeight || p.x > DRAW_ICON_COUNT * MenuIconWidth);
+	return  height - getStatusBarHeight() > p.y && (p.y > ToolBarHeight || p.x > DRAW_ICON_COUNT * MenuIconWidth);
 }
 
 shape* GUI::getDrawButton(DrawButton button)
@@ -379,12 +381,12 @@ void GUI::setPenWidth(int penWidth)
 
 void GUI::storeImage()
 {
-	pWind->StoreImage(storedImage, 0, 0, width, height - StatusBarHeight);
+	pWind->StoreImage(storedImage, 0, 0, width, height - getStatusBarHeight());
 }
 
 void GUI::loadImage()
 {
-	pWind->DrawImage(storedImage, 0, 0, width, height - StatusBarHeight);
+	pWind->DrawImage(storedImage, 0, 0, width, height - getStatusBarHeight());
 }
 
 //======================================================================================//
@@ -413,6 +415,7 @@ void GUI::DrawRect(const Rect* rect) const
 		style = FRAME;
 	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style);
 }
+
 void GUI::DrawSquare(const Square* Square) const
 {
 	color DrawingClr;

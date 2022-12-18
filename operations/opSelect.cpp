@@ -23,7 +23,9 @@ bool Select::Execute() {
 	}
 	if (pSsh) {
 		pSsh->SetSelected(true);
-		pSsh->PrintInfo(pUI);
+		pUI->PrintMessage(pSsh->Serialize());
 	}
+	else
+		pUI->PrintMessage("Select an operation.");
 	return false;
 }

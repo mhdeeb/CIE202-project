@@ -12,6 +12,7 @@
 #include "operations/opChangeGfillCol.h"
 #include "operations/opDelete.h"
 #include "operations/opAddRegPoly.h"
+#include "operations/noOp.h"
 
 //Constructor
 controller::controller()
@@ -79,6 +80,9 @@ operation* controller::createOperation(operationType OpType)
 	case DRAWING_AREA:
 		pOp = new Select(this);
 		break;
+	case EMPTY:
+		pOp = new noOp(this);
+		break;
 	}
 	return pOp;
 
@@ -126,10 +130,8 @@ void controller::Run()
 	bool skipInput = false;
 	do
 	{
-		if (!skipInput) {
-			pGUI->GetPointClicked(x, y);
-		}
-
+		if (!skipInput)
+			while(!pGUI->GetPointClicked(x, y));
 		else
 			pGUI->getMouseLocation(x, y);
 		OpType = GetUseroperation(x, y);
@@ -143,7 +145,6 @@ void controller::Run()
 			delete pOpr;
 			pOpr = nullptr;
 		}
-
 		UpdateInterface();
 	} while (isRunning);
 }

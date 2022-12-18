@@ -2,6 +2,7 @@
 #include <numbers>
 
 RegPoly::RegPoly(Point center, int vertices, GfxInfo shapeGfxInfo, double radius) : IrregPoly(shapeGfxInfo), r(radius), c(center), v(vertices) {
+	type = REGULAR_POLYGON;
 	for (double theta = 0; theta < 2 * numbers::pi; theta += 2 * numbers::pi / v)
 		addPoint({ int(r * cos(theta) + c.x), int(r * sin(theta) + c.y) });
 }
@@ -19,8 +20,4 @@ RegPoly::~RegPoly() {
 
 void RegPoly::Draw(GUI* pUI) const {
 	pUI->DrawRegPoly(this);
-}
-
-void RegPoly::PrintInfo(GUI* pUI) const {
-	pUI->PrintMessage("");
 }
