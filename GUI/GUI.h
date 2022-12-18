@@ -67,14 +67,16 @@ public:
 		ICON_COLOR_PICKER,
 		ICON_CHANGE_GENERAL_PEN,
 		ICON_CHANGE_FILL,
-		ICON_PLAY_MODE,
 		ICON_DELETE,
+		ICON_SAVE,
+		ICON_LOAD,
+		ICON_PLAY_MODE,
 		ICON_EXIT,			//Exit icon
 
 		DRAW_ICON_COUNT,	//no. of menu icons ==> This should be the last line in this enum
-		ICON_PLACE_HOLDER,
+		ICON_DRAW_PLACE_HOLDER,
 		ICON_COLOR_PALETTE,
-		ICON_COUNT,
+		TOTAL_DRAW_ICON_COUNT,
 	};
 
 	const enum DrawButton {
@@ -84,13 +86,22 @@ public:
 
 	const enum PlayMenuIcon //The icons of the Play menu (you should add more icons)
 	{
+		ICON_HIDE,
+		ICON_UNHIDE,
+		ICON_MATCH,
+		ICON_START_GAME,
+		ICON_DRAW_MODE,
+		ICON_EXIT2,
+
+
 		//Note: Icons are ordered here as they appear in menu
 		//If you want to change the menu icons order, change the order here
 
 		//TODO: Add more icons names here
 
-		PLAY_ICON_COUNT		//no. of menu icons ==> This should be the last line in this enum
-
+		PLAY_ICON_COUNT,		//no. of menu icons ==> This should be the last line in this enum
+		ICON_PLAY_PLACE_HOLDER,
+		TOTAL_PLAY_ICON_COUNT,
 	};
 
 private:
@@ -106,7 +117,8 @@ private:
 	int PenWidth;			//width of the pen that draws shapes
 	string statusMessage;
 	buttonstate perviousLeftButtonState;
-	image* MenuIconImages[ICON_COUNT]{};
+	image* DrawMenuIconImages[TOTAL_DRAW_ICON_COUNT]{};
+	image* PlayMenuIconImages[TOTAL_PLAY_ICON_COUNT]{};
 	shape* DrawButtons[DRAW_BUTTONS_COUNT]{};
 	window* pWind;
 	image storedImage;
@@ -127,7 +139,9 @@ public:
 
 	// Output Functions  ---------------------------
 	window* CreateWind(int, int, int, int) const;
+
 	void LoadDrawToolBar();
+	void LoadPlayToolBar();
 	//creates the application window
 	void CreateDrawToolBar();	//creates Draw mode toolbar & menu
 	void CreatePlayToolBar();	//creates Play mode toolbar & menu
@@ -175,6 +189,11 @@ public:
 	void setSelectedColor(color);
 	void setIsFilled(bool);
 	void setPenWidth(int);
+
+	void setInterfaceModeToPlay();
+	void setInterfaceModeToDraw();
+	int getInterfaceMode() const;
+
 	void storeImage();
 	void loadImage();
 
