@@ -154,7 +154,7 @@ public:
 	void ClearStatusMessage();
 
 	// -- shapes Drawing functions
-	void DrawRect(const Rect*) const;		//Draw a rectangle
+	void DrawRect(const Rect*, int iWidth = 0, int iHeight = 0) const;		//Draw a rectangle
 	void DrawSquare(const Square*) const;     // Draw square
 	void DrawLine(const Line*) const;		//Draw a Line
 	void DrawTriangle(const Triangle* triangle) const;

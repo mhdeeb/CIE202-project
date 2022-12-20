@@ -549,7 +549,7 @@ void GUI::loadImage()
 //								shapes Drawing Functions								//
 //======================================================================================//
 
-void GUI::DrawRect(const Rect* rect) const
+void GUI::DrawRect(const Rect* rect, int iWidth, int iHeight) const
 {
 	color DrawingClr;
 	GfxInfo gfxInfo = rect->getGfxInfo();
@@ -569,7 +569,7 @@ void GUI::DrawRect(const Rect* rect) const
 	}
 	else
 		style = FRAME;
-	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style);
+	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style, iWidth, iHeight);
 }
 
 void GUI::DrawSquare(const Square* Square) const
