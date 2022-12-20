@@ -157,7 +157,7 @@ string GUI::GetString(string message)
 			}
 		}
 		else if (Key == 8)
-			if (Label.size() > 0 && caret) {
+			if (Label.size() > 0) {
 				Label.erase(Label.begin() + caret + offset - 1);
 				caret--;
 				if (caret == -1) {
