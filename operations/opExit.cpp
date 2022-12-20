@@ -13,10 +13,9 @@ bool opExit::Execute()
 	GUI* pUI = pControl->GetUI();
 	opPrompt prompt = opPrompt(pControl, "Do you want to save before you exit? y/n");
 	prompt.Execute();
-	string choice = prompt.response();
-	if (choice == "y")
+	if (prompt.isYes())
 		opSave(pControl).Execute();
-	else if (choice != "n")
+	else
 		return false;
 	Graph* graph = pControl->getGraph();
 	pUI->getWindow();

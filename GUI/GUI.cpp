@@ -38,7 +38,7 @@ GUI::GUI(controller* pCont) : pCont(pCont)
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 	CreateDrawToolBar();
-	PrintMessage("Welcome to Draw Mode!\n\nSelect an operation.\n\nPress esc to cancel operations.");
+	PrintMessage("Welcome to Draw Mode!\n\nPress esc to cancel operations.");
 }
 
 //======================================================================================//
