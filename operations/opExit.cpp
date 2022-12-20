@@ -10,15 +10,13 @@ opExit::~opExit()
 
 bool opExit::Execute()
 {
-	GUI* pUI = pControl->GetUI();
-	opPrompt prompt = opPrompt(pControl, "Do you want to save before you exit? y/n");
+	auto prompt = opPrompt(pControl, "Do you want to save before you exit? y/n");
 	prompt.Execute();
-	if (prompt.isYes())
+	if (prompt.isYes() == 1)
 		opSave(pControl).Execute();
-	else
+	else if (prompt.isYes() == -1)
 		return false;
-	Graph* graph = pControl->getGraph();
-	pUI->getWindow();
+	pControl->GetUI()->getWindow();
 	pControl->close();
 	return false;
 }
