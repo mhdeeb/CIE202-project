@@ -28,7 +28,7 @@ bool opAddCircle::Execute()
 			gfxInfo.BorderWdth = pUI->getCrntPenWidth();
 			gfxInfo.isFilled = pUI->getIsfilled();
 			Circle* C = new Circle(p1, 0, gfxInfo);
-			while (pUI->GetLeftClick(p2.x, p2.y)) {
+			while (pUI->MouseDrag(p2.x, p2.y)) {
 				if (pUI->GetKeyPress(c) == ESCAPE) {
 					delete C;
 					pUI->ClearStatusMessage();

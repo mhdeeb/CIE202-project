@@ -8,16 +8,23 @@
 
 opAddRegPoly::opAddRegPoly(controller* pCont) :operation(pCont)
 {}
-opAddRegPoly::~opAddRegPoly()
-{}
+opAddRegPoly::~opAddRegPoly() = default;
 
 bool opAddRegPoly::Execute()
 {
 	GUI* pUI = pControl->GetUI();
-	Point p1, p2{ 0, 0 };
-	int n;
+	Point p1;
+	Point p2{ 0, 0 };
 	string s;
 	char c;
+	auto prompt = opPrompt(pControl, "Enter no of vertices(more than 1)");
+	prompt.Execute();
+	s = prompt.response();
+	if (s.empty() || !std::ranges::all_of(s.begin(), s.end(), ::isdigit) || std::stoi(s) < 2) {
+		pUI->PrintMessage("Error, bad argument: Select another operation");
+		return false;
+	}
+	int n = std::stoi(s);
 	while (true) {
 		pUI->PrintMessage("Regular Polygon Selected: Click on graph to start drawing");
 		if (!pUI->GetPointClicked(p1.x, p1.y)) {
@@ -25,15 +32,6 @@ bool opAddRegPoly::Execute()
 			return false;
 		}
 		if (pUI->isInDrawArea(p1)) {
-			do {
-				opPrompt prompt = opPrompt(pControl, "Enter no of vertices(more than 1)");
-				prompt.Execute();
-				s = prompt.response();
-				if (s.empty() || !all_of(s.begin(), s.end(), ::isdigit)) {
-					pUI->PrintMessage("Error: Select another operation");
-					return false;
-				}
-			} while ((n = stoi(s)) < 2);
 			GfxInfo gfxInfo;
 			gfxInfo.DrawClr = pUI->getCrntDrawColor();
 			gfxInfo.FillClr = pUI->getCrntFillColor();
@@ -42,7 +40,7 @@ bool opAddRegPoly::Execute()
 			RegPoly* R = new RegPoly(p1, n, gfxInfo);
 			double radius = 0;
 			pUI->storeImage();
-			while (pUI->GetLeftClick(p2.x, p2.y)) {
+			while (pUI->MouseDrag(p2.x, p2.y)) {
 				if (pUI->GetKeyPress(c) == ESCAPE) {
 					delete R;
 					pUI->ClearStatusMessage();

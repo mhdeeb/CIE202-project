@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-Line::Line(Point P1, Point P2, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo), Point1(P1), Point2(P2) {}
+Line::Line(Point P1, Point P2, const GfxInfo& shapeGfxInfo) : shape(shapeGfxInfo), Point1(P1), Point2(P2) {}
 Point Line::getPoint1() const
 {
 	return Point1;
@@ -19,7 +19,7 @@ void Line::setPoint2(const Point& p2)
 {
 	Point2 = p2;
 }
-Line::~Line() {}
+Line::~Line() = default;
 
 void Line::Draw(GUI* pUI) const {
 	pUI->DrawLine(this);
@@ -43,18 +43,23 @@ bool Line::isSelected(Point p) const {
 		return false;
 	}
 	double slope = double(Point2.y - Point1.y) / (Point2.x - Point1.x);
-	double yIntercept = Point1.y - slope * Point1.x;
-	if (p.x <= max(Point1.x, Point2.x) && p.x >= min(Point1.x, Point2.x) && p.y >= min(Point1.y, Point2.y) && p.y <= max(Point1.y, Point2.y)
-		&& abs(p.y - (slope * p.x + yIntercept)) < 6)
+	if (double yIntercept = Point1.y - slope * Point1.x; p.x <= max(Point1.x, Point2.x) && p.x >= min(Point1.x, Point2.x) && p.y >= min(Point1.y, Point2.y) && p.y <= max(Point1.y, Point2.y)
+		&& abs(p.y - (slope * p.x + yIntercept)) < 10)
 		return true;
 	return false;
 }
 
-Line* Line::Load(string data)
+Line* Line::Load(const string& data)
 {
 	stringstream ss(data);
-	int id, p1x, p1y, p2x, p2y, borderWidth;
-	string draw, fill;
+	int id;
+	int p1x;
+	int p1y;
+	int p2x;
+	int p2y;
+	int borderWidth;
+	string draw;
+	string fill;
 	bool isFilled;
 	GfxInfo gfx;
 	ss >> id >> p1x >> p1y >> p2x >> p2y >> draw >> isFilled >> fill >> borderWidth;
@@ -62,7 +67,7 @@ Line* Line::Load(string data)
 	gfx.DrawClr = draw;
 	gfx.FillClr = fill;
 	gfx.isFilled = isFilled;
-	Line* shape = new Line({ p1x, p1y }, { p2x, p2y }, gfx);
+	auto* shape = new Line({ p1x, p1y }, { p2x, p2y }, gfx);
 	shape->setID(id);
 	return shape;
 }

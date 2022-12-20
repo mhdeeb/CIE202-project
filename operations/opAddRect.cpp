@@ -28,7 +28,7 @@ bool opAddRect::Execute()
 			gfxInfo.BorderWdth = pUI->getCrntPenWidth();
 			gfxInfo.isFilled = pUI->getIsfilled();
 			Rect* R = new Rect(p1, p2, gfxInfo);
-			while (pUI->GetLeftClick(p2.x, p2.y)) {
+			while (pUI->MouseDrag(p2.x, p2.y)) {
 				if (pUI->GetKeyPress(c) == ESCAPE) {
 					delete R;
 					pUI->ClearStatusMessage();

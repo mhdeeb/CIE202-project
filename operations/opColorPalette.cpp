@@ -12,7 +12,7 @@ bool opColorPalette::Execute()
 	char c;
 	int x = pUI->getWindow()->GetWidth() - 314, y = 50, side = 300;
 	pUI->getWindow()->DrawImage(pUI->getImage(GUI::ICON_COLOR_PALETTE), x, y, side, side);
-	while (pUI->GetLeftClick(p.x, p.y)) {
+	while (pUI->GetLeftClick(p.x, p.y) || !(x <= p.x && p.x <= x + side && y <= p.y && p.y <= y + side)) {
 		if (pUI->GetKeyPress(c) == ESCAPE) {
 			pUI->ClearStatusMessage();
 			return false;
@@ -23,9 +23,6 @@ bool opColorPalette::Execute()
 	}
 	pUI->setMsgColor(msgColor);
 	pUI->ClearStatusMessage();
-	if (x <= p.x && p.x <= x + side && y <= p.y && p.y <= y + side) {
-		pUI->setSelectedColor(pUI->getHoverColor(p.x, p.y));
-		return false;
-	}
-	return true;
+	pUI->setSelectedColor(pUI->getHoverColor(p.x, p.y));
+	return false;
 }

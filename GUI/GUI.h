@@ -176,6 +176,7 @@ public:
 	string getStatusMessage() const;	//get current message color
 	int getStatusBarHeight() const;
 	color getClickedColor(int&, int&);
+	bool MouseDrag(int& x, int& y);
 	color getHoverColor(int&, int&);
 	window* getWindow() const;
 	image* getImage(DrawMenuIcon) const;

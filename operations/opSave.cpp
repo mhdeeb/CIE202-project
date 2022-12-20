@@ -17,7 +17,7 @@ bool opSave::Execute()
 	Graph const* graph = pControl->getGraph();
 	auto prompt = opPrompt(pControl, "Enter file name");
 	prompt.Execute();
-	string name = prompt.response();
+	string name = format("save/{}_gf.txt", prompt.response());
 
 	if (name == "")
 		return false;
@@ -34,14 +34,14 @@ bool opSave::Execute()
 			break;
 		prompt = opPrompt(pControl, "Enter another name");
 		prompt.Execute();
-		name = prompt.response();
+		name = format("save/{}_gf.txt", prompt.response());
 	}
 
 	if (!filesystem::exists("save/"))
 		filesystem::create_directory("save/");
 
 	ofstream file;
-	file.open(format("save/{}_gf.txt", name));
+	file.open(name);
 
 	file << pUI->getCrntDrawColor().hex() << ' ' << pUI->getCrntFillColor().hex() << ' ' << pUI->getIsfilled() << ' ' << pUI->getCrntPenWidth() << endl << graph->GetShapeList().size() << endl;
 

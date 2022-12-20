@@ -27,7 +27,7 @@ bool opAddLine::Execute()
 			gfxInfo.FillClr = pUI->getCrntFillColor();
 			gfxInfo.BorderWdth = pUI->getCrntPenWidth();
 			Line* L = new Line(p1, p2, gfxInfo);
-			while (pUI->GetLeftClick(p2.x, p2.y)) {
+			while (pUI->MouseDrag(p2.x, p2.y)) {
 				if (pUI->GetKeyPress(c) == ESCAPE) {
 					delete L;
 					pUI->ClearStatusMessage();

@@ -325,7 +325,7 @@ void GUI::PrintMessage(string message, Point pos) const
 	string line;
 	int i = 0;
 	while (getline(ss, line)) {
-		pWind->DrawString(pos.x, pos.y + i++ * StatusBarHeight, line);
+		pWind->DrawString(pos.x, pos.y + i++ * StatusBarHeight + 2, line);
 	}
 		
 }
@@ -443,6 +443,11 @@ color GUI::getClickedColor(int& x, int& y)
 {
 	pWind->WaitMouseClick(x, y);
 	return pWind->GetColor(x, y);
+}
+
+bool GUI::MouseDrag(int& x, int& y)
+{
+	return pWind->GetButtonState(LEFT_BUTTON, x, y);
 }
 
 color GUI::getHoverColor(int& x, int& y)

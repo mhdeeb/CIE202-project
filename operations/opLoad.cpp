@@ -32,6 +32,9 @@ bool opLoad::Execute()
 	string response = prompt.response();
 	GUI* pUI = pControl->GetUI();
 	
+	if (response == "")
+		return false;
+
 	if (!files.contains(response)) {
 		pUI->PrintMessage("Graph wasn't loaded: bad input");
 		return false;
@@ -61,54 +64,3 @@ bool opLoad::Execute()
 
 	return false;
 }
-
-//bool opLoad::Execute()
-//{
-//	GUI* pUI = pControl->GetUI();
-//
-//	Graph* graph = pControl->getGraph();
-//	auto prompt = opPrompt(pControl, "Enter file location:");
-//	prompt.Execute();
-//	string path = prompt.response();
-//
-//	if (path == "")
-//		return false;
-//
-//	while (!filesystem::exists(path))
-//	{
-//		prompt = opPrompt(pControl, "File not found: Do you want to try again? (y/n)");
-//		prompt.Execute();
-//		while (prompt.isYes() == -1) {
-//			prompt = opPrompt(pControl, "Bad Input: try again");
-//			prompt.Execute();
-//		}
-//		if (!prompt.isYes())
-//			break;
-//		prompt = opPrompt(pControl, "Enter another file");
-//		prompt.Execute();
-//		path = prompt.response();
-//	}
-//
-//	ifstream file;
-//	file.open(path);
-//
-//	string data;
-//	string drawColor;
-//	string fillColor;
-//	int isFilled;
-//	int drawWidth;
-//	int shapeCount;
-//	file >> drawColor >> fillColor >> isFilled >> drawWidth >> shapeCount;
-//	pUI->setDrawColor(drawColor);
-//	pUI->setFillColor(fillColor, isFilled);
-//	pUI->setPenWidth(drawWidth);
-//	getline(file, data);
-//	graph->Clear();
-//	while (getline(file, data))
-//		graph->Addshape(GUI::ParseShape(data));
-//	file.close();
-//
-//	pUI->PrintMessage("Graph Loaded!");
-//
-//	return false;
-//}
