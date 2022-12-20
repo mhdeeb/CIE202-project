@@ -94,11 +94,7 @@ operation* controller::createOperation(operationType OpType)
 		case DRAWING_AREA:
 			pOp = new Select(this);
 			break;
-		case EMPTY:
-			pOp = new noOp(this);
-			break;
 		}
-		return pOp;
 	}
 	else if (pGUI->getInterfaceMode()) {
 		switch (OpType)
@@ -122,12 +118,10 @@ operation* controller::createOperation(operationType OpType)
 		case DRAWING_AREA:
 			pOp = new Select(this);
 			break;
-		case EMPTY:
-			pOp = new noOp(this);
-			break;
 		}
-		return pOp;
 	}
+	pOp = new noOp(this);
+	return pOp;
 }
 //==================================================================================//
 //							Interface Management Functions							//
