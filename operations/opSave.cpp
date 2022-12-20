@@ -19,7 +19,7 @@ bool opSave::Execute()
 	prompt.Execute();
 	string name = format("save/{}_gf.txt", prompt.response());
 
-	if (name == "")
+	if (name == "_gf.txt")
 		return false;
 
 	while (filesystem::exists(name))
