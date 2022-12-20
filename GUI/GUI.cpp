@@ -344,7 +344,7 @@ void GUI::LoadDrawToolBar() {
 	DrawMenuIconImages[ICON_TRIANGLE] = new image("images/MenuIcons/Menu_Triangle.jpg");
 	DrawMenuIconImages[ICON_REG_POLY] = new image("images/MenuIcons/Menu_Regular_Polygon.jpg");
 	DrawMenuIconImages[ICON_IRREG_POLY] = new image("images/MenuIcons/Menu_Irregular_Polygon.jpg");
-	DrawMenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Pick.jpg");
+	DrawMenuIconImages[ICON_COLOR_PICKER] = new image("images/MenuIcons/Menu_Color_Picker.jpg");
 	DrawMenuIconImages[ICON_CHANGE_GENERAL_PEN] = new image("images/MenuIcons/Menu_PenCol.jpg");
 	DrawMenuIconImages[ICON_CHANGE_FILL] = new image("images/MenuIcons/Menu_FillCol.jpg");
 	DrawMenuIconImages[ICON_DELETE] = new image("images/MenuIcons/Menu_Delete.jpg");

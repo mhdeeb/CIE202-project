@@ -4,8 +4,10 @@
 
 class opColorPalette : public operation
 {
+private:
+	bool lockScreen;
 public:
-	opColorPalette(controller*);
+	opColorPalette(controller*, bool lockScreen = true);
 	virtual ~opColorPalette() override;
 	virtual bool Execute() override;
 };

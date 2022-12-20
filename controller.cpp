@@ -66,7 +66,7 @@ operation* controller::createOperation(operationType OpType)
 			pOp = new opAddIrregPoly(this);
 			break;
 		case DRAW_COLOR_PALETTE:
-			pOp = new opColorPalette(this);
+			pOp = new opColorPalette(this, false);
 			break;
 		case CHNG_DRAW_CLR:
 			pOp = new opChangeGpenCol(this);
