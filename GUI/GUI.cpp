@@ -81,39 +81,49 @@ string GUI::GetString(string message)
 	string Label, displayed;
 	char Key;
 	keytype ktype;
-	const int
-		charWidth = 10,
-		marginx = 4,
-		marginy = 4,
-		charHeight = charWidth * 2,
-		messageHeight = charHeight,
-		messageWidth = message.size() * charWidth,
-		textInputHeight = charHeight + 2 * marginy,
-		promptHeight = textInputHeight + messageWidth / 4,
-		textInputWidth = messageWidth,
-		promptWidth = messageWidth + 2 * marginx,
-		textHeight = messageWidth - 2 * marginy,
-		textWidth = messageWidth - 2 * marginx,
-		centerY = height / 2,
-		centerX = width / 2,
-		promptY = centerY - promptHeight / 2,
-		promptX = centerX - promptWidth / 2,
-		messageY = promptY + marginy,
-		messageX = promptX + marginx,
-		textInputY = promptY + promptHeight - marginy - textInputHeight,
-		textInputX = promptX + marginx,
-		textY = textInputY + marginy,
-		textX = textInputX + marginx;
-	int caretY = textY,
-		caretX = textX,
-		caret = 0,
-		offset = 0;
 
+	int maxChar = 0;
+	int nline = 0;
+	stringstream ss(message);
+	string line;
+	while (getline(ss, line)) {
+		nline++;
+		maxChar = max(maxChar, (int)line.size());
+	}
+	
+	const int charWidth = 10;
+	const int marginx = 4;
+	const int marginy = 4;
+	const int charHeight = charWidth * 2;
+	const int messageHeight = charHeight * nline;
+	const int messageWidth = maxChar * charWidth;
+	const int textInputHeight = charHeight + 2 * marginy;
+	const int promptHeight = textInputHeight + messageHeight + messageWidth / 4;
+	const int textInputWidth = messageWidth;
+	const int promptWidth = messageWidth + 2 * marginx;
+	const int textHeight = messageWidth - 2 * marginy;
+	const int textWidth = messageWidth - 2 * marginx;
+	const int centerY = height / 2;
+	const int centerX = width / 2;
+	const int promptY = centerY - promptHeight / 2;
+	const int promptX = centerX - promptWidth / 2;
+	const int messageY = promptY + marginy;
+	const int messageX = promptX + marginx;
+	const int textInputY = promptY + promptHeight - marginy - textInputHeight;
+	const int textInputX = promptX + marginx;
+	const int textY = textInputY + marginy;
+	const int textX = textInputX + marginx;
+
+	int caretY = textY;
+	int caretX = textX;
+	int caret = 0;
+	int offset = 0;
+	
 	storeImage();
 
 	while (true)
 	{
-		displayed = Label.substr(offset, message.size() - 1);
+		displayed = Label.substr(offset, maxChar - 1);
 
 		pWind->SetPen(BLACK);
 		pWind->SetBrush(GREY);
@@ -147,7 +157,7 @@ string GUI::GetString(string message)
 				caret++;
 				if (caret == displayed.size() + 1) {
 					caret--;
-					if (caret + 1 == message.size()) {
+					if (caret + 1 == maxChar) {
 						offset++;
 						if (offset + caret == Label.size() + 1) {
 							offset--;
@@ -180,7 +190,7 @@ string GUI::GetString(string message)
 		else {
 			Label.insert(Label.begin() + caret + offset, Key);
 			caret++;
-			if (caret == message.size()) {
+			if (caret == maxChar) {
 				caret--;
 				offset++;
 			}
@@ -224,8 +234,13 @@ operationType GUI::GetUseroperation(int x, int y)
 			case ICON_EXIT: return EXIT;
 			}
 		}
-		else if (DrawButtons[FILL_SWITCH]->isSelected({ x, y }))
+		else if (DrawButtons[FILL_SWITCH]->isSelected({ x, y })) {
 			Isfilled = !Isfilled;
+			shape* selectedShape = pCont->getGraph()->getSelectedShape();
+			if (selectedShape)
+				selectedShape->setFillColor(selectedShape->getGfxInfo().FillClr, Isfilled);
+		}
+			
 	}
 
 	else if (InterfaceMode == MODE_PLAY)	//GUI is in PLAY mode
@@ -283,11 +298,7 @@ void GUI::CreateStatusBar(string statusMessage)
 	if (color::isHexColor(statusMessage))
 		setMsgColor(statusMessage);
 
-	int n = count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2, i = 0;
-	stringstream ss(statusMessage);
-	string line;
-	while (getline(ss, line))
-		PrintMessage(line, { 10, height - StatusBarHeight * (n - i++) });
+	PrintMessage(statusMessage, { 10, height - getStatusBarHeight() });
 
 	setMsgColor(msgColor);
 
@@ -310,7 +321,13 @@ void GUI::PrintMessage(string message, Point pos) const
 {
 	pWind->SetPen(MsgColor, 50);
 	pWind->SetFont(StatusBarHeight, PLAIN, BY_NAME, "Courier New");
-	pWind->DrawString(pos.x, pos.y, message);
+	stringstream ss(message);
+	string line;
+	int i = 0;
+	while (getline(ss, line)) {
+		pWind->DrawString(pos.x, pos.y + i++ * StatusBarHeight, line);
+	}
+		
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ClearStatusMessage()
@@ -418,7 +435,7 @@ string GUI::getStatusMessage() const
 
 int GUI::getStatusBarHeight() const
 {
-	int n = count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2;
+	int n = std::ranges::count(statusMessage.cbegin(), statusMessage.cend(), '\n') + 2;
 	return StatusBarHeight * n + 5;
 }
 

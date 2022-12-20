@@ -5,6 +5,8 @@
 #ifndef CIE_202_TEST_H
 #define CIE_202_TEST_H
 
+#include <iostream>
+
 namespace test {
 
 	std::string _sep = " ";
