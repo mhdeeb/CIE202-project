@@ -1,9 +1,6 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-
-
-
 //This file contais some global constants and definitions to be used in the project.
 enum operationType //The operations supported (you can add more if needed)
 {
@@ -18,7 +15,7 @@ enum operationType //The operations supported (you can add more if needed)
 	CHNG_DRAW_CLR,	//Change the drawing color
 	CHNG_FILL_CLR,	//Change the filling color
 	CHNG_BK_CLR,	//Change background color
-      
+
 	DEL,			//Delete a shape(s)
 	MOVE,			//Move a shape(s)
 	RESIZE,			//Resize a shape(s)
@@ -55,7 +52,7 @@ enum shapeType {
 	shapesCount,
 };
 const string ShapesArray[]{
-	"RECTANGLE", 
+	"RECTANGLE",
 	"CIRCLE",
 	"SQUARE",
 	"LINE",

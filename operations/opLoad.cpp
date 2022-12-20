@@ -21,6 +21,9 @@ bool opLoad::Execute()
 	prompt.Execute();
 	string path = prompt.response();
 
+	if (path == "")
+		return false;
+
 	while (!filesystem::exists(path))
 	{
 		prompt = opPrompt(pControl, "File not found: Do you want to try again? (y/n)");

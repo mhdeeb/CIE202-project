@@ -21,6 +21,9 @@ bool opSave::Execute()
 	prompt.Execute();
 	string path = prompt.response();
 
+	if (path == "")
+		return false;
+
 	while (filesystem::exists(path))
 	{
 		prompt = opPrompt(pControl, "File already exists: Do you want to override it? (y/n)");

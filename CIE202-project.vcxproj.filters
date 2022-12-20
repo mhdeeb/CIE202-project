@@ -192,6 +192,9 @@
     <ClCompile Include="operations\opSave.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
+    <ClCompile Include="operations\opPrompt.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -343,6 +346,10 @@
     <ClInclude Include="operations\opSave.h">
       <Filter>Operations</Filter>
     </ClInclude>
+    <ClInclude Include="operations\opPrompt.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">

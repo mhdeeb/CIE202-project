@@ -132,7 +132,7 @@ public:
 
 	void getMouseLocation(int& x, int& y);
 
-	string GetSrting(string prompt);	 //Returns a string entered by the user
+	string GetString(string prompt);	 //Returns a string entered by the user
 
 	operationType GetUseroperation(int, int); //Read the user click and map to an operation
 

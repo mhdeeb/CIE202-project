@@ -41,9 +41,6 @@ GUI::GUI(controller* pCont) : pCont(pCont)
 	PrintMessage("Welcome to Draw Mode!\n\nSelect an operation.\n\nPress esc to cancel operations.");
 }
 
-
-
-
 //======================================================================================//
 //								Input Functions										//
 //======================================================================================//
@@ -79,7 +76,7 @@ void GUI::getMouseLocation(int& x, int& y)
 	pWind->GetMouseCoord(x, y);
 }
 
-string GUI::GetSrting(string message)
+string GUI::GetString(string message)
 {
 	string Label, displayed;
 	char Key;
@@ -107,9 +104,9 @@ string GUI::GetSrting(string message)
 		textInputX = promptX + marginx,
 		textY = textInputY + marginy,
 		textX = textInputX + marginx;
-	int cursorY = textY,
-		cursorX = textX,
-		cursor = 0,
+	int caretY = textY,
+		caretX = textX,
+		caret = 0,
 		offset = 0;
 
 	storeImage();
@@ -128,42 +125,43 @@ string GUI::GetSrting(string message)
 		pWind->SetBrush(WHITE);
 		pWind->DrawRectangle(textInputX, textInputY, textInputX + textInputWidth, textInputY + textInputHeight, FILLED, 10, 10);
 
-
 		PrintMessage(displayed, { textX, textY });
 
 		pWind->SetPen(BLACK);
-		pWind->DrawLine(cursorX, cursorY, cursorX, cursorY + charHeight);
+		pWind->DrawLine(caretX, caretY, caretX, caretY + charHeight);
 
 		pWind->FlushKeyQueue();
 
 		ktype = pWind->WaitKeyPress(Key);
 		if (ktype == ARROW) {
 			if (Key == 4) {
-				cursor--;
-				if (cursor == -1) {
-					cursor++;
+				caret--;
+				if (caret == -1) {
+					caret++;
 					offset--;
 					if (offset == -1)
 						offset++;
 				}
 			}
 			else if (Key == 6) {
-				cursor++;
-				if (cursor == displayed.size() + 1) {
-					cursor--;
-					offset++;
-					if (offset == Label.size() - message.size()) {
-						offset--;
+				caret++;
+				if (caret == displayed.size() + 1) {
+					caret--;
+					if (caret + 1 == message.size()) {
+						offset++;
+						if (offset + caret == Label.size() + 1) {
+							offset--;
+						}
 					}
 				}
 			}
 		}
 		else if (Key == 8)
-			if (Label.size() > 0 && cursor) {
-				Label.erase(Label.begin() + cursor + offset - 1);
-				cursor--;
-				if (cursor == -1) {
-					cursor++;
+			if (Label.size() > 0 && caret) {
+				Label.erase(Label.begin() + caret + offset - 1);
+				caret--;
+				if (caret == -1) {
+					caret++;
 					offset--;
 					if (offset == -1)
 						offset++;
@@ -180,14 +178,14 @@ string GUI::GetSrting(string message)
 			return Label;
 		}
 		else {
-			Label.insert(Label.begin() + cursor + offset, Key);
-			cursor++;
-			if (cursor == message.size()) {
-				cursor--;
+			Label.insert(Label.begin() + caret + offset, Key);
+			caret++;
+			if (caret == message.size()) {
+				caret--;
 				offset++;
 			}
 		}
-		cursorX = cursor * charWidth + textX;
+		caretX = caret * charWidth + textX;
 		loadImage();
 	}
 }
@@ -230,7 +228,6 @@ operationType GUI::GetUseroperation(int x, int y)
 			Isfilled = !Isfilled;
 	}
 
-
 	else if (InterfaceMode == MODE_PLAY)	//GUI is in PLAY mode
 	{
 		if (y >= 0 && y < ToolBarHeight) {
@@ -248,15 +245,12 @@ operationType GUI::GetUseroperation(int x, int y)
 			case ICON_START_GAME: return START_GAME;
 			case ICON_DRAW_MODE: return TO_DRAW;
 			case ICON_EXIT2: return EXIT;
-
 			}
 		}
 	}
 	return EMPTY;
 }
 ////////////////////////////////////////////////////
-
-
 
 //======================================================================================//
 //								Output Functions										//
@@ -623,8 +617,6 @@ void GUI::DrawIrregPoly(const IrregPoly* irrePoly) const
 	pWind->DrawPolygon(irrePoly->getXpoints(), irrePoly->getYpoints(), irrePoly->getSize(), style);
 }
 
-
-
 void GUI::DrawRegPoly(const RegPoly* RegPoly) const
 {
 	DrawIrregPoly(RegPoly);
@@ -663,7 +655,6 @@ void GUI::DrawTriangle(const Triangle* triangle) const
 		style = FRAME;
 
 	pWind->DrawTriangle(triangle->getPoint(0).x, triangle->getPoint(0).y, triangle->getPoint(1).x, triangle->getPoint(1).y, triangle->getPoint(2).x, triangle->getPoint(2).y, style);
-
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 

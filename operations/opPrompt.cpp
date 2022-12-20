@@ -27,6 +27,6 @@ int opPrompt::isYes() const {
 bool opPrompt::Execute()
 {
 	GUI* pUI = pControl->GetUI();
-	Response = pUI->GetSrting(prompt);
+	Response = pUI->GetString(prompt);
 	return false;
 }
