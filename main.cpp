@@ -1,8 +1,8 @@
 #include "controller.h"
 
-int main()
+//int main() // Console
+int APIENTRY WinMain(HINSTANCE hInst, HINSTANCE hInstPrev, PSTR cmdline, int cmdshow) //No console
 {
-	ShowWindow(GetConsoleWindow(), SW_SHOW);	// Toggle Console terminal
 	controller Control;
 	Control.Run();
 }
