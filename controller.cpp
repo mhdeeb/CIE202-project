@@ -120,7 +120,8 @@ operation* controller::createOperation(operationType OpType)
 			break;
 		}
 	}
-	pOp = new noOp(this);
+	if (pOp == nullptr)
+		pOp = new noOp(this);	//No valid operation: create a dummy operation for noAction
 	return pOp;
 }
 //==================================================================================//
