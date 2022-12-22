@@ -5,8 +5,7 @@
 #include <fstream>
 
 opSave::opSave(controller* pCont) : operation(pCont)
-{
-}
+{}
 
 opSave::~opSave() = default;
 
@@ -19,7 +18,7 @@ bool opSave::Execute()
 	prompt.Execute();
 	string name = format("save/{}_gf.txt", prompt.response());
 
-	if (name == "_gf.txt")
+	if (name == "save/_gf.txt")
 		return false;
 
 	while (filesystem::exists(name))
