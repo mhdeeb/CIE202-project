@@ -17,10 +17,9 @@ bool Select::Execute() {
 
 	shape* pSsh = graph->Getshape({ x, y });
 
-	for (auto i : (graph->GetShapeList())) {
-		if (i)
-			i->SetSelected(false);
-	}
+	for (auto i : (graph->GetShapeList()))
+		if (i) i->SetSelected(false);
+
 	if (pSsh) {
 		pSsh->SetSelected(true);
 		pUI->PrintMessage(pSsh->PrintInfo());

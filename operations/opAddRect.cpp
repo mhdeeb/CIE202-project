@@ -41,6 +41,10 @@ bool opAddRect::Execute()
 				Sleep(16);
 				pUI->loadImage();
 			}
+			if (p1.distance(p2) == 0) {
+				delete R;
+				continue;
+			}
 			pControl->getGraph()->Addshape(R);
 			pControl->getGraph()->Refresh(pUI);
 		}

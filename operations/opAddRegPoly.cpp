@@ -54,6 +54,10 @@ bool opAddRegPoly::Execute()
 				Sleep(16);
 				pUI->loadImage();
 			}
+			if (radius == 0) {
+				delete R;
+				continue;
+			}
 			pControl->getGraph()->Addshape(R);
 			pControl->getGraph()->Refresh(pUI);
 		}

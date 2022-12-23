@@ -49,6 +49,10 @@ bool opAddTri::Execute()
 				}
 				msg += format("Point {: >4}: ({: >4}, {: >4})  ", T->getSize(), p2.x, p2.y);
 			}
+			if (p1.distance(T->getPoint(1)) == 0 && p2.distance(T->getPoint(1))) {
+				delete T;
+				continue;
+			}
 			pControl->getGraph()->Addshape(T);
 			pControl->getGraph()->Refresh(pUI);
 		}

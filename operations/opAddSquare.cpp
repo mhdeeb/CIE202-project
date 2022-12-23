@@ -41,6 +41,10 @@ bool opAddSquare::Execute()
 				Sleep(16);
 				pUI->loadImage();
 			}
+			if (p1.distance(p2) == 0) {
+				delete S;
+				continue;
+			}
 			pControl->getGraph()->Addshape(S);
 			pControl->getGraph()->Refresh(pUI);
 		}
