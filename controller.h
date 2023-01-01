@@ -22,7 +22,7 @@ public:
 	void Run();
 	void close();
 
-	Graph* getGraph() const;
+	Graph* GetGraph() const;
 
 	// -- Interface Management Functions
 	GUI* GetUI() const; //Return pointer to the UI

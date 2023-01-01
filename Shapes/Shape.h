@@ -1,7 +1,9 @@
 #pragma once
 
 #include "../GUI/GUI.h"
+#include <functional>
 
+using transformation = const std::function<void(Point &, double parameter, const Point & origin)> &;
 //Base class for all shapes
 class shape
 {
@@ -34,11 +36,6 @@ public:
 	void setGfx(GfxInfo gfxInfo);
 	virtual string Serialize() const = 0;
 	virtual string PrintInfo() const = 0;
-
-	////Rotate the shape
-	//virtual void Rotate() = 0;
-	////Resize the shape
-	//virtual void Resize() = 0;
-	////Move the shape
-	//virtual void Move() = 0;
+	virtual void Transform(transformation, double, Point) = 0;
+	virtual Point GetCenter() const = 0;
 };

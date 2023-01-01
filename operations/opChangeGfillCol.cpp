@@ -8,7 +8,7 @@ opChangeGfillCol::~opChangeGfillCol()
 {}
 bool opChangeGfillCol::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Graph* graph = pControl->getGraph();
+	Graph* graph = pControl->GetGraph();
 	opColorPalette(pControl).Execute();
 	pUI->setFillColor(pUI->getSelectedColor(), true);
 	if (graph->getSelectedShape())

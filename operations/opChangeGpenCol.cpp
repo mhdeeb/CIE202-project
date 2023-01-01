@@ -7,7 +7,7 @@ opChangeGpenCol::~opChangeGpenCol()
 {}
 bool opChangeGpenCol::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Graph* graph = pControl->getGraph();
+	Graph* graph = pControl->GetGraph();
 	opColorPalette(pControl).Execute();
 	pUI->setDrawColor(pUI->getSelectedColor());
 	if (graph->getSelectedShape())

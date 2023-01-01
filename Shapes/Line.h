@@ -19,4 +19,6 @@ public:
 	string Serialize() const override;
 	bool isSelected(Point) const override;
 	static Line* Load(const string& data);
+	void Transform(transformation func, double factor, Point origin) override;
+	Point GetCenter() const override;
 };

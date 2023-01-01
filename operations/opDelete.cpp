@@ -5,9 +5,8 @@ Delete::~Delete()
 {}
 bool Delete::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Graph* graph = pControl->getGraph();
+	Graph* graph = pControl->GetGraph();
 	graph->deleteSelectedShape();
 	graph->Refresh(pUI);
-	graph->Draw(pUI);
 	return false;
 }

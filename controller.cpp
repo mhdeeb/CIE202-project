@@ -91,7 +91,7 @@ operation* controller::createOperation(operationType OpType)
 			break;
 		case STATUS:	//a click on the status bar ==> no operation
 			break;
-		case DRAWING_AREA:
+		default:
 			pOp = new Select(this);
 			break;
 		}
@@ -141,7 +141,7 @@ GUI* controller::GetUI() const
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the Graph
-Graph* controller::getGraph() const
+Graph* controller::GetGraph() const
 {
 	return pGraph;
 }
@@ -163,7 +163,8 @@ controller::~controller()
 void controller::Run()
 {
 	operationType OpType;
-	int x, y;
+	int x;
+	int y;
 	bool skipInput = false;
 	do
 	{

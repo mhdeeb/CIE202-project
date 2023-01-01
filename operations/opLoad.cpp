@@ -50,7 +50,7 @@ bool opLoad::Execute()
 	int drawWidth;
 	int shapeCount;
 	file >> drawColor >> fillColor >> isFilled >> drawWidth >> shapeCount;
-	Graph* graph = pControl->getGraph();
+	Graph* graph = pControl->GetGraph();
 	pUI->setDrawColor(drawColor);
 	pUI->setFillColor(fillColor, isFilled);
 	pUI->setPenWidth(drawWidth);

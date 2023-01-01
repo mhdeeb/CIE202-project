@@ -14,7 +14,8 @@ opAddIrregPoly::~opAddIrregPoly()
 bool opAddIrregPoly::Execute()
 {
 	GUI* pUI = pControl->GetUI();
-	Point p1, p2{ 0, 0 };
+	Point p1;
+	Point p2{ 0, 0 };
 	char ch;
 	while (true) {
 		pUI->PrintMessage("Irregular Polygon Selected: Click on graph to start drawing");
@@ -64,10 +65,10 @@ bool opAddIrregPoly::Execute()
 				pUI->PrintMessage(msg);
 			}
 			if (I->getSize() > 1)
-				pControl->getGraph()->Addshape(I);
+				pControl->GetGraph()->Addshape(I);
 			else
 				delete I;
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

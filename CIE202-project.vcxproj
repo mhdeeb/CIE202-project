@@ -182,6 +182,8 @@
     <ClCompile Include="operations\opExit.cpp" />
     <ClCompile Include="operations\opLoad.cpp" />
     <ClCompile Include="operations\opPrompt.cpp" />
+    <ClCompile Include="operations\opResize.cpp" />
+    <ClCompile Include="operations\opRotate.cpp" />
     <ClCompile Include="operations\opSave.cpp" />
     <ClCompile Include="operations\opSelect.cpp" />
     <ClCompile Include="operations\opAddTriangle.cpp" />
@@ -237,6 +239,8 @@
     <ClInclude Include="operations\opExit.h" />
     <ClInclude Include="operations\opLoad.h" />
     <ClInclude Include="operations\opPrompt.h" />
+    <ClInclude Include="operations\opResize.h" />
+    <ClInclude Include="operations\opRotate.h" />
     <ClInclude Include="operations\opSave.h" />
     <ClInclude Include="operations\opSelect.h" />
     <ClInclude Include="operations\SwitchToDrawMode.h" />

@@ -12,7 +12,8 @@ opAddCircle::~opAddCircle()
 bool opAddCircle::Execute()
 {
 	GUI* pUI = pControl->GetUI();
-	Point p1, p2{ 0, 0 };
+	Point p1;
+	Point p2{ 0, 0 };
 	char c;
 	while (true) {
 		pUI->PrintMessage("Circle Selected: Click on graph to start drawing");
@@ -41,8 +42,8 @@ bool opAddCircle::Execute()
 				Sleep(16);
 				pUI->loadImage();
 			}
-			pControl->getGraph()->Addshape(C);
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Addshape(C);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

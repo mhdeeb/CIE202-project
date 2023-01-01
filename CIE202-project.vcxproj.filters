@@ -195,6 +195,12 @@
     <ClCompile Include="operations\opPrompt.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
+    <ClCompile Include="operations\opRotate.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opResize.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -350,6 +356,12 @@
       <Filter>Operations</Filter>
     </ClInclude>
     <ClInclude Include="test.h" />
+    <ClInclude Include="operations\opRotate.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opResize.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">

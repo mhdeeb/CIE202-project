@@ -64,3 +64,13 @@ Rect* Rect::Load(string data)
 	return shape;
 }
 
+void Rect::Transform(transformation func, double factor, Point origin)
+{
+	func(p1, factor, origin);
+	func(p2, factor, origin);
+}
+
+Point Rect::GetCenter() const
+{
+	return (p1 + p2) / 2;
+}

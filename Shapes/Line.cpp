@@ -71,3 +71,14 @@ Line* Line::Load(const string& data)
 	shape->setID(id);
 	return shape;
 }
+
+void Line::Transform(transformation func, double factor, Point origin)
+{
+	func(Point1, factor, origin);
+	func(Point2, factor, origin);
+}
+
+Point Line::GetCenter() const
+{
+	return (Point1 + Point2) / 2;
+}

@@ -13,7 +13,7 @@ bool opSave::Execute()
 {
 	GUI* pUI = pControl->GetUI();
 
-	Graph const* graph = pControl->getGraph();
+	Graph const* graph = pControl->GetGraph();
 	auto prompt = opPrompt(pControl, "Enter file name");
 	prompt.Execute();
 	string name = format("save/{}_gf.txt", prompt.response());

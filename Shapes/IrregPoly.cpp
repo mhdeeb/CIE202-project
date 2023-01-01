@@ -15,7 +15,7 @@ const int* IrregPoly::getYpoints() const
 	return &ypoints[0];
 }
 
-Point IrregPoly::getCenter() const {
+Point IrregPoly::GetCenter() const {
 	return center;
 }
 
@@ -78,7 +78,7 @@ string IrregPoly::PrintInfo() const {
 string IrregPoly::Serialize() const {
 	stringstream ss;
 	ss << ShapesArray[IRREGULAR_POLYGON] << ' ' << id << ' ' << xpoints.size() << ' ';
-	for (int i = 0; i < xpoints.size(); i++)
+	for (size_t i = 0; i < xpoints.size(); i++)
 		ss << xpoints[i] << ' ' << ypoints[i] << ' ';
 	ss << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
 	return ss.str();
@@ -101,7 +101,7 @@ IrregPoly* IrregPoly::Load(string data)
 	bool isFilled;
 	GfxInfo gfx;
 	ss >> id >> n;
-	IrregPoly* shape = new IrregPoly({});
+	IrregPoly* shape = new IrregPoly(gfx);
 	for (int i = 0; i < n; i++)
 	{
 		ss >> px >> py;
@@ -126,4 +126,14 @@ bool IrregPoly::isSelected(Point p) const {
 		testArea += Area(p, getPoint(i), getPoint(i + 1));
 	}
 	return area == testArea;
+}
+
+void IrregPoly::Transform(transformation func, double factor, Point origin)
+{
+	for (int i = 0; i < getSize(); ++i) {
+		Point p = { xpoints[i], ypoints[i] };
+		func(p, factor, origin);
+		xpoints[i] = p.x;
+		ypoints[i] = p.y;
+	}
 }

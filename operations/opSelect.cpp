@@ -4,14 +4,14 @@
 
 Select::Select(controller* pCont) :operation(pCont)
 {}
-Select::~Select()
-{}
+Select::~Select() = default;
 bool Select::Execute() {
 	GUI* pUI = pControl->GetUI();
 
-	Graph* graph = pControl->getGraph();
+	Graph* graph = pControl->GetGraph();
 
-	int x, y;
+	int x;
+	int y;
 
 	pUI->getMouseLocation(x, y);
 

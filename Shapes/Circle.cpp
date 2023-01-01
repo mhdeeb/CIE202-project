@@ -64,3 +64,12 @@ Circle* Circle::Load(string data)
 	shape->setID(id);
 	return shape;
 }
+
+void Circle::Transform(transformation func, double factor, Point origin) { 
+	radius *= factor;
+}
+
+Point Circle::GetCenter() const
+{
+	return origin;
+}

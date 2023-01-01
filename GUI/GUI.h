@@ -18,12 +18,56 @@ class controller;
 
 struct Point
 {
-	int x, y;
+	int x;
+	int y;
 	double distance(const Point& p2) const {
 		return sqrt(pow(p2.x - x, 2) + pow(p2.y - y, 2));
 	}
 	string toString(string name) const {
 		return format("{}: ({: >4}, {: >4})", name, x, y);
+	}
+	Point& scale(double factor) {
+		x = int(round(x * factor));
+		y = int(round(y * factor));
+		return *this;
+	}
+	Point& translate(const Point & point) {
+		x = x + point.x;
+		y = y + point.y;
+		return *this;
+	}
+	Point& rotate(double angle) {
+		int tempx = x;
+		x = int(round(x * cos(angle) - y * sin(angle)));
+		y = int(round(tempx * sin(angle) + y * cos(angle)));
+		return *this;
+	}
+	Point operator-() const {
+		return Point{ -x, -y };
+	}
+	Point operator+(const Point & p) const {
+		return { x + p.x, y + p.y };
+	}
+	Point operator-(const Point& p) const {
+		return { x - p.x, y - p.y };
+	}
+	Point operator/(const Point& p) const {
+		return { int(round(double(x) / p.x)), int(round(double(y) / p.y)) };
+	}
+	Point operator*(const Point& p) const {
+		return { int(round(double(x) * p.x)), int(round(double(y) * p.y)) };
+	}
+	Point operator+(int i) const {
+		return { x + i, y + i };
+	}
+	Point operator-(int i) const {
+		return { x - i, y - i };
+	}
+	Point operator/(double i) const {
+		return Point(int(round(x / i)), int(round(y / i)));
+	}
+	Point operator*(double i) const {
+		return Point(int(round(x * i)), int(round(y * i)));
 	}
 };
 

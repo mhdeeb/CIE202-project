@@ -12,7 +12,7 @@ public:
 	IrregPoly(GfxInfo);
 	const int* getXpoints() const;
 	const int* getYpoints() const;
-	Point getCenter() const;
+	Point GetCenter() const override;
 	void addPoint(const Point&);
 	void removePoint(int index);
 	Point getPoint(int index) const;
@@ -26,4 +26,5 @@ public:
 	static double Area(Point, Point, Point);
 	void updateCenter();
 	static IrregPoly* Load(string data);
+	void Transform(transformation func, double factor, Point origin) override;
 };

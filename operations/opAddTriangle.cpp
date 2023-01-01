@@ -49,8 +49,8 @@ bool opAddTri::Execute()
 				}
 				msg += format("Point {: >4}: ({: >4}, {: >4})  ", T->getSize(), p2.x, p2.y);
 			}
-			pControl->getGraph()->Addshape(T);
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Addshape(T);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

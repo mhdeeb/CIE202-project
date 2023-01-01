@@ -54,8 +54,8 @@ bool opAddRegPoly::Execute()
 				Sleep(16);
 				pUI->loadImage();
 			}
-			pControl->getGraph()->Addshape(R);
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Addshape(R);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

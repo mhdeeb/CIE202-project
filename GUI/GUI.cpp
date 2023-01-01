@@ -11,6 +11,8 @@
 #include "../Shapes/IrregPoly.h"
 #include "../Shapes/RegPoly.h"
 #include "../operations/opDelete.h"
+#include "../operations/opRotate.h"
+#include "../operations/opResize.h"
 
 GUI::GUI(controller* pCont) : pCont(pCont)
 {
@@ -50,11 +52,23 @@ bool GUI::GetPointClicked(int& x, int& y)
 	pWind->FlushMouseQueue();
 	pWind->FlushKeyQueue();
 	while (GetLeftClick(x, y)) {
-		if (GetKeyPress(c) == ESCAPE) {
-			return false;
+		if (keytype k = GetKeyPress(c)) {
+			if (k == ESCAPE)
+				return false;
+			switch (c) {
+			case 'd':
+				Delete(pCont).Execute();
+				break;
+			case 'r':
+				opRotate(pCont).Execute();
+				break;
+			case 'f':
+				opResize(pCont).Execute();
+				break;
+			default:
+				break;
+			}
 		}
-		if (c == 'd')
-			Delete(pCont).Execute();
 		Sleep(16);
 	}
 	return true;
@@ -90,7 +104,7 @@ string GUI::GetString(string message)
 		nline++;
 		maxChar = max(maxChar, (int)line.size());
 	}
-	
+
 	const int charWidth = 10;
 	const int marginx = 4;
 	const int marginy = 4;
@@ -118,7 +132,7 @@ string GUI::GetString(string message)
 	int caretX = textX;
 	int caret = 0;
 	int offset = 0;
-	
+
 	storeImage();
 
 	while (true)
@@ -236,11 +250,11 @@ operationType GUI::GetUseroperation(int x, int y)
 		}
 		else if (DrawButtons[FILL_SWITCH]->isSelected({ x, y })) {
 			Isfilled = !Isfilled;
-			shape* selectedShape = pCont->getGraph()->getSelectedShape();
+			shape* selectedShape = pCont->GetGraph()->getSelectedShape();
 			if (selectedShape)
 				selectedShape->setFillColor(selectedShape->getGfxInfo().FillClr, Isfilled);
 		}
-			
+
 	}
 
 	else if (InterfaceMode == MODE_PLAY)	//GUI is in PLAY mode
@@ -327,7 +341,7 @@ void GUI::PrintMessage(string message, Point pos) const
 	while (getline(ss, line)) {
 		pWind->DrawString(pos.x, pos.y + i++ * StatusBarHeight + 2, line);
 	}
-		
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void GUI::ClearStatusMessage()
