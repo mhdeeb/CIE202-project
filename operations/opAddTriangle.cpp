@@ -53,8 +53,8 @@ bool opAddTri::Execute()
 				delete T;
 				continue;
 			}
-			pControl->getGraph()->Addshape(T);
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Addshape(T);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

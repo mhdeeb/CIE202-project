@@ -45,8 +45,8 @@ bool opAddSquare::Execute()
 				delete S;
 				continue;
 			}
-			pControl->getGraph()->Addshape(S);
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Addshape(S);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

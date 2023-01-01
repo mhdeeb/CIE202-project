@@ -44,8 +44,8 @@ bool opAddLine::Execute()
 				delete L;
 				continue;
 			}
-			pControl->getGraph()->Addshape(L);
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Addshape(L);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

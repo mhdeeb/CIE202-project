@@ -45,8 +45,8 @@ bool opAddRect::Execute()
 				delete R;
 				continue;
 			}
-			pControl->getGraph()->Addshape(R);
-			pControl->getGraph()->Refresh(pUI);
+			pControl->GetGraph()->Addshape(R);
+			pControl->GetGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();
