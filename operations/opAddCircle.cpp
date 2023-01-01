@@ -42,8 +42,12 @@ bool opAddCircle::Execute()
 				Sleep(16);
 				pUI->loadImage();
 			}
-			pControl->GetGraph()->Addshape(C);
-			pControl->GetGraph()->Refresh(pUI);
+			if (p1.distance(p2) == 0) {
+				delete C;
+				continue;
+			}
+			pControl->getGraph()->Addshape(C);
+			pControl->getGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();

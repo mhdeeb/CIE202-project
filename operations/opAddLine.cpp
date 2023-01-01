@@ -40,8 +40,12 @@ bool opAddLine::Execute()
 				Sleep(16);
 				pUI->loadImage();
 			}
-			pControl->GetGraph()->Addshape(L);
-			pControl->GetGraph()->Refresh(pUI);
+			if (p1.distance(p2) == 0) {
+				delete L;
+				continue;
+			}
+			pControl->getGraph()->Addshape(L);
+			pControl->getGraph()->Refresh(pUI);
 		}
 		else {
 			pUI->ClearStatusMessage();
