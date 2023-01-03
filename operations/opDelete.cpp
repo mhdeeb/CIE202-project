@@ -1,8 +1,6 @@
 #include "opDelete.h"
-Delete::Delete(controller* pCont) :operation(pCont)
-{}
-Delete::~Delete()
-{}
+Delete::Delete(controller* pCont):operation(pCont) {}
+Delete::~Delete() {}
 bool Delete::Execute() {
 	GUI* pUI = pControl->GetUI();
 	Graph* graph = pControl->GetGraph();

@@ -3,28 +3,23 @@
 #include<vector>
 using namespace std;
 
-Graph::Graph()
-{
+Graph::Graph() {
 	selectedShape = nullptr;
 }
 
-Graph::~Graph()
-{
-}
+Graph::~Graph() {}
 
 //==================================================================================//
 //						shapes Management Functions								//
 //==================================================================================//
 
 //Add a shape to the list of shapes
-void Graph::Addshape(shape* pShp)
-{
+void Graph::Addshape(shape* pShp) {
 	//Add a new shape to the shapes vector
 	shapesList.push_back(pShp);
 }
 
-void Graph::deleteSelectedShape()
-{
+void Graph::deleteSelectedShape() {
 	for (size_t i = 0; i < shapesList.size(); i++) {
 		if (selectedShape == shapesList[i]) {
 			delete selectedShape;
@@ -37,14 +32,12 @@ void Graph::deleteSelectedShape()
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
-void Graph::Draw(GUI* pUI) const
-{
+void Graph::Draw(GUI* pUI) const {
 	for (auto shapePointer : shapesList)
 		shapePointer->Draw(pUI);
 }
 
-void Graph::Refresh(GUI* pUI) const
-{
+void Graph::Refresh(GUI* pUI) const {
 	pUI->Clear();
 	Draw(pUI);
 	if (pUI->getInterfaceMode())
@@ -57,8 +50,7 @@ void Graph::Refresh(GUI* pUI) const
 vector <shape* > Graph::GetShapeList() const {
 	return  shapesList;
 }
-shape* Graph::Getshape(Point p)
-{
+shape* Graph::Getshape(Point p) {
 	for (auto i : views::reverse(shapesList)) {
 		if (i->isSelected(p)) {
 			setSelectedShape(i);

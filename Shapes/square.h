@@ -2,8 +2,7 @@
 
 #include "Rect.h"
 
-class Square : public Rect
-{
+class Square: public Rect {
 public:
 	Square(Point, Point, GfxInfo);
 	virtual ~Square() override;

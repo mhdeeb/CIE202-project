@@ -2,8 +2,7 @@
 
 #include "IrregPoly.h"
 
-class Triangle : public IrregPoly
-{
+class Triangle: public IrregPoly {
 public:
 	Triangle(GfxInfo shapeGfxInfo);
 	virtual ~Triangle();

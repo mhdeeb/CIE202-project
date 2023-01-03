@@ -16,8 +16,7 @@ class Graph;
 class RegPoly;
 class controller;
 
-struct Point
-{
+struct Point {
 	int x;
 	int y;
 	double distance(const Point& p2) const {
@@ -31,7 +30,7 @@ struct Point
 		y = int(round(y * factor));
 		return *this;
 	}
-	Point& translate(const Point & point) {
+	Point& translate(const Point& point) {
 		x = x + point.x;
 		y = y + point.y;
 		return *this;
@@ -43,25 +42,25 @@ struct Point
 		return *this;
 	}
 	Point operator-() const {
-		return Point{ -x, -y };
+		return Point{-x, -y};
 	}
-	Point operator+(const Point & p) const {
-		return { x + p.x, y + p.y };
+	Point operator+(const Point& p) const {
+		return {x + p.x, y + p.y};
 	}
 	Point operator-(const Point& p) const {
-		return { x - p.x, y - p.y };
+		return {x - p.x, y - p.y};
 	}
 	Point operator/(const Point& p) const {
-		return { int(round(double(x) / p.x)), int(round(double(y) / p.y)) };
+		return {int(round(double(x) / p.x)), int(round(double(y) / p.y))};
 	}
 	Point operator*(const Point& p) const {
-		return { int(round(double(x) * p.x)), int(round(double(y) * p.y)) };
+		return {int(round(double(x) * p.x)), int(round(double(y) * p.y))};
 	}
 	Point operator+(int i) const {
-		return { x + i, y + i };
+		return {x + i, y + i};
 	}
 	Point operator-(int i) const {
-		return { x - i, y - i };
+		return {x - i, y - i};
 	}
 	Point operator/(double i) const {
 		return Point(int(round(x / i)), int(round(y / i)));
@@ -80,9 +79,7 @@ struct GfxInfo	//Graphical info common for all shapes (you may add more members)
 	bool isSelected = false;	//true if the shape is selected.
 };
 
-
-class GUI
-{
+class GUI {
 public:
 	const enum GUI_MODE	//Graphical user interface mode
 	{
@@ -96,7 +93,7 @@ public:
 		//If you want to change the menu icons order, change the order here
 		ICON_RECT,			//Recangle icon in menu
 		ICON_CIRC,			//Circle icon in menu
-		ICON_SQUARE,		// Square icon menu 
+		ICON_SQUARE,		// Square icon menu
 		ICON_LINE,			//Line icon in menu
 		ICON_TRIANGLE,
 		ICON_REG_POLY,
@@ -128,7 +125,6 @@ public:
 		ICON_START_GAME,
 		ICON_DRAW_MODE,
 		ICON_EXIT2,
-
 
 		//Note: Icons are ordered here as they appear in menu
 		//If you want to change the menu icons order, change the order here

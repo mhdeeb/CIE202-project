@@ -2,8 +2,7 @@
 #include<ranges>
 #include<vector>
 
-Select::Select(controller* pCont) :operation(pCont)
-{}
+Select::Select(controller* pCont):operation(pCont) {}
 Select::~Select() = default;
 bool Select::Execute() {
 	GUI* pUI = pControl->GetUI();
@@ -15,7 +14,7 @@ bool Select::Execute() {
 
 	pUI->getMouseLocation(x, y);
 
-	shape* pSsh = graph->Getshape({ x, y });
+	shape* pSsh = graph->Getshape({x, y});
 
 	for (auto i : (graph->GetShapeList()))
 		if (i) i->SetSelected(false);
@@ -23,8 +22,7 @@ bool Select::Execute() {
 	if (pSsh) {
 		pSsh->SetSelected(true);
 		pUI->PrintMessage(pSsh->PrintInfo());
-	}
-	else
+	} else
 		pUI->PrintMessage("Select an operation.");
 	return false;
 }

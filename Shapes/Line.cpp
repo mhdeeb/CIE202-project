@@ -2,21 +2,17 @@
 
 #include <sstream>
 
-Line::Line(Point P1, Point P2, const GfxInfo& shapeGfxInfo) : shape(shapeGfxInfo), Point1(P1), Point2(P2) {}
-Point Line::getPoint1() const
-{
+Line::Line(Point P1, Point P2, const GfxInfo& shapeGfxInfo): shape(shapeGfxInfo), Point1(P1), Point2(P2) {}
+Point Line::getPoint1() const {
 	return Point1;
 }
-Point Line::getPoint2() const
-{
+Point Line::getPoint2() const {
 	return Point2;
 }
-void Line::setPoint1(const Point& p1)
-{
+void Line::setPoint1(const Point& p1) {
 	Point1 = p1;
 }
-void Line::setPoint2(const Point& p2)
-{
+void Line::setPoint2(const Point& p2) {
 	Point2 = p2;
 }
 Line::~Line() = default;
@@ -49,8 +45,7 @@ bool Line::isSelected(Point p) const {
 	return false;
 }
 
-Line* Line::Load(const string& data)
-{
+Line* Line::Load(const string& data) {
 	stringstream ss(data);
 	int id;
 	int p1x;
@@ -67,18 +62,16 @@ Line* Line::Load(const string& data)
 	gfx.DrawClr = draw;
 	gfx.FillClr = fill;
 	gfx.isFilled = isFilled;
-	auto* shape = new Line({ p1x, p1y }, { p2x, p2y }, gfx);
+	auto* shape = new Line({p1x, p1y}, {p2x, p2y}, gfx);
 	shape->setID(id);
 	return shape;
 }
 
-void Line::Transform(transformation func, double factor, Point origin)
-{
+void Line::Transform(transformation func, double factor, Point origin) {
 	func(Point1, factor, origin);
 	func(Point2, factor, origin);
 }
 
-Point Line::GetCenter() const
-{
+Point Line::GetCenter() const {
 	return (Point1 + Point2) / 2;
 }

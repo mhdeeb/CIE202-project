@@ -1,8 +1,8 @@
-/* 
+/*
 See "version.h" for version info and copyright information
 This file was last modified on 05.16.1999
 */
- 
+
 #ifndef AUXILIARY_H
 #define AUXILIARY_H
 
@@ -15,7 +15,7 @@ void Pause(const unsigned long ulTime);
 unsigned long CurrentTime();
 
 // Return true if iInterval milliseconds have elapsed since
-// the last time ElapsedTime was called.  Returns false on the 
+// the last time ElapsedTime was called.  Returns false on the
 // first call
 bool ElapsedTime(const unsigned long ulInterval);
 

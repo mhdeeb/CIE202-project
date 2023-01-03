@@ -11,7 +11,6 @@ This file was last modified on 05.16.1999
 #include <format>
 
 class color {
-
 public:
 
 	// Default constructor creates black
@@ -28,8 +27,7 @@ public:
 			ucRed = stoi(hex.substr(1, 2), nullptr, 16);
 			ucGreen = stoi(hex.substr(3, 2), nullptr, 16);
 			ucBlue = stoi(hex.substr(5, 2), nullptr, 16);
-		}
-		else {
+		} else {
 			cout << "Warning: " << hex << " is not a valid hex color value, defaulted to #000000\n";
 			ucRed = ucGreen = ucBlue = 0;
 		}
@@ -39,7 +37,7 @@ public:
 	/// Creates a color object using hex value string; defaults to #000000 if hex fails isHexColor(std::string) check
 	/// </summary>
 	/// <param name="hex"></param>
-	color(const char hex[]) : color(string(hex)) {}
+	color(const char hex[]): color(string(hex)) {}
 
 	/// <summary>
 	/// Returns true if hex is a valid hex number string "#000000~#ffffff"
@@ -62,7 +60,6 @@ public:
 	unsigned char ucRed;
 	unsigned char ucGreen;
 	unsigned char ucBlue;
-
 };
 
 bool operator==(color a, color b);
@@ -221,6 +218,5 @@ const color DARKCYAN = color(0, 139, 139);
 const color DARKMAGENTA = color(139, 0, 139);
 const color DARKRED = color(139, 0, 0);
 const color LIGHTGREEN = color(144, 238, 144);
-
 
 #endif //COLOR_H

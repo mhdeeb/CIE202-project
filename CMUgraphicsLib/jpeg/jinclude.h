@@ -14,8 +14,7 @@
  * JPEG library.  Most applications need only include jpeglib.h.
  */
 
-
-/* Include auto-config file to find out which system include files we need. */
+ /* Include auto-config file to find out which system include files we need. */
 
 #include "jconfig.h"		/* auto configuration options */
 #define JCONFIG_INCLUDED	/* so that jpeglib.h doesn't do it again */
@@ -45,15 +44,15 @@
 
 #include <stdio.h>
 
-/*
- * We need memory copying and zeroing functions, plus strncpy().
- * ANSI and System V implementations declare these in <string.h>.
- * BSD doesn't have the mem() functions, but it does have bcopy()/bzero().
- * Some systems may declare memset and memcpy in <memory.h>.
- *
- * NOTE: we assume the size parameters to these functions are of type size_t.
- * Change the casts in these macros if not!
- */
+ /*
+  * We need memory copying and zeroing functions, plus strncpy().
+  * ANSI and System V implementations declare these in <string.h>.
+  * BSD doesn't have the mem() functions, but it does have bcopy()/bzero().
+  * Some systems may declare memset and memcpy in <memory.h>.
+  *
+  * NOTE: we assume the size parameters to these functions are of type size_t.
+  * Change the casts in these macros if not!
+  */
 
 #ifdef NEED_BSD_STRINGS
 
@@ -69,21 +68,21 @@
 
 #endif
 
-/*
- * In ANSI C, and indeed any rational implementation, size_t is also the
- * type returned by sizeof().  However, it seems there are some irrational
- * implementations out there, in which sizeof() returns an int even though
- * size_t is defined as long or unsigned long.  To ensure consistent results
- * we always use this SIZEOF() macro in place of using sizeof() directly.
- */
+  /*
+   * In ANSI C, and indeed any rational implementation, size_t is also the
+   * type returned by sizeof().  However, it seems there are some irrational
+   * implementations out there, in which sizeof() returns an int even though
+   * size_t is defined as long or unsigned long.  To ensure consistent results
+   * we always use this SIZEOF() macro in place of using sizeof() directly.
+   */
 
 #define SIZEOF(object)	((size_t) sizeof(object))
 
-/*
- * The modules that use fread() and fwrite() always invoke them through
- * these macros.  On some systems you may need to twiddle the argument casts.
- * CAUTION: argument order is different from underlying functions!
- */
+   /*
+	* The modules that use fread() and fwrite() always invoke them through
+	* these macros.  On some systems you may need to twiddle the argument casts.
+	* CAUTION: argument order is different from underlying functions!
+	*/
 
 #define JFREAD(file,buf,sizeofbuf)  \
   ((size_t) fread((void *) (buf), (size_t) 1, (size_t) (sizeofbuf), (file)))

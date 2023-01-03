@@ -3,10 +3,10 @@
 #include <numbers>
 #include <sstream>
 
-RegPoly::RegPoly(Point center, int vertices, GfxInfo shapeGfxInfo, double radius) : IrregPoly(shapeGfxInfo), r(radius), c(center), v(vertices) {
+RegPoly::RegPoly(Point center, int vertices, GfxInfo shapeGfxInfo, double radius): IrregPoly(shapeGfxInfo), r(radius), c(center), v(vertices) {
 	type = REGULAR_POLYGON;
 	for (double theta = 0; theta < 2 * numbers::pi; theta += 2 * numbers::pi / v)
-		addPoint({ int(r * cos(theta) + c.x), int(r * sin(theta) + c.y) });
+		addPoint({int(r * cos(theta) + c.x), int(r * sin(theta) + c.y)});
 }
 
 void RegPoly::update(Point center, double radius) {
@@ -14,7 +14,7 @@ void RegPoly::update(Point center, double radius) {
 	r = radius;
 	int i = 0;
 	for (double theta = 0; theta < 2 * numbers::pi; theta += 2 * numbers::pi / v, ++i)
-		setPoint({ int(r * cos(theta) + c.x), int(r * sin(theta) + c.y) }, i);
+		setPoint({int(r * cos(theta) + c.x), int(r * sin(theta) + c.y)}, i);
 }
 
 RegPoly::~RegPoly() {
@@ -25,8 +25,7 @@ void RegPoly::Draw(GUI* pUI) const {
 	pUI->DrawRegPoly(this);
 }
 
-RegPoly* RegPoly::Load(string data)
-{
+RegPoly* RegPoly::Load(string data) {
 	stringstream ss(data);
 	int id, p1x, p1y, vertices, borderWidth;
 	double radius;
@@ -38,7 +37,7 @@ RegPoly* RegPoly::Load(string data)
 	gfx.DrawClr = draw;
 	gfx.FillClr = fill;
 	gfx.isFilled = isFilled;
-	RegPoly* shape = new RegPoly({ p1x, p1y }, vertices, gfx, radius);
+	RegPoly* shape = new RegPoly({p1x, p1y}, vertices, gfx, radius);
 	shape->setID(id);
 	return shape;
 }

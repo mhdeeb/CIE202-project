@@ -2,8 +2,7 @@
 
 #include "operation.h"
 
-class opAddIrregPoly : public operation
-{
+class opAddIrregPoly: public operation {
 public:
 	opAddIrregPoly(controller* pCont);
 	virtual ~opAddIrregPoly() override;

@@ -2,8 +2,7 @@
 
 #include "Shape.h"
 
-class IrregPoly : public shape
-{
+class IrregPoly: public shape {
 protected:
 	vector<int> xpoints, ypoints;
 	Point center;

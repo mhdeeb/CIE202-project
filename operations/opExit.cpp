@@ -2,14 +2,11 @@
 #include "opSave.h"
 #include "opPrompt.h"
 
-opExit::opExit(controller* pCont) : operation(pCont)
-{}
+opExit::opExit(controller* pCont): operation(pCont) {}
 
-opExit::~opExit()
-{}
+opExit::~opExit() {}
 
-bool opExit::Execute()
-{
+bool opExit::Execute() {
 	auto prompt = opPrompt(pControl, "Do you want to save before you exit? y/n");
 	prompt.Execute();
 	if (prompt.isYes() == 1)

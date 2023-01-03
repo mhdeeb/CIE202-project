@@ -6,15 +6,13 @@
 #include <cmath>
 #include <format>
 
-opAddRegPoly::opAddRegPoly(controller* pCont) :operation(pCont)
-{}
+opAddRegPoly::opAddRegPoly(controller* pCont):operation(pCont) {}
 opAddRegPoly::~opAddRegPoly() = default;
 
-bool opAddRegPoly::Execute()
-{
+bool opAddRegPoly::Execute() {
 	GUI* pUI = pControl->GetUI();
 	Point p1;
-	Point p2{ 0, 0 };
+	Point p2{0, 0};
 	string s;
 	char c;
 	auto prompt = opPrompt(pControl, "Enter no of vertices(more than 1)");
@@ -60,8 +58,7 @@ bool opAddRegPoly::Execute()
 			}
 			pControl->GetGraph()->Addshape(R);
 			pControl->GetGraph()->Refresh(pUI);
-		}
-		else {
+		} else {
 			pUI->ClearStatusMessage();
 			return true;
 		}

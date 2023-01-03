@@ -6,10 +6,10 @@ enum operationType //The operations supported (you can add more if needed)
 {
 	DRAW_LINE,		//Draw Line
 	DRAW_RECT,		//Draw Rectangle
-	DRAW_SQUARE,    //Draw Square 
+	DRAW_SQUARE,    //Draw Square
 	DRAW_TRIANGLE,  //Draw Triangle
 	DRAW_CIRC,		//Draw Circle
-	DRAW_REG_POLY,  //Draw Regular Polygon 
+	DRAW_REG_POLY,  //Draw Regular Polygon
 	DRAW_IRREG_POLY,//Draw Irregular Polygon
 	DRAW_COLOR_PALETTE,
 	CHNG_DRAW_CLR,	//Change the drawing color
@@ -38,7 +38,6 @@ enum operationType //The operations supported (you can add more if needed)
 	MATCH,
 	START_GAME,
 
-
 	///TODO: Add more operation types (if needed)
 };
 enum shapeType {
@@ -60,6 +59,5 @@ const string ShapesArray[]{
 	"REGULAR_POLYGON",
 	"IRREGULAR_POLYGON",
 };
-
 
 #endif

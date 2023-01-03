@@ -2,8 +2,7 @@
 
 #include "operation.h"
 
-class opColorPalette : public operation
-{
+class opColorPalette: public operation {
 private:
 	bool lockScreen;
 public:

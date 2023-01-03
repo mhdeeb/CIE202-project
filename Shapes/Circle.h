@@ -2,8 +2,7 @@
 
 #include "Shape.h"
 
-class Circle : public shape
-{
+class Circle: public shape {
 private:
 	Point origin;
 	double radius;

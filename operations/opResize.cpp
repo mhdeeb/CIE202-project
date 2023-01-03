@@ -2,17 +2,16 @@
 
 #include <numbers>
 
-opResize::opResize(controller* pCont) : operation(pCont) {}
+opResize::opResize(controller* pCont): operation(pCont) {}
 
 opResize::~opResize() = default;
 
-bool opResize::Execute()
-{
+bool opResize::Execute() {
 	GUI* pUI = pControl->GetUI();
 	Graph const* graph = pControl->GetGraph();
 	if (shape* pShape = graph->getSelectedShape()) {
 		Point p1 = pShape->GetCenter();
-		Point p2{ 0, 0 };
+		Point p2{0, 0};
 		pUI->PrintMessage("Resize Selected: Click on graph to start resizing");
 		if (!pUI->GetPointClicked(p2.x, p2.y)) {
 			pUI->ClearStatusMessage();

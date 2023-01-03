@@ -6,16 +6,13 @@
 
 #include <format>
 
-opAddIrregPoly::opAddIrregPoly(controller* pCont) :operation(pCont)
-{}
-opAddIrregPoly::~opAddIrregPoly()
-{}
+opAddIrregPoly::opAddIrregPoly(controller* pCont):operation(pCont) {}
+opAddIrregPoly::~opAddIrregPoly() {}
 
-bool opAddIrregPoly::Execute()
-{
+bool opAddIrregPoly::Execute() {
 	GUI* pUI = pControl->GetUI();
 	Point p1;
-	Point p2{ 0, 0 };
+	Point p2{0, 0};
 	char ch;
 	while (true) {
 		pUI->PrintMessage("Irregular Polygon Selected: Click on graph to start drawing");
@@ -34,8 +31,8 @@ bool opAddIrregPoly::Execute()
 			string msg = format("Point   1: ({: >4}, {: >4})  ", p1.x, p1.y);
 			pUI->PrintMessage(msg);
 			gfxInfo.DrawClr = LIGHTGRAY;
-			Line l{ p1, p2, gfxInfo };
-			Circle c{ p1, 12, gfxInfo };
+			Line l{p1, p2, gfxInfo};
+			Circle c{p1, 12, gfxInfo};
 			pUI->storeImage();
 			while (true) {
 				I->addPoint(p2);
@@ -69,8 +66,7 @@ bool opAddIrregPoly::Execute()
 			else
 				delete I;
 			pControl->GetGraph()->Refresh(pUI);
-		}
-		else {
+		} else {
 			pUI->ClearStatusMessage();
 			return true;
 		}

@@ -4,16 +4,13 @@
 
 #include <format>
 
-opAddCircle::opAddCircle(controller* pCont) :operation(pCont)
-{}
-opAddCircle::~opAddCircle()
-{}
+opAddCircle::opAddCircle(controller* pCont):operation(pCont) {}
+opAddCircle::~opAddCircle() {}
 
-bool opAddCircle::Execute()
-{
+bool opAddCircle::Execute() {
 	GUI* pUI = pControl->GetUI();
 	Point p1;
-	Point p2{ 0, 0 };
+	Point p2{0, 0};
 	char c;
 	while (true) {
 		pUI->PrintMessage("Circle Selected: Click on graph to start drawing");
@@ -48,8 +45,7 @@ bool opAddCircle::Execute()
 			}
 			pControl->GetGraph()->Addshape(C);
 			pControl->GetGraph()->Refresh(pUI);
-		}
-		else {
+		} else {
 			pUI->ClearStatusMessage();
 			return true;
 		}

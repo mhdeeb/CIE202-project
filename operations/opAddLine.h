@@ -2,8 +2,7 @@
 
 #include "operation.h"
 
-class opAddLine : public operation
-{
+class opAddLine: public operation {
 public:
 	opAddLine(controller* pCont);
 	virtual ~opAddLine() override;

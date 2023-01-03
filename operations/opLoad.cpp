@@ -5,17 +5,14 @@
 #include <fstream>
 #include <map>
 
-opLoad::opLoad(controller* pCont) : operation(pCont)
-{
-}
+opLoad::opLoad(controller* pCont): operation(pCont) {}
 
 opLoad::~opLoad() = default;
 
-bool opLoad::Execute()
-{
+bool opLoad::Execute() {
 	stringstream ss;
 	ss << "Select save:\n\n";
-	
+
 	int i = 0;
 
 	string filename;
@@ -26,12 +23,12 @@ bool opLoad::Execute()
 			ss << format("({}) {}\n", i, filename.substr(0, filename.size() - 7));
 			i++;
 		}
-	
+
 	auto prompt = opPrompt(pControl, ss.str());
 	prompt.Execute();
 	string response = prompt.response();
 	GUI* pUI = pControl->GetUI();
-	
+
 	if (response == "")
 		return false;
 

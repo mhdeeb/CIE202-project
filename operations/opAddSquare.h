@@ -2,8 +2,7 @@
 
 #include "operation.h"
 
-class opAddSquare : public operation
-{
+class opAddSquare: public operation {
 public:
 	opAddSquare(controller* pCont);
 	virtual ~opAddSquare() override;

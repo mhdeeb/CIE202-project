@@ -4,15 +4,12 @@
 
 #include <format>
 
-opAddSquare::opAddSquare(controller* pCont) :operation(pCont)
-{}
-opAddSquare::~opAddSquare()
-{}
+opAddSquare::opAddSquare(controller* pCont):operation(pCont) {}
+opAddSquare::~opAddSquare() {}
 
-bool opAddSquare::Execute()
-{
+bool opAddSquare::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Point p1, p2{ 0, 0 };
+	Point p1, p2{0, 0};
 	char c;
 	while (true) {
 		pUI->PrintMessage("Square Selected: Click on graph to start drawing");
@@ -47,8 +44,7 @@ bool opAddSquare::Execute()
 			}
 			pControl->GetGraph()->Addshape(S);
 			pControl->GetGraph()->Refresh(pUI);
-		}
-		else {
+		} else {
 			pUI->ClearStatusMessage();
 			return true;
 		}

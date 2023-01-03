@@ -2,31 +2,27 @@
 
 #include <sstream>
 
-Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo) : shape(shapeGfxInfo), origin(origin), radius(radius) {}
+Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo): shape(shapeGfxInfo), origin(origin), radius(radius) {}
 
-Point Circle::getOrigin() const
-{
+Point Circle::getOrigin() const {
 	return origin;
 }
 
-double Circle::getRadius() const
-{
+double Circle::getRadius() const {
 	return radius;
 }
 
-void Circle::setRadius(double radius)
-{
+void Circle::setRadius(double radius) {
 	this->radius = radius;
 }
 
-void Circle::setOrigin(const Point &origin)
-{
+void Circle::setOrigin(const Point& origin) {
 	this->origin = origin;
 }
 
 Circle::~Circle() {}
 
-void Circle::Draw(GUI* pUI) const {	
+void Circle::Draw(GUI* pUI) const {
 	pUI->DrawCircle(this);
 }
 
@@ -47,8 +43,7 @@ bool Circle::isSelected(Point p) const {
 	return false;
 }
 
-Circle* Circle::Load(string data)
-{
+Circle* Circle::Load(string data) {
 	stringstream ss(data);
 	int id, p1x, p1y, borderWidth;
 	string draw, fill;
@@ -60,16 +55,15 @@ Circle* Circle::Load(string data)
 	gfx.DrawClr = draw;
 	gfx.FillClr = fill;
 	gfx.isFilled = isFilled;
-	Circle* shape = new Circle({ p1x, p1y }, radius, gfx);
+	Circle* shape = new Circle({p1x, p1y}, radius, gfx);
 	shape->setID(id);
 	return shape;
 }
 
-void Circle::Transform(transformation func, double factor, Point origin) { 
+void Circle::Transform(transformation func, double factor, Point origin) {
 	radius *= factor;
 }
 
-Point Circle::GetCenter() const
-{
+Point Circle::GetCenter() const {
 	return origin;
 }

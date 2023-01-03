@@ -19,8 +19,7 @@
 #include "operations/noOp.h"
 
 //Constructor
-controller::controller()
-{
+controller::controller() {
 	pGraph = new Graph;
 	pGUI = new GUI(this);	//Create GUI object
 	isRunning = true;
@@ -29,21 +28,18 @@ controller::controller()
 //==================================================================================//
 //								operations-Related Functions							//
 //==================================================================================//
-operationType controller::GetUseroperation(int x, int y) const
-{
+operationType controller::GetUseroperation(int x, int y) const {
 	//Ask the input to get the operation from the user.
 	return pGUI->GetUseroperation(x, y);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Creates an operation and executes it
-operation* controller::createOperation(operationType OpType)
-{
+operation* controller::createOperation(operationType OpType) {
 	operation* pOp = nullptr;
 
 	//According to operation Type, create the corresponding operation object
 	if (!pGUI->getInterfaceMode()) {
-		switch (OpType)
-		{
+		switch (OpType) {
 		case DRAW_RECT:
 			pOp = new opAddRect(this);
 			break;
@@ -78,10 +74,10 @@ operation* controller::createOperation(operationType OpType)
 			pOp = new Delete(this);
 			break;
 		case SAVE:
-			pOp=new opSave(this);
+			pOp = new opSave(this);
 			break;
 		case LOAD:
-			pOp=new opLoad(this);
+			pOp = new opLoad(this);
 			break;
 		case TO_PLAY:
 			pOp = new SwitchToPlayMode(this);  // this operation is supposed to Clear the draw toolbar and draw the play toolbar
@@ -95,10 +91,8 @@ operation* controller::createOperation(operationType OpType)
 			pOp = new Select(this);
 			break;
 		}
-	}
-	else if (pGUI->getInterfaceMode()) {
-		switch (OpType)
-		{
+	} else if (pGUI->getInterfaceMode()) {
+		switch (OpType) {
 		case HIDE:
 			break;
 		case UNHIDE:
@@ -129,47 +123,37 @@ operation* controller::createOperation(operationType OpType)
 //==================================================================================//
 
 //Draw all shapes on the user interface
-void controller::UpdateInterface() const
-{
+void controller::UpdateInterface() const {
 	pGraph->Refresh(pGUI);
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the UI
-GUI* controller::GetUI() const
-{
+GUI* controller::GetUI() const {
 	return pGUI;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 //Return a pointer to the Graph
-Graph* controller::GetGraph() const
-{
+Graph* controller::GetGraph() const {
 	return pGraph;
 }
 
-
-
 //Destructor
-controller::~controller()
-{
+controller::~controller() {
 	delete pGUI;
 	delete pGraph;
 }
 
-
-
 //==================================================================================//
 //							Run function											//
 //==================================================================================//
-void controller::Run()
-{
+void controller::Run() {
 	operationType OpType;
 	int x;
 	int y;
 	bool skipInput = false;
-	do
-	{
+	do {
 		if (!skipInput)
-			while(!pGUI->GetPointClicked(x, y));
+			while (!pGUI->GetPointClicked(x, y));
 		else
 			pGUI->getMouseLocation(x, y);
 		OpType = GetUseroperation(x, y);
@@ -177,8 +161,7 @@ void controller::Run()
 		operation* pOpr = createOperation(OpType);
 
 		//3. Execute the created operation
-		if (pOpr)
-		{
+		if (pOpr) {
 			skipInput = pOpr->Execute();
 			delete pOpr;
 			pOpr = nullptr;

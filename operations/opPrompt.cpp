@@ -1,13 +1,9 @@
 #include "opPrompt.h"
 #include <filesystem>
 
-opPrompt::opPrompt(controller* pCont, string prompt) : operation(pCont), prompt(prompt), Response("")
-{
-}
+opPrompt::opPrompt(controller* pCont, string prompt): operation(pCont), prompt(prompt), Response("") {}
 
-opPrompt::~opPrompt()
-{
-}
+opPrompt::~opPrompt() {}
 
 string opPrompt::response() const {
 	return Response;
@@ -24,8 +20,7 @@ int opPrompt::isYes() const {
 	return -1;
 }
 
-bool opPrompt::Execute()
-{
+bool opPrompt::Execute() {
 	GUI* pUI = pControl->GetUI();
 	Response = pUI->GetString(prompt);
 	return false;

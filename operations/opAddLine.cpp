@@ -4,15 +4,12 @@
 
 #include <format>
 
-opAddLine::opAddLine(controller* pCont) :operation(pCont)
-{}
-opAddLine::~opAddLine()
-{}
+opAddLine::opAddLine(controller* pCont):operation(pCont) {}
+opAddLine::~opAddLine() {}
 
-bool opAddLine::Execute()
-{
+bool opAddLine::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Point p1, p2{ 0, 0 };
+	Point p1, p2{0, 0};
 	char c;
 	while (true) {
 		pUI->PrintMessage("Line Selected: Click on graph to start drawing");
@@ -46,8 +43,7 @@ bool opAddLine::Execute()
 			}
 			pControl->GetGraph()->Addshape(L);
 			pControl->GetGraph()->Refresh(pUI);
-		}
-		else {
+		} else {
 			pUI->ClearStatusMessage();
 			return true;
 		}

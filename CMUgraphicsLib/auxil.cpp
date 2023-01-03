@@ -1,4 +1,4 @@
-/* 
+/*
 See "version.h" for version info and copyright information
 This file was last modified on 05.16.1999
 */
@@ -19,14 +19,14 @@ unsigned long CurrentTime() {
 }
 
 // Return true if iInterval milliseconds have elapsed since
-// the last time ElapsedTime was called.  Returns false on the 
+// the last time ElapsedTime was called.  Returns false on the
 // first call
 bool ElapsedTime(const unsigned long ulInterval) {
 	static unsigned long ulLastTime = timeGetTime();
 	unsigned long ulCurrentTime;
 
 	ulCurrentTime = timeGetTime();
-	if((ulCurrentTime - ulLastTime) >= ulInterval) {
+	if ((ulCurrentTime - ulLastTime) >= ulInterval) {
 		ulLastTime = ulCurrentTime;
 		return true;
 	}

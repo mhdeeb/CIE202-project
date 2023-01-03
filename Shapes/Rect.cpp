@@ -2,31 +2,27 @@
 
 #include <sstream>
 
-Rect::Rect(Point p1, Point p2, GfxInfo shapeGfxInfo) :shape(shapeGfxInfo), p1(p1), p2(p2), type(RECTANGLE) {}
+Rect::Rect(Point p1, Point p2, GfxInfo shapeGfxInfo):shape(shapeGfxInfo), p1(p1), p2(p2), type(RECTANGLE) {}
 
-Point Rect::getC1() const
-{
+Point Rect::getC1() const {
 	return p1;
 }
 
-Point Rect::getC2() const
-{
+Point Rect::getC2() const {
 	return p2;
 }
 
-void Rect::setC1(Point p1)
-{
+void Rect::setC1(Point p1) {
 	this->p1 = p1;
 }
 
-void Rect::setC2(Point p2)
-{
+void Rect::setC2(Point p2) {
 	this->p2 = p2;
 }
 
 Rect::~Rect() {}
 
-void Rect::Draw(GUI* pUI) const {	
+void Rect::Draw(GUI* pUI) const {
 	pUI->DrawRect(this);
 }
 
@@ -47,8 +43,7 @@ bool Rect::isSelected(Point p) const {
 	return false;
 }
 
-Rect* Rect::Load(string data)
-{
+Rect* Rect::Load(string data) {
 	stringstream ss(data);
 	int id, p1x, p1y, p2x, p2y, borderWidth;
 	string draw, fill;
@@ -59,18 +54,16 @@ Rect* Rect::Load(string data)
 	gfx.DrawClr = draw;
 	gfx.FillClr = fill;
 	gfx.isFilled = isFilled;
-	Rect* shape = new Rect({ p1x, p1y }, { p2x, p2y }, gfx);
+	Rect* shape = new Rect({p1x, p1y}, {p2x, p2y}, gfx);
 	shape->setID(id);
 	return shape;
 }
 
-void Rect::Transform(transformation func, double factor, Point origin)
-{
+void Rect::Transform(transformation func, double factor, Point origin) {
 	func(p1, factor, origin);
 	func(p2, factor, origin);
 }
 
-Point Rect::GetCenter() const
-{
+Point Rect::GetCenter() const {
 	return (p1 + p2) / 2;
 }

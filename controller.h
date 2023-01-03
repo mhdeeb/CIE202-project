@@ -5,8 +5,7 @@
 class operation;
 
 //Main class that manages everything in the application.
-class controller
-{
+class controller {
 private:
 	Graph* pGraph;	//pointe to the grapg
 	GUI* pGUI;		//Pointer to UI class
@@ -26,6 +25,5 @@ public:
 
 	// -- Interface Management Functions
 	GUI* GetUI() const; //Return pointer to the UI
-	void UpdateInterface() const;	//Redraws all the drawing window	
-
+	void UpdateInterface() const;	//Redraws all the drawing window
 };

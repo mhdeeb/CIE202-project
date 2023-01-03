@@ -12,28 +12,23 @@ extern "C" {
 }
 
 image::image() {
-
 	bmiImage = NULL;
 	ucpImageData = NULL;
 
 	usWidth = 0;
 	usHeight = 0;
-
 }
 
 image::image(string strFileName, imagetype itThisType) {
-
 	path = strFileName;
 
 	bmiImage = NULL;
 	ucpImageData = NULL;
 
 	Open((char*)strFileName.c_str(), itThisType);
-
 }
 
 image::image(const char* cpFileName, imagetype itThisType) {
-
 	path = cpFileName;
 
 	bmiImage = NULL;
@@ -44,7 +39,6 @@ image::image(const char* cpFileName, imagetype itThisType) {
 	}
 
 	Open(cpFileName, itThisType);
-
 }
 
 string image::getPath() const {
@@ -52,7 +46,6 @@ string image::getPath() const {
 }
 
 image::~image() {
-
 	if (bmiImage != NULL) {
 		delete[] bmiImage;
 	}
@@ -63,13 +56,10 @@ image::~image() {
 }
 
 void image::Open(string strFileName, imagetype itThisType) {
-
 	Open((char*)strFileName.c_str(), itThisType);
-
 }
 
 void image::Open(const char* cpFileName, imagetype itThisType) {
-
 	unsigned long i, j;
 	unsigned char* ucpTmp;
 	int iErrorCode;
@@ -109,13 +99,11 @@ void image::Open(const char* cpFileName, imagetype itThisType) {
 			iErrorCode = jpegload("images/MenuIcons/Placeholder.jpg", &usWidth, &usHeight, &ucpTmp);
 			if (iErrorCode == -1) {
 				throw FILE_NOT_FOUND;
-			}
-			else if (iErrorCode == -2) {
+			} else if (iErrorCode == -2) {
 				delete[] bmiImage;
 				throw OUT_OF_MEMORY;
 			}
-		}
-		else if (iErrorCode == -2) {
+		} else if (iErrorCode == -2) {
 			delete[] bmiImage;
 			throw OUT_OF_MEMORY;
 		}
@@ -140,18 +128,12 @@ void image::Open(const char* cpFileName, imagetype itThisType) {
 		ucTransRed = 0;
 		ucTransGreen = 0;
 		ucTransBlue = 0;
-
-	}
-	else {
-
+	} else {
 		cout << "Fatal Error: Unsupported image type!" << endl;
-
 	}
-
 }
 
 void image::operator=(image& imgOther) {
-
 	itType = imgOther.itType;
 
 	bmiImage = (LPBITMAPINFO) new BYTE[sizeof(BITMAPINFOHEADER)];
@@ -181,11 +163,9 @@ void image::operator=(image& imgOther) {
 	}
 
 	memcpy(ucpImageData, imgOther.ucpImageData, (unsigned int)(usWidth * 4) * usHeight);
-
 }
 
 image::image(image& imgOther) {
-
 	itType = imgOther.itType;
 
 	bmiImage = (LPBITMAPINFO) new BYTE[sizeof(BITMAPINFOHEADER)];
@@ -215,5 +195,4 @@ image::image(image& imgOther) {
 	}
 
 	memcpy(ucpImageData, imgOther.ucpImageData, (unsigned int)(usWidth * 4) * usHeight);
-
 }

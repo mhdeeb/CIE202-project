@@ -3,15 +3,13 @@
 #include <numeric>
 #include <sstream>
 
-IrregPoly::IrregPoly(GfxInfo shapeGfxInfo) : shape(shapeGfxInfo), type(IRREGULAR_POLYGON), center({ 0,0 }) {}
+IrregPoly::IrregPoly(GfxInfo shapeGfxInfo): shape(shapeGfxInfo), type(IRREGULAR_POLYGON), center({0,0}) {}
 
-const int* IrregPoly::getXpoints() const
-{
+const int* IrregPoly::getXpoints() const {
 	return &xpoints[0];
 }
 
-const int* IrregPoly::getYpoints() const
-{
+const int* IrregPoly::getYpoints() const {
 	return &ypoints[0];
 }
 
@@ -19,15 +17,13 @@ Point IrregPoly::GetCenter() const {
 	return center;
 }
 
-void IrregPoly::addPoint(const Point& point)
-{
+void IrregPoly::addPoint(const Point& point) {
 	xpoints.push_back(point.x);
 	ypoints.push_back(point.y);
 	updateCenter();
 }
 
-void IrregPoly::removePoint(int index)
-{
+void IrregPoly::removePoint(int index) {
 	if (index < 0)
 		index = getSize() + index;
 	xpoints.erase(xpoints.begin() + index);
@@ -35,15 +31,13 @@ void IrregPoly::removePoint(int index)
 	updateCenter();
 }
 
-Point IrregPoly::getPoint(int index) const
-{
+Point IrregPoly::getPoint(int index) const {
 	if (index < 0)
 		index = getSize() + index;
-	return { xpoints[index], ypoints[index] };
+	return {xpoints[index], ypoints[index]};
 }
 
-void IrregPoly::setPoint(Point p, int index)
-{
+void IrregPoly::setPoint(Point p, int index) {
 	if (index < 0)
 		index = getSize() + index;
 	xpoints[index] = p.x;
@@ -51,8 +45,7 @@ void IrregPoly::setPoint(Point p, int index)
 	updateCenter();
 }
 
-int IrregPoly::getSize() const
-{
+int IrregPoly::getSize() const {
 	return xpoints.size();
 }
 
@@ -64,7 +57,6 @@ IrregPoly::~IrregPoly() {
 void IrregPoly::Draw(GUI* pUI) const {
 	pUI->DrawIrregPoly(this);
 }
-
 
 string IrregPoly::PrintInfo() const {
 	string color, data, points = "";
@@ -93,8 +85,7 @@ void IrregPoly::updateCenter() {
 	center.y = accumulate(ypoints.cbegin(), ypoints.cend(), 0) / ypoints.size();
 }
 
-IrregPoly* IrregPoly::Load(string data)
-{
+IrregPoly* IrregPoly::Load(string data) {
 	stringstream ss(data);
 	int id, px, py, n, borderWidth;
 	string draw, fill;
@@ -102,10 +93,9 @@ IrregPoly* IrregPoly::Load(string data)
 	GfxInfo gfx;
 	ss >> id >> n;
 	IrregPoly* shape = new IrregPoly(gfx);
-	for (int i = 0; i < n; i++)
-	{
+	for (int i = 0; i < n; i++) {
 		ss >> px >> py;
-		shape->addPoint({ px, py });
+		shape->addPoint({px, py});
 	}
 	ss >> draw >> isFilled >> fill >> borderWidth;
 	gfx.BorderWdth = borderWidth;
@@ -120,18 +110,16 @@ IrregPoly* IrregPoly::Load(string data)
 bool IrregPoly::isSelected(Point p) const {
 	double area = 0, testArea = 0;
 	int nupberOfPoints = xpoints.size() - 1;
-	for (int i = -1; i < nupberOfPoints; ++i)
-	{
+	for (int i = -1; i < nupberOfPoints; ++i) {
 		area += Area(center, getPoint(i), getPoint(i + 1));
 		testArea += Area(p, getPoint(i), getPoint(i + 1));
 	}
 	return area == testArea;
 }
 
-void IrregPoly::Transform(transformation func, double factor, Point origin)
-{
+void IrregPoly::Transform(transformation func, double factor, Point origin) {
 	for (int i = 0; i < getSize(); ++i) {
-		Point p = { xpoints[i], ypoints[i] };
+		Point p = {xpoints[i], ypoints[i]};
 		func(p, factor, origin);
 		xpoints[i] = p.x;
 		ypoints[i] = p.y;

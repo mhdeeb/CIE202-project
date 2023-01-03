@@ -3,10 +3,9 @@
 #include "../GUI/GUI.h"
 #include <functional>
 
-using transformation = const std::function<void(Point &, double parameter, const Point & origin)> &;
+using transformation = const std::function<void(Point&, double parameter, const Point& origin)>&;
 //Base class for all shapes
-class shape
-{
+class shape {
 private:
 	static int shapeCount;
 protected:
@@ -22,7 +21,7 @@ public:
 	virtual ~shape() {}
 	//Set shape selection
 	void SetSelected(bool);
-	//Return true if shape is selected 
+	//Return true if shape is selected
 	bool IsSelected() const;
 	virtual bool isSelected(Point) const = 0;
 	//absrtact function of Drawing the shape

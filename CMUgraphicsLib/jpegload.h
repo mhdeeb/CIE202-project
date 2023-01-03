@@ -1,4 +1,4 @@
-/* 
+/*
 See "version.h" for version info and copyright information
 This file was last modified on 05.16.1999
 */
@@ -9,6 +9,6 @@ This file was last modified on 05.16.1999
 #include "version.h"
 
 /* Load a JPEG image */
-int jpegload(const char *cpFileName, unsigned short *uspWidth, unsigned short *uspHeight, unsigned char **ucpImageData);
+int jpegload(const char* cpFileName, unsigned short* uspWidth, unsigned short* uspHeight, unsigned char** ucpImageData);
 
 #endif /*JPEGLOAD_H */

@@ -1,7 +1,6 @@
 #pragma once
 #include "operation.h"
-class opSave : public operation
-{
+class opSave: public operation {
 public:
 	opSave(controller* pCont);
 	virtual ~opSave() override;

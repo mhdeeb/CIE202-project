@@ -4,13 +4,11 @@
 #include <filesystem>
 #include <fstream>
 
-opSave::opSave(controller* pCont) : operation(pCont)
-{}
+opSave::opSave(controller* pCont): operation(pCont) {}
 
 opSave::~opSave() = default;
 
-bool opSave::Execute()
-{
+bool opSave::Execute() {
 	GUI* pUI = pControl->GetUI();
 
 	Graph const* graph = pControl->GetGraph();
@@ -21,8 +19,7 @@ bool opSave::Execute()
 	if (name == "save/_gf.txt")
 		return false;
 
-	while (filesystem::exists(name))
-	{
+	while (filesystem::exists(name)) {
 		prompt = opPrompt(pControl, "File already exists: Do you want to override it? (y/n)");
 		prompt.Execute();
 		while (prompt.isYes() == -1) {

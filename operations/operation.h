@@ -3,14 +3,13 @@
 #include "../controller.h"
 
 //Base class for all possible operations
-class operation
-{
+class operation {
 protected:
 	controller* pControl;	//operations needs control to do their job
 
 public:
 
-	operation(controller* pControl) : pControl(pControl) {}	//constructor
+	operation(controller* pControl): pControl(pControl) {}	//constructor
 	virtual ~operation() {}
 
 	//Execute operation (code depends on operation type)
@@ -21,5 +20,4 @@ public:
 
 	//To redo this operation (code depends on operation type)
 	//virtual void Redo()=0;
-
 };

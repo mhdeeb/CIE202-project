@@ -2,8 +2,7 @@
 
 #include "Shape.h"
 
-class Rect : public shape
-{
+class Rect: public shape {
 protected:
 	Point p1;
 	Point p2;

@@ -1,9 +1,7 @@
 #include "SwitchToDrawMode.h"
 
-SwitchToDrawMode::SwitchToDrawMode(controller* pCont) :operation(pCont)
-{}
-SwitchToDrawMode::~SwitchToDrawMode()
-{}
+SwitchToDrawMode::SwitchToDrawMode(controller* pCont):operation(pCont) {}
+SwitchToDrawMode::~SwitchToDrawMode() {}
 bool SwitchToDrawMode::Execute() {
 	GUI* pUI = pControl->GetUI();
 	pUI->setInterfaceModeToDraw();

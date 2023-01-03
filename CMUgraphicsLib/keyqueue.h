@@ -1,4 +1,4 @@
-/* 
+/*
 See "version.h" for version info and copyright information
 This file was last modified on 05.16.1999
 */
@@ -18,30 +18,27 @@ enum keytype {
 	ESCAPE
 };
 
-
 class kqueuenode {
-    
-  public:
+public:
 	keytype ktInfo;
 	char cValue;
 
-	kqueuenode *kqueNext;
-	
+	kqueuenode* kqueNext;
+
 	kqueuenode() {
-	    kqueNext = NULL;
+		kqueNext = NULL;
 	}
 };
 
 class kqueue {
+private:
+	kqueuenode* kqueHead;
+	kqueuenode* kqueTail;
 
-  private:
-    kqueuenode *kqueHead;
-	kqueuenode *kqueTail;
-
-  public:
+public:
 	kqueue();
 	~kqueue();
-	
+
 	void Insert(kqueuenode* kqueNode);
 	kqueuenode* Remove();
 };

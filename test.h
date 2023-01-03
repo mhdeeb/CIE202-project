@@ -8,7 +8,6 @@
 #include <iostream>
 
 namespace test {
-
 	std::string _sep = " ";
 	std::string _end = "\n";
 
