@@ -1,11 +1,10 @@
 #include "Graph.h"
 #include<ranges>
 #include<vector>
+#include<fstream>
 using namespace std;
 
-Graph::Graph() {
-	selectedShape = nullptr;
-}
+Graph::Graph() {}
 
 Graph::~Graph() {}
 
@@ -72,4 +71,39 @@ void Graph::Clear() {
 		delete shapesList.back();
 		shapesList.pop_back();
 	}
+}
+
+void Graph::Copy() {
+	if (selectedShape)
+		Clipboard = selectedShape->Serialize();
+}
+
+shape* Graph::Paste() {
+	if (Clipboard != "") {
+		shape* pShp = GUI::ParseShape(Clipboard);
+		if (pShp != nullptr)
+			Addshape(pShp);
+		return pShp;
+	}
+	return nullptr;
+}
+
+void Graph::Load(filesystem::path name, GUI* pUI) {
+	ifstream file;
+	file.open(name);
+	string data;
+	string drawColor;
+	string fillColor;
+	int isFilled;
+	int drawWidth;
+	int shapeCount;
+	file >> drawColor >> fillColor >> isFilled >> drawWidth >> shapeCount;
+	pUI->setDrawColor(drawColor);
+	pUI->setFillColor(fillColor, isFilled);
+	pUI->setPenWidth(drawWidth);
+	getline(file, data);
+	Clear();
+	while (getline(file, data))
+		Addshape(GUI::ParseShape(data));
+	file.close();
 }

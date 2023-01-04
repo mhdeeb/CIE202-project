@@ -151,6 +151,8 @@ void controller::Run() {
 	int x;
 	int y;
 	bool skipInput = false;
+	pGraph->Load("save/Example_gf.txt", pGUI);
+	UpdateInterface();
 	do {
 		if (!skipInput)
 			while (!pGUI->GetPointClicked(x, y));

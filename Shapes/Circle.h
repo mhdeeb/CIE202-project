@@ -6,6 +6,7 @@ class Circle: public shape {
 private:
 	Point origin;
 	double radius;
+	Point radiusp;
 public:
 	Circle(Point origin = {}, double radius = 0, GfxInfo shapeGfxInfo = {});
 	Point getOrigin() const;

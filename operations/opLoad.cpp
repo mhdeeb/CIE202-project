@@ -2,7 +2,6 @@
 #include "opPrompt.h"
 
 #include <filesystem>
-#include <fstream>
 #include <map>
 
 opLoad::opLoad(controller* pCont): operation(pCont) {}
@@ -36,28 +35,7 @@ bool opLoad::Execute() {
 		pUI->PrintMessage("Graph wasn't loaded: bad input");
 		return false;
 	}
-
-	ifstream file;
-	file.open(files[response]);
-
-	string data;
-	string drawColor;
-	string fillColor;
-	int isFilled;
-	int drawWidth;
-	int shapeCount;
-	file >> drawColor >> fillColor >> isFilled >> drawWidth >> shapeCount;
-	Graph* graph = pControl->GetGraph();
-	pUI->setDrawColor(drawColor);
-	pUI->setFillColor(fillColor, isFilled);
-	pUI->setPenWidth(drawWidth);
-	getline(file, data);
-	graph->Clear();
-	while (getline(file, data))
-		graph->Addshape(GUI::ParseShape(data));
-	file.close();
-
+	pControl->GetGraph()->Load(files[response], pUI);
 	pUI->PrintMessage("Graph Loaded!");
-
 	return false;
 }

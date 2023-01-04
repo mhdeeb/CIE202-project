@@ -35,6 +35,6 @@ public:
 	void setGfx(GfxInfo gfxInfo);
 	virtual string Serialize() const = 0;
 	virtual string PrintInfo() const = 0;
-	virtual void Transform(transformation, double, Point) = 0;
+	virtual void Transform(transformation func, double factor, Point origin) = 0;
 	virtual Point GetCenter() const = 0;
 };

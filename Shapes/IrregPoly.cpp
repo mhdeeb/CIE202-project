@@ -108,7 +108,8 @@ IrregPoly* IrregPoly::Load(string data) {
 }
 
 bool IrregPoly::isSelected(Point p) const {
-	double area = 0, testArea = 0;
+	double area = 0;
+	double testArea = 0;
 	int nupberOfPoints = xpoints.size() - 1;
 	for (int i = -1; i < nupberOfPoints; ++i) {
 		area += Area(center, getPoint(i), getPoint(i + 1));
@@ -124,4 +125,5 @@ void IrregPoly::Transform(transformation func, double factor, Point origin) {
 		xpoints[i] = p.x;
 		ypoints[i] = p.y;
 	}
+	updateCenter();
 }

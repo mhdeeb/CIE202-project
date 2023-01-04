@@ -3,11 +3,14 @@
 #include "../GUI/GUI.h"
 #include "Shape.h"
 
+#include<filesystem>
+
 //A class that is responsible on everything related to shapes
 class Graph {
 private:
 	vector <shape*> shapesList; //a container to hold all shapes
-	shape* selectedShape;	//pointer to the currently selected shape
+	shape* selectedShape = nullptr;	//pointer to the currently selected shape
+	string Clipboard;		//string to hold the copied shape
 public:
 	Graph();
 	~Graph();
@@ -19,5 +22,8 @@ public:
 	void setSelectedShape(shape*);
 	shape* getSelectedShape() const;
 	void Clear();
+	void Copy();
+	shape* Paste();
 	vector<shape*> GetShapeList() const;
+	void Load(filesystem::path name, GUI* pUI);
 };

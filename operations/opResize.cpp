@@ -1,7 +1,5 @@
 #include "opResize.h"
 
-#include <numbers>
-
 opResize::opResize(controller* pCont): operation(pCont) {}
 
 opResize::~opResize() = default;
@@ -23,20 +21,18 @@ bool opResize::Execute() {
 		pUI->storeImage();
 		while (pUI->MouseDrag(p2.x, p2.y)) {
 			curr = p1.distance(p2) / distance;
-			if (curr != prev) {
-				pShape->Transform(
-					[](Point& point, double s, const Point& origin) {
-						point.translate(-origin).scale(s).translate(origin);
-					}
-				, 1 / prev, p1);
-				pShape->Transform(
-					[](Point& point, double s, const Point& origin) {
-						point.translate(-origin).scale(s).translate(origin);
-					}
-				, curr, p1);
-				prev = curr;
-				graph->Draw(pUI);
-			}
+			pShape->Transform(
+				[](Point& point, double s, const Point& origin) {
+					point.translate(-origin).scale(s).translate(origin);
+				}
+			, 1 / prev, p1);
+			pShape->Transform(
+				[](Point& point, double s, const Point& origin) {
+					point.translate(-origin).scale(s).translate(origin);
+				}
+			, curr, p1);
+			prev = curr;
+			pShape->Draw(pUI);
 			Sleep(16);
 			pUI->loadImage();
 		}

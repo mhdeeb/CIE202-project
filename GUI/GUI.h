@@ -68,6 +68,7 @@ struct Point {
 	Point operator*(double i) const {
 		return Point(int(round(x * i)), int(round(y * i)));
 	}
+	auto operator<=>(const Point& p) const = default;
 };
 
 struct GfxInfo	//Graphical info common for all shapes (you may add more members)
@@ -136,13 +137,13 @@ public:
 	};
 
 private:
-	int width,
-		height,
-		wx,
-		wy,
-		StatusBarHeight,
-		ToolBarHeight,
-		MenuIconWidth;
+	int width;
+	int height;
+	int wx;
+	int wy;
+	int StatusBarHeight;
+	int ToolBarHeight;
+	int MenuIconWidth;
 	GUI_MODE InterfaceMode;
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
@@ -171,6 +172,7 @@ public:
 	//Get coordinate where user clicks
 
 	void getMouseLocation(int& x, int& y);
+	Point getMousePosition();
 
 	string GetString(string prompt);	 //Returns a string entered by the user
 
@@ -240,7 +242,7 @@ public:
 	void storeImage();
 	void loadImage();
 
-	static shape* ParseShape(string line);
+	static shape* ParseShape(const string& line);
 
 	~GUI();
 };

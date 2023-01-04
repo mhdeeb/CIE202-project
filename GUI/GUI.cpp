@@ -13,6 +13,13 @@
 #include "../operations/opDelete.h"
 #include "../operations/opRotate.h"
 #include "../operations/opResize.h"
+#include "../operations/opMove.h"
+#include "../operations/opCopy.h"
+#include "../operations/opPaste.h"
+#include "../operations/opZoomIn.h"
+#include "../operations/opZoomOut.h"
+#include "../operations/opDuplicateGraph.h"
+#include "../operations/opScramble.h"
 
 GUI::GUI(controller* pCont): pCont(pCont) {
 	//Initialize user interface parameters
@@ -63,6 +70,27 @@ bool GUI::GetPointClicked(int& x, int& y) {
 			case 's':
 				opResize(pCont).Execute();
 				break;
+			case 'm':
+				opMove(pCont).Execute();
+				break;
+			case 'c':
+				opCopy(pCont).Execute();
+				break;
+			case 'p':
+				opPaste(pCont).Execute();
+				break;
+			case '+':
+				opZoomIn(pCont).Execute();
+				break;
+			case '-':
+				opZoomOut(pCont).Execute();
+				break;
+			case 'o':
+				opDuplicateGraph(pCont).Execute();
+				break;
+			case 'i':
+				opScramble(pCont).Execute();
+				break;
 			default:
 				break;
 			}
@@ -84,6 +112,13 @@ bool GUI::GetLeftClick(int& x, int& y) {
 
 void GUI::getMouseLocation(int& x, int& y) {
 	pWind->GetMouseCoord(x, y);
+}
+
+Point GUI::getMousePosition() {
+	int x;
+	int y;
+	pWind->GetMouseCoord(x, y);
+	return {x, y};
 }
 
 string GUI::GetString(string message) {
@@ -628,9 +663,10 @@ void GUI::DrawTriangle(const Triangle* triangle) const {
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 
-shape* GUI::ParseShape(string line) {
+shape* GUI::ParseShape(const string& line) {
 	stringstream ss(line);
-	string type, rest;
+	string type;
+	string rest;
 	ss >> type;
 	getline(ss, rest);
 	getline(ss, rest);
@@ -647,7 +683,7 @@ shape* GUI::ParseShape(string line) {
 		sh = Circle::Load(rest);
 		break;
 	case SQUARE:
-		sh = Square::Load(rest);;
+		sh = Square::Load(rest);
 		break;
 	case LINE:
 		sh = Line::Load(rest);

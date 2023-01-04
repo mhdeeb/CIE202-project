@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo): shape(shapeGfxInfo), origin(origin), radius(radius) {}
+Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo): shape(shapeGfxInfo), origin(origin), radius(radius), radiusp(origin + Point(radius, 0)) {}
 
 Point Circle::getOrigin() const {
 	return origin;
@@ -13,10 +13,12 @@ double Circle::getRadius() const {
 }
 
 void Circle::setRadius(double radius) {
+	radiusp.x = int(radius) + origin.x;
 	this->radius = radius;
 }
 
 void Circle::setOrigin(const Point& origin) {
+	radiusp = origin + Point(radius, 0);
 	this->origin = origin;
 }
 
@@ -61,7 +63,9 @@ Circle* Circle::Load(string data) {
 }
 
 void Circle::Transform(transformation func, double factor, Point origin) {
-	radius *= factor;
+	func(this->origin, factor, origin);
+	func(this->radiusp, factor, origin);
+	radius = radiusp.x - this->origin.x;
 }
 
 Point Circle::GetCenter() const {

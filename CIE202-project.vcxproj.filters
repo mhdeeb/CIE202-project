@@ -201,6 +201,15 @@
     <ClCompile Include="operations\opResize.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
+    <ClCompile Include="Operations\opMove.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opCopy.cpp" />
+    <ClCompile Include="operations\opPaste.cpp" />
+    <ClCompile Include="operations\opZoomIn.cpp" />
+    <ClCompile Include="operations\opZoomOut.cpp" />
+    <ClCompile Include="operations\opDuplicateGraph.cpp" />
+    <ClCompile Include="operations\opScramble.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -362,6 +371,15 @@
     <ClInclude Include="operations\opResize.h">
       <Filter>Operations</Filter>
     </ClInclude>
+    <ClInclude Include="Operations\opMove.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opCopy.h" />
+    <ClInclude Include="operations\opPaste.h" />
+    <ClInclude Include="operations\opZoomIn.h" />
+    <ClInclude Include="operations\opZoomOut.h" />
+    <ClInclude Include="operations\opDuplicateGraph.h" />
+    <ClInclude Include="operations\opScramble.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">

@@ -18,7 +18,6 @@ bool Select::Execute() {
 
 	for (auto i : (graph->GetShapeList()))
 		if (i) i->SetSelected(false);
-
 	if (pSsh) {
 		pSsh->SetSelected(true);
 		pUI->PrintMessage(pSsh->PrintInfo());
