@@ -96,6 +96,12 @@ bool GUI::GetPointClicked(int& x, int& y) {
 			case 't':
 				opToggleGroup(pCont).Execute();
 				break;
+			case 'b':
+				pCont->GetGraph()->undo(this);
+				break;
+			case 'n':
+				pCont->GetGraph()->redo(this);
+				break;
 			default:
 				break;
 			}
@@ -531,11 +537,13 @@ int GUI::getGid() const {
 
 void GUI::setDrawColor(color drawColor) {
 	DrawColor = drawColor;
+	pCont->GetGraph()->updateHistory(this);
 }
 
 void GUI::setFillColor(color fillColor, bool isFilled = true) {
 	Isfilled = isFilled;
 	FillColor = fillColor;
+	pCont->GetGraph()->updateHistory(this);
 }
 
 void GUI::setHighlightColor(color highlightColor) {
@@ -558,12 +566,9 @@ void GUI::setSelectedColor(color paletteColor) {
 	selectedColor = paletteColor;
 }
 
-void GUI::setIsFilled(bool b) {
-	Isfilled = b;
-}
-
 void GUI::setPenWidth(int penWidth) {
 	PenWidth = penWidth;
+	pCont->GetGraph()->updateHistory(pCont->GetUI());
 }
 
 void GUI::setInterfaceModeToPlay() {

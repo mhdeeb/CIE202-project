@@ -7,13 +7,15 @@ opRotate::opRotate(controller* pCont): operation(pCont) {}
 opRotate::~opRotate() = default;
 
 bool opRotate::Execute() {
-	Graph const* graph = pControl->GetGraph();
+	Graph* graph = pControl->GetGraph();
+	GUI* pUI = pControl->GetUI();
 	for (auto shape : graph->getSelectedShapes())
 		shape->Transform(
 			[](Point& point, double angle, const Point& origin) {
 				point.translate(-origin).rotate(angle).translate(origin);
 			}
 	, numbers::pi / 2, shape->GetCenter());
-	graph->Refresh(pControl->GetUI());
+	graph->Refresh(pUI);
+	graph->updateHistory(pUI);
 	return false;
 }

@@ -6,7 +6,7 @@ opPaste::~opPaste() = default;
 
 bool opPaste::Execute() {
 	Graph* graph = pControl->GetGraph();
-	auto shapes = graph->Paste();
+	auto shapes = graph->Paste(pControl->GetUI());
 	if (shapes.empty()) return false;
 	Point center{0, 0};
 	for (const shape* i : shapes)

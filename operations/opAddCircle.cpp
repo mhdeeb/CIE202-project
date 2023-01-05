@@ -43,7 +43,7 @@ bool opAddCircle::Execute() {
 				delete C;
 				continue;
 			}
-			pControl->GetGraph()->Addshape(C);
+			pControl->GetGraph()->Addshape(C, pUI);
 			pControl->GetGraph()->Refresh(pUI);
 		} else {
 			pUI->ClearStatusMessage();

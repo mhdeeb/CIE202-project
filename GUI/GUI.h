@@ -281,7 +281,6 @@ public:
 	void setBkGrndColor(color);
 	void setStatusBarColor(color);
 	void setSelectedColor(color);
-	void setIsFilled(bool);
 	void setPenWidth(int);
 
 	void setInterfaceModeToPlay();

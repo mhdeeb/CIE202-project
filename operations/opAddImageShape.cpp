@@ -47,7 +47,7 @@ bool opAddImageShape::Execute() {
 			delete I;
 			return false;
 		}
-		pControl->GetGraph()->Addshape(I);
+		pControl->GetGraph()->Addshape(I, pUI);
 		pControl->GetGraph()->Refresh(pUI);
 	} else {
 		pUI->ClearStatusMessage();

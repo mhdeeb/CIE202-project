@@ -56,7 +56,7 @@ bool opAddRegPoly::Execute() {
 				delete R;
 				continue;
 			}
-			pControl->GetGraph()->Addshape(R);
+			pControl->GetGraph()->Addshape(R, pUI);
 			pControl->GetGraph()->Refresh(pUI);
 		} else {
 			pUI->ClearStatusMessage();

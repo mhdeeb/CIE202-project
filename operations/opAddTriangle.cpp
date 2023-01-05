@@ -50,7 +50,7 @@ bool opAddTri::Execute() {
 				delete T;
 				continue;
 			}
-			pControl->GetGraph()->Addshape(T);
+			pControl->GetGraph()->Addshape(T, pUI);
 			pControl->GetGraph()->Refresh(pUI);
 		} else {
 			pUI->ClearStatusMessage();

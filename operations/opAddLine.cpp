@@ -42,7 +42,7 @@ bool opAddLine::Execute() {
 				delete L;
 				continue;
 			}
-			pControl->GetGraph()->Addshape(L);
+			pControl->GetGraph()->Addshape(L, pUI);
 			pControl->GetGraph()->Refresh(pUI);
 		} else {
 			pUI->ClearStatusMessage();

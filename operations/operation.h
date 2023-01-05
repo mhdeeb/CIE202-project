@@ -9,8 +9,8 @@ protected:
 
 public:
 
-	operation(controller* pControl): pControl(pControl) {}	//constructor
-	virtual ~operation() {}
+	explicit operation(controller* pControl): pControl(pControl) {}	//constructor
+	virtual ~operation() = default;
 
 	//Execute operation (code depends on operation type)
 	virtual bool Execute() = 0;

@@ -6,7 +6,7 @@ opMove::~opMove() = default;
 
 bool opMove::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Graph const* graph = pControl->GetGraph();
+	Graph* graph = pControl->GetGraph();
 	Point p1{0, 0};
 	Point p2{0, 0};
 	pUI->PrintMessage("Move Selected: Click on graph to start moving");
@@ -29,7 +29,8 @@ bool opMove::Execute() {
 		pUI->loadImage();
 		p1 = p2;
 	}
-	graph->Refresh(pControl->GetUI());
+	graph->Refresh(pUI);
 	pUI->ClearStatusMessage();
+	graph->updateHistory(pUI);
 	return false;
 }

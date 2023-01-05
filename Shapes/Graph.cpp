@@ -14,15 +14,15 @@ Graph::~Graph() {}
 //==================================================================================//
 
 //Add a shape to the list of shapes
-void Graph::Addshape(shape* pShp) {
-	//Add a new shape to the shapes vector
+void Graph::Addshape(shape* pShp, GUI* pUI) {
 	shapesList.push_back(pShp);
+	updateHistory(pUI);
 }
 
-void Graph::Removeshape(shape* pShp) {
-	//Remove a shape from the shapes vector
+void Graph::Removeshape(shape* pShp, GUI* pUI) {
 	shapesList.erase(std::ranges::find(shapesList.begin(), shapesList.end(), pShp));
 	delete pShp;
+	updateHistory(pUI);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -55,6 +55,38 @@ bool Graph::getGroupPreview() const {
 
 void Graph::setGroupPreview(bool b) {
 	GroupPreview = b;
+}
+
+void Graph::undo(GUI* pUI) {
+	if (historyIndex > 0) {
+		historyIndex--;
+		LoadStr(history[historyIndex], pUI);
+	}
+}
+
+void Graph::redo(GUI* pUI) {
+	if (historyIndex < history.size() - 1) {
+		historyIndex++;
+		LoadStr(history[historyIndex], pUI);
+	}
+}
+
+void Graph::updateHistory(const GUI* pUI) {
+	if (historyIndex == -1)
+		return;
+	stringstream ss;
+	ss << pUI->getCrntDrawColor().hex() << ' ' << pUI->getCrntFillColor().hex() << ' ' << pUI->getIsfilled() << ' ' << pUI->getCrntPenWidth() << endl << GetShapeList().size() << endl;
+
+	for (const shape* shape : GetShapeList())
+		ss << shape->Serialize() << endl;
+	string data = ss.str();
+	if (history.size() && data == history[historyIndex])
+		return;
+	if (historyIndex < history.size() - 1)
+		history.erase(history.begin() + historyIndex, history.end());
+	else
+		historyIndex = history.size();
+	history.push_back(data);
 }
 
 shape* Graph::Getshape(Point p) {
@@ -98,7 +130,7 @@ void Graph::Copy() {
 	Clipboard = ss.str();
 }
 
-vector<shape*> Graph::Paste() {
+vector<shape*> Graph::Paste(GUI* pUI) {
 	vector<shape*> pastedShapes;
 	stringstream ss(Clipboard);
 	string line;
@@ -106,7 +138,7 @@ vector<shape*> Graph::Paste() {
 		shape* pShp = GUI::ParseShape(line);
 		if (pShp != nullptr) {
 			pastedShapes.push_back(pShp);
-			Addshape(pShp);
+			Addshape(pShp, pUI);
 		}
 	}
 	return pastedShapes;
@@ -128,7 +160,29 @@ void Graph::Load(const filesystem::path& name, GUI* pUI) {
 	getline(file, data);
 	Clear();
 	while (getline(file, data))
-		Addshape(GUI::ParseShape(data));
+		Addshape(GUI::ParseShape(data), pUI);
 	file.close();
 	Refresh(pUI);
+}
+
+void Graph::LoadStr(const string& data, GUI* pUI) {
+	int histoIndex = historyIndex;
+	historyIndex = -1;
+	stringstream ss(data);
+	string line;
+	string drawColor;
+	string fillColor;
+	int isFilled;
+	int drawWidth;
+	int shapeCount;
+	ss >> drawColor >> fillColor >> isFilled >> drawWidth >> shapeCount;
+	pUI->setDrawColor(drawColor);
+	pUI->setFillColor(fillColor, isFilled);
+	pUI->setPenWidth(drawWidth);
+	getline(ss, line);
+	Clear();
+	while (getline(ss, line))
+		Addshape(GUI::ParseShape(line), pUI);
+	Refresh(pUI);
+	historyIndex = histoIndex;
 }

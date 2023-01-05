@@ -10,12 +10,14 @@ class Graph {
 private:
 	vector <shape*> shapesList; //a container to hold all shapes
 	string Clipboard;		//string to hold the copied shape
+	vector<string> history;			//string to hold the history of the actions
+	int historyIndex = 0;		//index of the history
 	bool GroupPreview = false;
 public:
 	Graph();
 	~Graph();
-	void Addshape(shape* pFig); //Adds a new shape to the shapesList
-	void Removeshape(shape* pShp); //Removes a shape from the shapesList
+	void Addshape(shape* pFig, GUI* pUI); //Adds a new shape to the shapesList
+	void Removeshape(shape* pShp, GUI* pUI); //Removes a shape from the shapesList
 	void Draw(GUI*) const;			//Draw the graph (draw all shapes)
 	void Refresh(GUI*) const;
 	shape* Getshape(Point p); //Search for a shape given a point inside the shape
@@ -23,9 +25,13 @@ public:
 	void updateSelectedShapes(GUI const* pUI) const;
 	void Clear();
 	void Copy();
-	vector<shape*> Paste();
+	vector<shape*> Paste(GUI* pUI);
 	vector<shape*> GetShapeList() const;
 	void Load(const filesystem::path& name, GUI* pUI);
+	void LoadStr(const string& data, GUI* pUI);
 	bool getGroupPreview() const;
 	void setGroupPreview(bool b);
+	void updateHistory(const GUI* pUI);
+	void undo(GUI* pUI);
+	void redo(GUI* pUI);
 };

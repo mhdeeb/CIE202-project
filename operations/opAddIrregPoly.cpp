@@ -62,7 +62,7 @@ bool opAddIrregPoly::Execute() {
 				pUI->PrintMessage(msg);
 			}
 			if (I->getSize() > 1)
-				pControl->GetGraph()->Addshape(I);
+				pControl->GetGraph()->Addshape(I, pUI);
 			else
 				delete I;
 			pControl->GetGraph()->Refresh(pUI);

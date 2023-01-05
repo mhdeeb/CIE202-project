@@ -6,7 +6,7 @@ opResize::~opResize() = default;
 
 bool opResize::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Graph const* graph = pControl->GetGraph();
+	Graph* graph = pControl->GetGraph();
 	auto shapes = graph->getSelectedShapes();
 	Point center{0, 0};
 	for (const shape* i : shapes)
@@ -40,7 +40,8 @@ bool opResize::Execute() {
 		pUI->loadImage();
 		prev = curr;
 	}
-	graph->Refresh(pControl->GetUI());
+	graph->Refresh(pUI);
 	pUI->ClearStatusMessage();
+	graph->updateHistory(pUI);
 	return false;
 }
