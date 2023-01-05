@@ -14,7 +14,7 @@ bool opResize::Execute() {
 	center /= shapes.size();
 	Point p2{0, 0};
 	pUI->PrintMessage("Resize Selected: Click on graph to start resizing");
-	if (!pUI->GetPointClicked(p2.x, p2.y)) {
+	if (!pUI->GetPointClickedNoOp(p2.x, p2.y)) {
 		pUI->ClearStatusMessage();
 		return false;
 	}

@@ -11,7 +11,7 @@ opAddRegPoly::~opAddRegPoly() = default;
 
 bool opAddRegPoly::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Point p1;
+	Point p1{0, 0};
 	Point p2{0, 0};
 	string s;
 	char c;
@@ -24,7 +24,7 @@ bool opAddRegPoly::Execute() {
 	}
 	int n = std::stoi(s);
 	while (true) {
-		pUI->PrintMessage("Regular Polygon Selected: Click on graph to start drawing");
+		pUI->PrintMessage("Regular Polygon Selected: Drag on graph to create it");
 		if (!pUI->GetPointClicked(p1.x, p1.y)) {
 			pUI->ClearStatusMessage();
 			return false;

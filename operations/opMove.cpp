@@ -10,7 +10,7 @@ bool opMove::Execute() {
 	Point p1{0, 0};
 	Point p2{0, 0};
 	pUI->PrintMessage("Move Selected: Click on graph to start moving");
-	if (!pUI->GetPointClicked(p1.x, p1.y)) {
+	if (!pUI->GetPointClickedNoOp(p1.x, p1.y)) {
 		pUI->ClearStatusMessage();
 		return false;
 	}

@@ -32,8 +32,7 @@ bool Select::Execute() {
 		} else
 			pUI->PrintMessage("Select an operation.");
 	} else {
-		for (auto i : (graph->GetShapeList()))
-			i->SetSelected(false);
+		graph->updateSelectedShapes(pUI);
 		if (pSsh) {
 			pSsh->SetSelected(true);
 			pUI->PrintMessage(pSsh->PrintInfo());

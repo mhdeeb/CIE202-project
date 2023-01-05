@@ -7,15 +7,15 @@
 #include <format>
 
 opAddIrregPoly::opAddIrregPoly(controller* pCont):operation(pCont) {}
-opAddIrregPoly::~opAddIrregPoly() {}
+opAddIrregPoly::~opAddIrregPoly() = default;
 
 bool opAddIrregPoly::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Point p1;
+	Point p1{0, 0};
 	Point p2{0, 0};
 	char ch;
 	while (true) {
-		pUI->PrintMessage("Irregular Polygon Selected: Click on graph to start drawing");
+		pUI->PrintMessage("Irregular Polygon Selected: Drag on graph to create it");
 		if (!pUI->GetPointClicked(p1.x, p1.y)) {
 			pUI->ClearStatusMessage();
 			return false;

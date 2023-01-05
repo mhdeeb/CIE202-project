@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-Rect::Rect(Point p1, Point p2, GfxInfo shapeGfxInfo):shape(shapeGfxInfo), p1(p1), p2(p2), type(RECTANGLE) {}
+Rect::Rect(Point p1, Point p2, GfxInfo shapeGfxInfo):shape(shapeGfxInfo), p1(p1), p2(p2) {}
 
 Point Rect::getC1() const {
 	return p1;
@@ -43,9 +43,14 @@ bool Rect::isSelected(Point p) const {
 	return false;
 }
 
-Rect* Rect::Load(string data) {
+Rect* Rect::Load(const string& data) {
 	stringstream ss(data);
-	int id, p1x, p1y, p2x, p2y, borderWidth;
+	int id;
+	int p1x;
+	int p1y;
+	int p2x;
+	int p2y;
+	int borderWidth;
 	string draw, fill;
 	bool isFilled;
 	GfxInfo gfx;

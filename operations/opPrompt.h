@@ -5,9 +5,9 @@ private:
 	string prompt;
 	string Response;
 public:
-	opPrompt(controller* pCont, string prompt);
-	virtual ~opPrompt() override;
-	virtual bool Execute() override;
+	opPrompt(controller* pCont, const string& prompt);
+	~opPrompt() override;
+	bool Execute() override;
 	string response() const;
 	int isYes() const;
 };

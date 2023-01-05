@@ -20,6 +20,7 @@ public:
 	void Refresh(GUI*) const;
 	shape* Getshape(Point p); //Search for a shape given a point inside the shape
 	vector<shape*> getSelectedShapes() const;
+	void updateSelectedShapes(GUI const* pUI) const;
 	void Clear();
 	void Copy();
 	vector<shape*> Paste();

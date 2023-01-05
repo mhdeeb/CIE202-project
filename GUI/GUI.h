@@ -4,6 +4,8 @@
 #include "../DEFS.h"
 
 #include <vector>
+#include <map>
+#include <filesystem>
 
 class shape;
 class Rect;
@@ -141,6 +143,7 @@ public:
 		ICON_IRREG_POLY,
 		ICON_COLOR_PICKER,
 		ICON_CHANGE_GENERAL_PEN,
+		ICON_IMAGE,
 		ICON_CHANGE_FILL,
 		ICON_DELETE,
 		ICON_SAVE,
@@ -210,6 +213,7 @@ public:
 
 	// Input Functions  ---------------------------
 	bool GetPointClicked(int& x, int& y);
+	bool GetPointClickedNoOp(int& x, int& y);
 	keytype GetKeyPress(char& c) const;
 	bool GetLeftClick(int&, int&);
 	//Get coordinate where user clicks
@@ -243,6 +247,7 @@ public:
 	void DrawSquare(const Square*) const;     // Draw square
 	void DrawLine(const Line*) const;		//Draw a Line
 	void DrawTriangle(const Triangle* triangle) const;
+	void DrawImage(const image* imgThis, const int iX, const int iY, const int iWidth, const int iHeight) const;
 	void DrawCircle(const Circle*) const;  //Draw a circle
 	void DrawIrregPoly(const IrregPoly*) const;
 	void DrawRegPoly(const RegPoly*) const;
@@ -288,5 +293,6 @@ public:
 
 	static shape* ParseShape(const string& line);
 
+	pair<string, map<string, filesystem::path>> fileSelect(const string& directory, const string& postfix);
 	~GUI();
 };

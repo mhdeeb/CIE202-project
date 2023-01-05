@@ -8,15 +8,13 @@ bool opToggleGroup::Execute() {
 	Graph* graph = pControl->GetGraph();
 	GUI* pUI = pControl->GetUI();
 	graph->setGroupPreview(!graph->getGroupPreview());
-	if (!graph->getGroupPreview()) {
-		for (auto shape : graph->getSelectedShapes())
-			shape->SetSelected(false);
+	graph->updateSelectedShapes(pUI);
+	if (graph->getGroupPreview()) {
+		pUI->PrintMessage(std::format("Group Mode Activated: Selected Group is {}", pUI->getGid()));
 	} else {
-		for (auto shape : graph->GetShapeList())
-			if (shape->getId() == pUI->getGid())
-				shape->SetSelected(true);
+		pUI->ClearStatusMessage();
 	}
-	pUI->ClearStatusMessage();
+
 	graph->Refresh(pUI);
 	return false;
 }

@@ -16,6 +16,7 @@
 #include "operations/opAddRegPoly.h"
 #include "operations/SwitchToPlayMode.h"
 #include "operations/SwitchToDrawMode.h"
+#include "operations/opAddImageShape.h"
 #include "operations/noOp.h"
 
 //Constructor
@@ -64,6 +65,9 @@ operation* controller::createOperation(operationType OpType) {
 		case DRAW_COLOR_PALETTE:
 			pOp = new opColorPalette(this, false);
 			break;
+		case DRAW_IMAGE:
+			pOp = new opAddImageShape(this);
+			break;
 		case CHNG_DRAW_CLR:
 			pOp = new opChangeGpenCol(this);
 			break;
@@ -91,7 +95,7 @@ operation* controller::createOperation(operationType OpType) {
 			pOp = new Select(this);
 			break;
 		}
-	} else if (pGUI->getInterfaceMode()) {
+	} else {
 		switch (OpType) {
 		case HIDE:
 			break;
@@ -108,9 +112,6 @@ operation* controller::createOperation(operationType OpType) {
 			pOp = new opExit(this);
 			break;
 		case STATUS:	//a click on the status bar ==> no operation
-			break;
-		case DRAWING_AREA:
-			pOp = new Select(this);
 			break;
 		}
 	}
@@ -152,7 +153,6 @@ void controller::Run() {
 	int y;
 	bool skipInput = false;
 	pGraph->Load("save/Example_gf.txt", pGUI);
-	UpdateInterface();
 	do {
 		if (!skipInput)
 			while (!pGUI->GetPointClicked(x, y));
@@ -161,14 +161,15 @@ void controller::Run() {
 		OpType = GetUseroperation(x, y);
 		pGUI->getWindow()->FlushKeyQueue();
 		operation* pOpr = createOperation(OpType);
+		if (!(dynamic_cast<opChangeGfillCol*>(pOpr) || dynamic_cast<opChangeGpenCol*>(pOpr) || dynamic_cast<opColorPalette*>(pOpr)))
+			pGraph->updateSelectedShapes(pGUI);
+		UpdateInterface();
 
-		//3. Execute the created operation
 		if (pOpr) {
 			skipInput = pOpr->Execute();
 			delete pOpr;
 			pOpr = nullptr;
 		}
-		UpdateInterface();
 	} while (isRunning);
 }
 

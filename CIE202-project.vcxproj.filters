@@ -211,6 +211,8 @@
     <ClCompile Include="operations\opDuplicateGraph.cpp" />
     <ClCompile Include="operations\opScramble.cpp" />
     <ClCompile Include="operations\opToggleGroup.cpp" />
+    <ClCompile Include="Shapes\imageShape.cpp" />
+    <ClCompile Include="operations\opAddImageShape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -382,6 +384,8 @@
     <ClInclude Include="operations\opDuplicateGraph.h" />
     <ClInclude Include="operations\opScramble.h" />
     <ClInclude Include="operations\opToggleGroup.h" />
+    <ClInclude Include="Shapes\imageShape.h" />
+    <ClInclude Include="operations\opAddImageShape.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">

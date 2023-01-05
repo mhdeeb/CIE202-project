@@ -5,15 +5,15 @@
 #include <format>
 
 opAddCircle::opAddCircle(controller* pCont):operation(pCont) {}
-opAddCircle::~opAddCircle() {}
+opAddCircle::~opAddCircle() = default;
 
 bool opAddCircle::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Point p1;
+	Point p1{0, 0};
 	Point p2{0, 0};
 	char c;
 	while (true) {
-		pUI->PrintMessage("Circle Selected: Click on graph to start drawing");
+		pUI->PrintMessage("Circle Selected: Drag on graph to create it");
 		if (!pUI->GetPointClicked(p1.x, p1.y)) {
 			pUI->ClearStatusMessage();
 			return false;

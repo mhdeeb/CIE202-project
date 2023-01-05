@@ -2,13 +2,14 @@
 #include"opColorPalette.h"
 
 opChangeGpenCol::opChangeGpenCol(controller* pCont):operation(pCont) {}
-opChangeGpenCol::~opChangeGpenCol() {}
+opChangeGpenCol::~opChangeGpenCol() = default;
 bool opChangeGpenCol::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Graph* graph = pControl->GetGraph();
+	Graph const* graph = pControl->GetGraph();
 	opColorPalette(pControl).Execute();
 	pUI->setDrawColor(pUI->getSelectedColor());
 	for (auto shape : graph->getSelectedShapes())
 		shape->setDrawColor(pUI->getSelectedColor());
+	graph->Refresh(pUI);
 	return false;
 }

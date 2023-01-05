@@ -11,6 +11,7 @@ enum operationType //The operations supported (you can add more if needed)
 	DRAW_CIRC,		//Draw Circle
 	DRAW_REG_POLY,  //Draw Regular Polygon
 	DRAW_IRREG_POLY,//Draw Irregular Polygon
+	DRAW_IMAGE,		//Draw Image
 	DRAW_COLOR_PALETTE,
 	CHNG_DRAW_CLR,	//Change the drawing color
 	CHNG_FILL_CLR,	//Change the filling color
@@ -37,8 +38,6 @@ enum operationType //The operations supported (you can add more if needed)
 	UNHIDE,
 	MATCH,
 	START_GAME,
-
-	///TODO: Add more operation types (if needed)
 };
 enum shapeType {
 	RECTANGLE,
@@ -48,6 +47,7 @@ enum shapeType {
 	TRIANGLE,
 	REGULAR_POLYGON,
 	IRREGULAR_POLYGON,
+	IMAGE,
 	shapesCount,
 };
 const string ShapesArray[]{
@@ -58,16 +58,17 @@ const string ShapesArray[]{
 	"TRIANGLE",
 	"REGULAR_POLYGON",
 	"IRREGULAR_POLYGON",
+	"IMAGE",
 };
 
 const color ColorsArray[]{
-	BLACK,
-	BLUE,
 	RED,
-	ORANGE,
-	NAVY,
 	GREEN,
-	GOLD,
+	BLUE,
+	ORANGE,
+	YELLOW,
+	PURPLE,
+	WHITE,
 };
 
 #endif

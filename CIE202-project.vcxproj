@@ -167,6 +167,8 @@
     <ClCompile Include="CMUgraphicsLib\jpeg\jutils.c" />
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="controller.cpp" />
+    <ClCompile Include="operations\opAddImageShape.cpp" />
+    <ClCompile Include="Shapes\imageShape.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="operations\opDuplicateGraph.cpp" />
     <ClCompile Include="operations\opCopy.cpp" />
@@ -231,6 +233,8 @@
     <ClInclude Include="GUI\GUI.h" />
     <ClInclude Include="controller.h" />
     <ClInclude Include="DEFS.h" />
+    <ClInclude Include="operations\opAddImageShape.h" />
+    <ClInclude Include="Shapes\imageShape.h" />
     <ClInclude Include="operations\opDuplicateGraph.h" />
     <ClInclude Include="operations\opCopy.h" />
     <ClInclude Include="operations\noOp.h" />

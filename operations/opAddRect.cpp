@@ -5,14 +5,15 @@
 #include <format>
 
 opAddRect::opAddRect(controller* pCont):operation(pCont) {}
-opAddRect::~opAddRect() {}
+opAddRect::~opAddRect() = default;
 
 bool opAddRect::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Point p1, p2{0, 0};
+	Point p1{0, 0};
+	Point p2{0, 0};
 	char c;
 	while (true) {
-		pUI->PrintMessage("Rectangle Selected: Click on graph to start drawing");
+		pUI->PrintMessage("Rectangle Selected: Drag on graph to create it");
 		if (!pUI->GetPointClicked(p1.x, p1.y)) {
 			pUI->ClearStatusMessage();
 			return false;

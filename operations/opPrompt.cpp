@@ -1,9 +1,9 @@
 #include "opPrompt.h"
 #include <filesystem>
 
-opPrompt::opPrompt(controller* pCont, string prompt): operation(pCont), prompt(prompt), Response("") {}
+opPrompt::opPrompt(controller* pCont, const string& prompt): operation(pCont), prompt(prompt), Response("") {}
 
-opPrompt::~opPrompt() {}
+opPrompt::~opPrompt() = default;
 
 string opPrompt::response() const {
 	return Response;
@@ -11,7 +11,7 @@ string opPrompt::response() const {
 
 int opPrompt::isYes() const {
 	string result = Response;
-	transform(result.begin(), result.end(), result.begin(),
+	std::ranges::transform(result.begin(), result.end(), result.begin(),
 		[](unsigned char c) { return tolower(c); });
 	if (result == "yes" || result == "y")
 		return true;

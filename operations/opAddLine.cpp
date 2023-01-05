@@ -5,14 +5,15 @@
 #include <format>
 
 opAddLine::opAddLine(controller* pCont):operation(pCont) {}
-opAddLine::~opAddLine() {}
+opAddLine::~opAddLine() = default;
 
 bool opAddLine::Execute() {
 	GUI* pUI = pControl->GetUI();
-	Point p1, p2{0, 0};
+	Point p1{0, 0};
+	Point p2{0, 0};
 	char c;
 	while (true) {
-		pUI->PrintMessage("Line Selected: Click on graph to start drawing");
+		pUI->PrintMessage("Line Selected: Drag on graph to create it");
 		if (!pUI->GetPointClicked(p1.x, p1.y)) {
 			pUI->ClearStatusMessage();
 			return false;

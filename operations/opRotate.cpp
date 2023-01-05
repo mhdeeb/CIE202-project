@@ -13,7 +13,7 @@ bool opRotate::Execute() {
 			[](Point& point, double angle, const Point& origin) {
 				point.translate(-origin).rotate(angle).translate(origin);
 			}
-	, numbers::pi / 4, shape->GetCenter());
+	, numbers::pi / 2, shape->GetCenter());
 	graph->Refresh(pControl->GetUI());
 	return false;
 }

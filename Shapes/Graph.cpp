@@ -71,6 +71,19 @@ vector<shape*> Graph::getSelectedShapes() const {
 	return selectedShapes;
 }
 
+void Graph::updateSelectedShapes(GUI const* pUI) const {
+	if (!getGroupPreview()) {
+		for (auto shape : getSelectedShapes())
+			shape->SetSelected(false);
+	} else {
+		for (auto shape : GetShapeList())
+			if (shape->getId() == pUI->getGid())
+				shape->SetSelected(true);
+			else
+				shape->SetSelected(false);
+	}
+}
+
 void Graph::Clear() {
 	while (!shapesList.empty()) {
 		delete shapesList.back();
@@ -117,4 +130,5 @@ void Graph::Load(const filesystem::path& name, GUI* pUI) {
 	while (getline(file, data))
 		Addshape(GUI::ParseShape(data));
 	file.close();
+	Refresh(pUI);
 }

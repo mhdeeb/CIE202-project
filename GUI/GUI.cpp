@@ -1,7 +1,6 @@
 #include "GUI.h"
 
 #include <sstream>
-#include <filesystem>
 
 #include "../Shapes/Rect.h"
 #include "../Shapes/Circle.h"
@@ -10,6 +9,7 @@
 #include "../Shapes/Triangle.h"
 #include "../Shapes/IrregPoly.h"
 #include "../Shapes/RegPoly.h"
+#include "../Shapes/imageShape.h"
 #include "../operations/opDelete.h"
 #include "../operations/opRotate.h"
 #include "../operations/opResize.h"
@@ -21,6 +21,7 @@
 #include "../operations/opDuplicateGraph.h"
 #include "../operations/opScramble.h"
 #include "../operations/opToggleGroup.h"
+#include "../operations/opPrompt.h"
 
 GUI::GUI(controller* pCont): pCont(pCont) {
 	//Initialize user interface parameters
@@ -29,7 +30,7 @@ GUI::GUI(controller* pCont): pCont(pCont) {
 	FillColor = GREEN;	//default Filling color
 	Isfilled = false;
 	MsgColor = BLACK;		//Messages color
-	BkGrndColor = WHITE;	//Background color
+	BkGrndColor = GREY;	//Background color
 	HighlightColor = MAGENTA;	//This color should NOT be used to draw shapes. use if for highlight only
 	StatusBarColor = LIGHTSEAGREEN;
 	PenWidth = 3;	//default width of the shapes frames
@@ -100,6 +101,20 @@ bool GUI::GetPointClicked(int& x, int& y) {
 			}
 		}
 		Sleep(16);
+		if (pWind->GetButtonState(RIGHT_BUTTON, x, y) == BUTTON_DOWN)
+			return false;
+	}
+	return true;
+}
+
+bool GUI::GetPointClickedNoOp(int& x, int& y) {
+	char c;
+	pWind->FlushMouseQueue();
+	pWind->FlushKeyQueue();
+	while (GetLeftClick(x, y)) {
+		if (ESCAPE == GetKeyPress(c) || pWind->GetButtonState(RIGHT_BUTTON, x, y) == BUTTON_DOWN)
+			return false;
+		Sleep(16);
 	}
 	return true;
 }
@@ -109,7 +124,8 @@ keytype GUI::GetKeyPress(char& c) const {
 }
 
 bool GUI::GetLeftClick(int& x, int& y) {
-	buttonstate currentLeftButtonState = pWind->GetButtonState(LEFT_BUTTON, x, y), prev = perviousLeftButtonState;
+	buttonstate currentLeftButtonState = pWind->GetButtonState(LEFT_BUTTON, x, y);
+	buttonstate prev = perviousLeftButtonState;
 	perviousLeftButtonState = currentLeftButtonState;
 	return prev || !currentLeftButtonState;
 }
@@ -246,9 +262,9 @@ string GUI::GetString(string message) {
 operationType GUI::GetUseroperation(int x, int y) {
 	if (InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
-		if (isInDrawArea({x, y}))
+		if (isInDrawArea({x, y})) {
 			return DRAWING_AREA;
-		else if (y >= 0 && y < ToolBarHeight) {
+		} else if (y >= 0 && y < ToolBarHeight) {
 			//Check whick Menu icon was clicked
 			//==> This assumes that menu icons are lined up horizontally <==
 			int ClickedIconOrder = (x / MenuIconWidth);
@@ -265,6 +281,7 @@ operationType GUI::GetUseroperation(int x, int y) {
 			case ICON_IRREG_POLY: return DRAW_IRREG_POLY;
 			case ICON_COLOR_PICKER: return DRAW_COLOR_PALETTE;
 			case ICON_CHANGE_GENERAL_PEN: return CHNG_DRAW_CLR;
+			case ICON_IMAGE: return DRAW_IMAGE;
 			case ICON_CHANGE_FILL: return CHNG_FILL_CLR;
 			case ICON_DELETE:return DEL;
 			case ICON_SAVE:return SAVE;
@@ -396,6 +413,7 @@ void GUI::LoadDrawToolBar() {
 	DrawMenuIconImages[ICON_LOAD] = new image("images/MenuIcons/Menu_Load.jpg");
 	DrawMenuIconImages[ICON_PLAY_MODE] = new image("images/MenuIcons/Menu_Play.jpg");
 	DrawMenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
+	DrawMenuIconImages[ICON_IMAGE] = new image("images/MenuIcons/Menu_Image.jpg");
 	DrawMenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
 	DrawButtons[FILL_SWITCH] = new Circle{{width - 30, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth }};
 	DrawButtons[GROUP_CYCLE] = new Circle{{width - 55, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth }};
@@ -560,7 +578,7 @@ int GUI::getInterfaceMode() const {
 }
 
 void GUI::storeImage() {
-	pWind->StoreImage(storedImage, 0, 0, width, height - getStatusBarHeight());
+	pWind->StoreImage(storedImage, 0, 0, unsigned short(width), unsigned short(height - getStatusBarHeight()));
 }
 
 void GUI::loadImage() {
@@ -574,7 +592,8 @@ void GUI::loadImage() {
 void GUI::DrawRect(const Rect* rect, int iWidth, int iHeight) const {
 	color DrawingClr;
 	GfxInfo gfxInfo = rect->getGfxInfo();
-	Point c1 = rect->getC1(), c2 = rect->getC2();
+	Point c1 = rect->getC1();
+	Point c2 = rect->getC2();
 	if (gfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
@@ -594,7 +613,8 @@ void GUI::DrawRect(const Rect* rect, int iWidth, int iHeight) const {
 void GUI::DrawSquare(const Square* Square) const {
 	color DrawingClr;
 	GfxInfo gfxInfo = Square->getGfxInfo();
-	Point c1 = Square->getC1(), c2 = Square->getC2();
+	Point c1 = Square->getC1();
+	Point c2 = Square->getC2();
 	if (gfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
@@ -655,7 +675,8 @@ void GUI::DrawRegPoly(const RegPoly* RegPoly) const {
 void GUI::DrawLine(const Line* line) const {
 	color DrawingClr;
 	GfxInfo gfxInfo = line->getGfxInfo();
-	Point p1 = line->getPoint1(), p2 = line->getPoint2();
+	Point p1 = line->getPoint1();
+	Point p2 = line->getPoint2();
 	if (gfxInfo.isSelected)	//shape is selected
 		DrawingClr = HighlightColor; //shape should be drawn highlighted
 	else
@@ -683,6 +704,11 @@ void GUI::DrawTriangle(const Triangle* triangle) const {
 
 	pWind->DrawTriangle(triangle->getPoint(0).x, triangle->getPoint(0).y, triangle->getPoint(1).x, triangle->getPoint(1).y, triangle->getPoint(2).x, triangle->getPoint(2).y, style);
 }
+
+void GUI::DrawImage(const image* imgThis, const int iX, const int iY, const int iWidth, const int iHeight) const {
+	pWind->DrawImage(imgThis, iX, iY, iWidth, iHeight);
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 shape* GUI::ParseShape(const string& line) {
@@ -719,6 +745,9 @@ shape* GUI::ParseShape(const string& line) {
 	case IRREGULAR_POLYGON:
 		sh = IrregPoly::Load(rest);
 		break;
+	case IMAGE:
+		sh = imageShape::Load(rest);
+		break;
 	}
 	return sh;
 }
@@ -731,4 +760,24 @@ GUI::~GUI() {
 		delete DrawButtons[i];
 	for (int i = 0; i < TOTAL_PLAY_ICON_COUNT; ++i)
 		delete PlayMenuIconImages[i];
+}
+
+pair<string, map<string, filesystem::path>> GUI::fileSelect(const string& directory, const string& postfix) {
+	stringstream ss;
+	ss << "Select from " << directory << "\n\n";
+
+	int i = 0;
+
+	string filename;
+	map<string, filesystem::path> files;
+	for (const auto& save : filesystem::directory_iterator(directory))
+		if ((filename = save.path().filename().string()).ends_with(postfix)) {
+			files[to_string(i)] = save.path();
+			ss << format("({}) {}\n", i, filename.substr(0, filename.size() - 4));
+			i++;
+		}
+
+	auto prompt = opPrompt(pCont, ss.str());
+	prompt.Execute();
+	return pair(prompt.response(), files);
 }

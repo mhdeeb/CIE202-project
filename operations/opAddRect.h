@@ -5,9 +5,9 @@
 //Add Rectangle operation class
 class opAddRect: public operation {
 public:
-	opAddRect(controller* pCont);
-	virtual ~opAddRect();
+	explicit opAddRect(controller* pCont);
+	~opAddRect() override;
 
 	//Add rectangle to the controller
-	virtual bool Execute();
+	bool Execute() override;
 };

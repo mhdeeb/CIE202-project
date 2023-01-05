@@ -1,15 +1,16 @@
 #include "opAddTriangle.h"
-#include "..\shapes\Triangle.h"
+#include "../shapes/Triangle.h"
 
-#include "..\controller.h"
+#include "../controller.h"
 
-#include "..\GUI\GUI.h"
+#include "../GUI/GUI.h"
 
 opAddTri::opAddTri(controller* pCont):operation(pCont) {}
 opAddTri::~opAddTri() {}
 
 bool opAddTri::Execute() {
-	Point p1, p2{0, 0};
+	Point p1{0, 0};
+	Point p2{0, 0};
 	GUI* pUI = pControl->GetUI();
 	char c;
 	while (true) {

@@ -30,5 +30,6 @@ bool opColorPalette::Execute() {
 	pUI->setMsgColor(msgColor);
 	pUI->ClearStatusMessage();
 	pUI->setSelectedColor(pUI->getHoverColor(p.x, p.y));
+	pControl->GetGraph()->Refresh(pUI);
 	return false;
 }
