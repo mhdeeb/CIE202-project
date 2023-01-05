@@ -4,7 +4,8 @@ Delete::~Delete() {}
 bool Delete::Execute() {
 	GUI* pUI = pControl->GetUI();
 	Graph* graph = pControl->GetGraph();
-	graph->deleteSelectedShape();
+	for (auto shape : graph->getSelectedShapes())
+		graph->Removeshape(shape);
 	pUI->ClearStatusMessage();
 	graph->Refresh(pUI);
 	return false;

@@ -60,4 +60,14 @@ const string ShapesArray[]{
 	"IRREGULAR_POLYGON",
 };
 
+const color ColorsArray[]{
+	BLACK,
+	BLUE,
+	RED,
+	ORANGE,
+	NAVY,
+	GREEN,
+	GOLD,
+};
+
 #endif

@@ -3,22 +3,21 @@
 #include "../GUI/GUI.h"
 #include <functional>
 
-using transformation = const std::function<void(Point&, double parameter, const Point& origin)>&;
+using transformation = const std::function<void(Point& point, double parameter, const Point& origin)>&;
+
 //Base class for all shapes
 class shape {
-private:
-	static int shapeCount;
 protected:
 	//Shape ID
-	int id;
+	int id = -1;
 	//Shape graphics info
 	GfxInfo gfxInfo;
 	void setID(int id);
 public:
 	//Shape constructor
-	shape(GfxInfo gfxInfo = {});
+	explicit shape(const GfxInfo& gfxInfo = {});
 	//Shape destructor
-	virtual ~shape() {}
+	virtual ~shape() = default;
 	//Set shape selection
 	void SetSelected(bool);
 	//Return true if shape is selected
@@ -32,9 +31,11 @@ public:
 	void setDrawColor(color);
 	//Change fill color
 	void setFillColor(color, bool);
-	void setGfx(GfxInfo gfxInfo);
+	void setGfx(const GfxInfo& gfxInfo);
 	virtual string Serialize() const = 0;
 	virtual string PrintInfo() const = 0;
 	virtual void Transform(transformation func, double factor, Point origin) = 0;
 	virtual Point GetCenter() const = 0;
+	int getId() const;
+	void setId(int id);
 };

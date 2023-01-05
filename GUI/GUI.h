@@ -56,17 +56,57 @@ struct Point {
 	Point operator*(const Point& p) const {
 		return {int(round(double(x) * p.x)), int(round(double(y) * p.y))};
 	}
+	Point operator+=(Point p) {
+		x += p.x;
+		y += p.y;
+		return *this;
+	}
+	Point operator-=(Point p) {
+		x -= p.x;
+		y -= p.y;
+		return *this;
+	}
+	Point operator*=(Point p) {
+		x *= p.x;
+		y *= p.y;
+		return *this;
+	}
+	Point operator/=(Point p) {
+		x /= p.x;
+		y /= p.y;
+		return *this;
+	}
 	Point operator+(int i) const {
 		return {x + i, y + i};
 	}
 	Point operator-(int i) const {
 		return {x - i, y - i};
 	}
+	Point operator*(double i) const {
+		return Point(int(round(x * i)), int(round(y * i)));
+	}
 	Point operator/(double i) const {
 		return Point(int(round(x / i)), int(round(y / i)));
 	}
-	Point operator*(double i) const {
-		return Point(int(round(x * i)), int(round(y * i)));
+	Point operator+=(int i) {
+		x += i;
+		y += i;
+		return *this;
+	}
+	Point operator-=(int i) {
+		x -= i;
+		y -= i;
+		return *this;
+	}
+	Point operator*=(double i) {
+		x = int(x * i);
+		y = int(y * i);
+		return *this;
+	}
+	Point operator/=(double i) {
+		x = int(x / i);
+		y = int(y / i);
+		return *this;
 	}
 	auto operator<=>(const Point& p) const = default;
 };
@@ -115,6 +155,7 @@ public:
 
 	const enum DrawButton {
 		FILL_SWITCH,
+		GROUP_CYCLE,
 		DRAW_BUTTONS_COUNT,
 	};
 
@@ -144,6 +185,8 @@ private:
 	int StatusBarHeight;
 	int ToolBarHeight;
 	int MenuIconWidth;
+	int gid = 0;
+	int gcount = 7;
 	GUI_MODE InterfaceMode;
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
@@ -224,6 +267,7 @@ public:
 	image* getImage(DrawMenuIcon) const;
 	bool isInDrawArea(Point);
 	shape* getDrawButton(DrawButton);
+	int getGid() const;
 
 	void setDrawColor(color);
 	void setFillColor(color, bool);

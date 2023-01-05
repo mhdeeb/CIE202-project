@@ -6,13 +6,19 @@ opPaste::~opPaste() = default;
 
 bool opPaste::Execute() {
 	Graph* graph = pControl->GetGraph();
-	shape* s = graph->Paste();
-	if (s)
-		s->Transform(
+	auto shapes = graph->Paste();
+	if (shapes.empty()) return false;
+	Point center{0, 0};
+	for (const shape* i : shapes)
+		center += i->GetCenter();
+	center /= shapes.size();
+	for (auto i : shapes) {
+		i->Transform(
 			[](Point& point, double s, const Point& origin) {
 				point.translate(origin);
 			},
-			0, pControl->GetUI()->getMousePosition() - s->GetCenter());
+			0, pControl->GetUI()->getMousePosition() - center);
+	}
 	graph->Refresh(pControl->GetUI());
 	return false;
 }

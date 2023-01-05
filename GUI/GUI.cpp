@@ -20,6 +20,7 @@
 #include "../operations/opZoomOut.h"
 #include "../operations/opDuplicateGraph.h"
 #include "../operations/opScramble.h"
+#include "../operations/opToggleGroup.h"
 
 GUI::GUI(controller* pCont): pCont(pCont) {
 	//Initialize user interface parameters
@@ -90,6 +91,9 @@ bool GUI::GetPointClicked(int& x, int& y) {
 				break;
 			case 'i':
 				opScramble(pCont).Execute();
+				break;
+			case 't':
+				opToggleGroup(pCont).Execute();
 				break;
 			default:
 				break;
@@ -270,9 +274,17 @@ operationType GUI::GetUseroperation(int x, int y) {
 			}
 		} else if (DrawButtons[FILL_SWITCH]->isSelected({x, y})) {
 			Isfilled = !Isfilled;
-			shape* selectedShape = pCont->GetGraph()->getSelectedShape();
-			if (selectedShape)
-				selectedShape->setFillColor(selectedShape->getGfxInfo().FillClr, Isfilled);
+			vector<shape*> selectedShapes = pCont->GetGraph()->getSelectedShapes();
+			for (shape* selectedShape : selectedShapes)
+				if (selectedShape)
+					selectedShape->setFillColor(selectedShape->getGfxInfo().FillClr, Isfilled);
+		} else if (DrawButtons[GROUP_CYCLE]->isSelected({x, y})) {
+			gid = ++gid % gcount;
+			DrawButtons[GROUP_CYCLE]->setDrawColor(ColorsArray[gid]);
+			DrawButtons[GROUP_CYCLE]->setFillColor(ColorsArray[gid], true);
+			for (shape* pShape : pCont->GetGraph()->GetShapeList())
+				if (pShape->getId() == gid)
+					pShape->SetSelected(true);
 		}
 	}
 
@@ -336,6 +348,12 @@ void GUI::CreateStatusBar(string statusMessage) {
 	c->setDrawColor(DrawColor);
 	c->setFillColor(FillColor, Isfilled);
 	DrawCircle(c);
+	if (pCont->GetGraph()->getGroupPreview()) {
+		c = (Circle*)DrawButtons[GROUP_CYCLE];
+		DrawCircle(c);
+		pWind->SetPen(unsigned char(gid + 1));
+		pWind->DrawString(int(c->getOrigin().x - c->getRadius() / 2), int(c->getOrigin().y - c->getRadius() + 1), to_string(gid));
+	}
 }
 
 void GUI::CreateStatusBar() {
@@ -380,6 +398,7 @@ void GUI::LoadDrawToolBar() {
 	DrawMenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	DrawMenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
 	DrawButtons[FILL_SWITCH] = new Circle{{width - 30, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth }};
+	DrawButtons[GROUP_CYCLE] = new Circle{{width - 55, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth }};
 }
 void GUI::CreateDrawToolBar() {
 	for (int i = 0; i < DRAW_ICON_COUNT; i++)
@@ -394,7 +413,6 @@ void GUI::LoadPlayToolBar() {
 	PlayMenuIconImages[ICON_START_GAME] = new image("images/PlayMode/Menu_Play.jpg");
 	PlayMenuIconImages[ICON_DRAW_MODE] = new image("images/PlayMode/Menu_Draw_Mode.jpg");
 	PlayMenuIconImages[ICON_EXIT2] = new image("images/MenuIcons/Menu_Exit.jpg");
-	DrawButtons[FILL_SWITCH] = new Circle{{width - 30, height - StatusBarHeight + 18}, 10, {DrawColor, FillColor, Isfilled, PenWidth }};
 }
 void GUI::CreatePlayToolBar() {
 	for (int i = 0; i < PLAY_ICON_COUNT; i++)
@@ -487,6 +505,10 @@ bool GUI::isInDrawArea(Point p) {
 
 shape* GUI::getDrawButton(DrawButton button) {
 	return DrawButtons[button];
+}
+
+int GUI::getGid() const {
+	return gid;
 }
 
 void GUI::setDrawColor(color drawColor) {

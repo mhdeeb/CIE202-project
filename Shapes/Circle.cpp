@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-Circle::Circle(Point origin, double radius, GfxInfo shapeGfxInfo): shape(shapeGfxInfo), origin(origin), radius(radius), radiusp(origin + Point(radius, 0)) {}
+Circle::Circle(Point origin, double radius, const GfxInfo& shapeGfxInfo): shape(shapeGfxInfo), origin(origin), radius(radius), radiusp(origin + Point(int(radius), 0)) {}
 
 Point Circle::getOrigin() const {
 	return origin;
@@ -13,16 +13,16 @@ double Circle::getRadius() const {
 }
 
 void Circle::setRadius(double radius) {
-	radiusp.x = int(radius) + origin.x;
+	radiusp = origin + Point(int(radius), 0);
 	this->radius = radius;
 }
 
 void Circle::setOrigin(const Point& origin) {
-	radiusp = origin + Point(radius, 0);
+	radiusp = origin + Point(int(radius), 0);
 	this->origin = origin;
 }
 
-Circle::~Circle() {}
+Circle::~Circle() = default;
 
 void Circle::Draw(GUI* pUI) const {
 	pUI->DrawCircle(this);
@@ -45,10 +45,14 @@ bool Circle::isSelected(Point p) const {
 	return false;
 }
 
-Circle* Circle::Load(string data) {
+Circle* Circle::Load(const string& data) {
 	stringstream ss(data);
-	int id, p1x, p1y, borderWidth;
-	string draw, fill;
+	int id;
+	int p1x;
+	int p1y;
+	int borderWidth;
+	string draw;
+	string fill;
 	bool isFilled;
 	double radius;
 	GfxInfo gfx;
@@ -57,7 +61,7 @@ Circle* Circle::Load(string data) {
 	gfx.DrawClr = draw;
 	gfx.FillClr = fill;
 	gfx.isFilled = isFilled;
-	Circle* shape = new Circle({p1x, p1y}, radius, gfx);
+	auto* shape = new Circle({p1x, p1y}, radius, gfx);
 	shape->setID(id);
 	return shape;
 }
@@ -65,7 +69,7 @@ Circle* Circle::Load(string data) {
 void Circle::Transform(transformation func, double factor, Point origin) {
 	func(this->origin, factor, origin);
 	func(this->radiusp, factor, origin);
-	radius = radiusp.x - this->origin.x;
+	radius = radiusp.distance(this->origin);
 }
 
 Point Circle::GetCenter() const {

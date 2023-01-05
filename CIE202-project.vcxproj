@@ -196,6 +196,7 @@
     <ClCompile Include="operations\opZoomIn.cpp" />
     <ClCompile Include="operations\opZoomOut.cpp" />
     <ClCompile Include="operations\opScramble.cpp" />
+    <ClCompile Include="operations\opToggleGroup.cpp" />
     <ClCompile Include="Shapes\Circle.cpp" />
     <ClCompile Include="Shapes\Graph.cpp" />
     <ClCompile Include="Shapes\IrregPoly.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="operations\opZoomIn.h" />
     <ClInclude Include="operations\opZoomOut.h" />
     <ClInclude Include="operations\opScramble.h" />
+    <ClInclude Include="operations\opToggleGroup.h" />
     <ClInclude Include="Shapes\Circle.h" />
     <ClInclude Include="Shapes\Graph.h" />
     <ClInclude Include="Shapes\IrregPoly.h" />

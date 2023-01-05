@@ -16,12 +16,30 @@ bool Select::Execute() {
 
 	shape* pSsh = graph->Getshape({x, y});
 
-	for (auto i : (graph->GetShapeList()))
-		if (i) i->SetSelected(false);
-	if (pSsh) {
-		pSsh->SetSelected(true);
-		pUI->PrintMessage(pSsh->PrintInfo());
-	} else
-		pUI->PrintMessage("Select an operation.");
+	if (graph->getGroupPreview()) {
+		for (auto i : graph->GetShapeList()) {
+			if (i->getId() == pUI->getGid()) i->SetSelected(true);
+			else i->SetSelected(false);
+		}
+		if (pSsh) {
+			if (pSsh->getId() == pUI->getGid()) {
+				pSsh->setId(-1);
+				pSsh->SetSelected(false);
+			} else {
+				pSsh->setId(pUI->getGid());
+				pSsh->SetSelected(true);
+			}
+		} else
+			pUI->PrintMessage("Select an operation.");
+	} else {
+		for (auto i : (graph->GetShapeList()))
+			i->SetSelected(false);
+		if (pSsh) {
+			pSsh->SetSelected(true);
+			pUI->PrintMessage(pSsh->PrintInfo());
+		} else
+			pUI->PrintMessage("Select an operation.");
+	}
+	graph->Refresh(pUI);
 	return false;
 }

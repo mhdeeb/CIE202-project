@@ -2,6 +2,7 @@
 #include<ranges>
 #include<vector>
 #include<fstream>
+#include "Circle.h"
 using namespace std;
 
 Graph::Graph() {}
@@ -18,22 +19,20 @@ void Graph::Addshape(shape* pShp) {
 	shapesList.push_back(pShp);
 }
 
-void Graph::deleteSelectedShape() {
-	for (size_t i = 0; i < shapesList.size(); i++) {
-		if (selectedShape == shapesList[i]) {
-			delete selectedShape;
-			selectedShape = nullptr;
-			//delete a shape from the shapes vector
-			shapesList.erase(shapesList.cbegin() + i);
-			break;
-		}
-	}
+void Graph::Removeshape(shape* pShp) {
+	//Remove a shape from the shapes vector
+	shapesList.erase(std::ranges::find(shapesList.begin(), shapesList.end(), pShp));
+	delete pShp;
 }
+
 ////////////////////////////////////////////////////////////////////////////////////
 //Draw all shapes on the user interface
 void Graph::Draw(GUI* pUI) const {
-	for (auto shapePointer : shapesList)
+	for (shape const* shapePointer : shapesList) {
 		shapePointer->Draw(pUI);
+		if (GroupPreview && shapePointer->getId() != -1)
+			Circle(shapePointer->GetCenter(), 5, {ColorsArray[shapePointer->getId()], ColorsArray[shapePointer->getId()], true}).Draw(pUI);
+	}
 }
 
 void Graph::Refresh(GUI* pUI) const {
@@ -49,21 +48,27 @@ void Graph::Refresh(GUI* pUI) const {
 vector <shape* > Graph::GetShapeList() const {
 	return  shapesList;
 }
+
+bool Graph::getGroupPreview() const {
+	return GroupPreview;
+}
+
+void Graph::setGroupPreview(bool b) {
+	GroupPreview = b;
+}
+
 shape* Graph::Getshape(Point p) {
-	for (auto i : views::reverse(shapesList)) {
-		if (i->isSelected(p)) {
-			setSelectedShape(i);
-			return selectedShape;
-		}
-	}
-	setSelectedShape(nullptr);
-	return selectedShape;
+	for (auto i : views::reverse(shapesList))
+		if (i->isSelected(p))
+			return i;
+	return nullptr;
 }
-void Graph::setSelectedShape(shape* pSsh) {
-	selectedShape = pSsh;
-}
-shape* Graph::getSelectedShape() const {
-	return selectedShape;
+vector<shape*> Graph::getSelectedShapes() const {
+	vector <shape*> selectedShapes;
+	for (auto i : shapesList)
+		if (i->IsSelected())
+			selectedShapes.push_back(i);
+	return selectedShapes;
 }
 
 void Graph::Clear() {
@@ -74,21 +79,27 @@ void Graph::Clear() {
 }
 
 void Graph::Copy() {
-	if (selectedShape)
-		Clipboard = selectedShape->Serialize();
+	stringstream ss;
+	for (const shape* shape : getSelectedShapes())
+		ss << shape->Serialize() << '\n';
+	Clipboard = ss.str();
 }
 
-shape* Graph::Paste() {
-	if (Clipboard != "") {
-		shape* pShp = GUI::ParseShape(Clipboard);
-		if (pShp != nullptr)
+vector<shape*> Graph::Paste() {
+	vector<shape*> pastedShapes;
+	stringstream ss(Clipboard);
+	string line;
+	while (getline(ss, line)) {
+		shape* pShp = GUI::ParseShape(line);
+		if (pShp != nullptr) {
+			pastedShapes.push_back(pShp);
 			Addshape(pShp);
-		return pShp;
+		}
 	}
-	return nullptr;
+	return pastedShapes;
 }
 
-void Graph::Load(filesystem::path name, GUI* pUI) {
+void Graph::Load(const filesystem::path& name, GUI* pUI) {
 	ifstream file;
 	file.open(name);
 	string data;

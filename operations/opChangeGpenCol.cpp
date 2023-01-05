@@ -8,7 +8,7 @@ bool opChangeGpenCol::Execute() {
 	Graph* graph = pControl->GetGraph();
 	opColorPalette(pControl).Execute();
 	pUI->setDrawColor(pUI->getSelectedColor());
-	if (graph->getSelectedShape())
-		graph->getSelectedShape()->setDrawColor(pUI->getSelectedColor());
+	for (auto shape : graph->getSelectedShapes())
+		shape->setDrawColor(pUI->getSelectedColor());
 	return false;
 }
