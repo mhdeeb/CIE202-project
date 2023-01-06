@@ -251,6 +251,8 @@ public:
 	void DrawCircle(const Circle*) const;  //Draw a circle
 	void DrawIrregPoly(const IrregPoly*) const;
 	void DrawRegPoly(const RegPoly*) const;
+	void hide(shape* pShp);
+	void displayHelp();
 	///Make similar functions for drawing all other shapes.
 
 	void ClearDrawing() const;

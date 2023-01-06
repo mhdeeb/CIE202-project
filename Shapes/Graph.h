@@ -11,7 +11,7 @@ private:
 	vector <shape*> shapesList; //a container to hold all shapes
 	string Clipboard;		//string to hold the copied shape
 	vector<string> history;			//string to hold the history of the actions
-	int historyIndex = 0;		//index of the history
+	unsigned int historyIndex = 0;		//index of the history
 	bool GroupPreview = false;
 public:
 	Graph();

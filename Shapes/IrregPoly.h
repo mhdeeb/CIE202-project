@@ -26,4 +26,5 @@ public:
 	void updateCenter();
 	static IrregPoly* Load(string data);
 	void Transform(transformation func, double factor, Point origin) override;
+	pair<Point, Point> getBoundingBox() const override;
 };

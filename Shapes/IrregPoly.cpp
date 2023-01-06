@@ -127,3 +127,15 @@ void IrregPoly::Transform(transformation func, double factor, Point origin) {
 	}
 	updateCenter();
 }
+
+pair<Point, Point> IrregPoly::getBoundingBox() const {
+	Point p1 = {INT_MAX, INT_MAX};
+	Point p2 = {INT_MIN, INT_MIN};
+	for (int i = 0; i < getSize(); ++i) {
+		p1.x = min(p1.x, xpoints[i]);
+		p1.y = min(p1.y, ypoints[i]);
+		p2.x = max(p2.x, xpoints[i]);
+		p2.y = max(p2.y, ypoints[i]);
+	}
+	return {p1, p2};
+}

@@ -72,3 +72,7 @@ void Rect::Transform(transformation func, double factor, Point origin) {
 Point Rect::GetCenter() const {
 	return (p1 + p2) / 2;
 }
+
+pair<Point, Point> Rect::getBoundingBox() const {
+	return {p1, p2};
+}

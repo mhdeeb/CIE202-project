@@ -38,4 +38,5 @@ public:
 	virtual Point GetCenter() const = 0;
 	int getId() const;
 	void setId(int id);
+	virtual pair<Point, Point> getBoundingBox() const = 0;
 };

@@ -1,6 +1,7 @@
 #include "GUI.h"
 
 #include <sstream>
+#include <fstream>
 
 #include "../Shapes/Rect.h"
 #include "../Shapes/Circle.h"
@@ -48,7 +49,7 @@ GUI::GUI(controller* pCont): pCont(pCont) {
 	//Change the title
 	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
 	CreateDrawToolBar();
-	PrintMessage("Welcome to Draw Mode!\n\nPress esc to cancel operations.");
+	PrintMessage("Welcome to Draw Mode!\n\nPress H for help");
 }
 
 //======================================================================================//
@@ -102,6 +103,14 @@ bool GUI::GetPointClicked(int& x, int& y) {
 			case 'n':
 				pCont->GetGraph()->redo(this);
 				break;
+			case 'h':
+				ClearStatusMessage();
+				displayHelp();
+				break;
+			case 'e':
+				for (auto shape : pCont->GetGraph()->GetShapeList())
+					hide(shape);
+				break;
 			default:
 				break;
 			}
@@ -148,7 +157,8 @@ Point GUI::getMousePosition() {
 }
 
 string GUI::GetString(string message) {
-	string Label, displayed;
+	string Label;
+	string displayed;
 	char Key;
 	keytype ktype;
 
@@ -303,7 +313,6 @@ operationType GUI::GetUseroperation(int x, int y) {
 					selectedShape->setFillColor(selectedShape->getGfxInfo().FillClr, Isfilled);
 		} else if (DrawButtons[GROUP_CYCLE]->isSelected({x, y})) {
 			gid = ++gid % gcount;
-			DrawButtons[GROUP_CYCLE]->setDrawColor(ColorsArray[gid]);
 			DrawButtons[GROUP_CYCLE]->setFillColor(ColorsArray[gid], true);
 			for (shape* pShape : pCont->GetGraph()->GetShapeList())
 				if (pShape->getId() == gid)
@@ -421,8 +430,8 @@ void GUI::LoadDrawToolBar() {
 	DrawMenuIconImages[ICON_EXIT] = new image("images/MenuIcons/Menu_Exit.jpg");
 	DrawMenuIconImages[ICON_IMAGE] = new image("images/MenuIcons/Menu_Image.jpg");
 	DrawMenuIconImages[ICON_COLOR_PALETTE] = new image("images/util/Color_palette.jpg");
-	DrawButtons[FILL_SWITCH] = new Circle{{width - 30, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth }};
-	DrawButtons[GROUP_CYCLE] = new Circle{{width - 55, height - 30}, 10, {DrawColor, FillColor, Isfilled, PenWidth }};
+	DrawButtons[FILL_SWITCH] = new Circle{{width - 30, height - 30}, 10, {DrawColor, FillColor, Isfilled, 2 }};
+	DrawButtons[GROUP_CYCLE] = new Circle{{width - 55, height - 30}, 10, {BLACK, ColorsArray[gid], true, 2 }};
 }
 void GUI::CreateDrawToolBar() {
 	for (int i = 0; i < DRAW_ICON_COUNT; i++)
@@ -677,6 +686,27 @@ void GUI::DrawIrregPoly(const IrregPoly* irrePoly) const {
 void GUI::DrawRegPoly(const RegPoly* RegPoly) const {
 	DrawIrregPoly(RegPoly);
 }
+
+void GUI::hide(shape* pShp) {
+	auto [p1, p2] = pShp->getBoundingBox();
+	pWind->SetPen(BLACK, 3);
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(p1.x - 2, p1.y - 2, p2.x + 2, p2.y + 2, FILLED);
+}
+
+void GUI::displayHelp() {
+	string response;
+	string msg;
+	ifstream help;
+	help.open("help.txt");
+	while (!help.eof() && response != "e") {
+		getline(help, msg, ';');
+		if (!ranges::all_of(msg.begin(), msg.end(), ::isspace))
+			response = GetString(msg);
+	}
+	help.close();
+}
+
 void GUI::DrawLine(const Line* line) const {
 	color DrawingClr;
 	GfxInfo gfxInfo = line->getGfxInfo();

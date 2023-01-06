@@ -75,3 +75,7 @@ void Line::Transform(transformation func, double factor, Point origin) {
 Point Line::GetCenter() const {
 	return (Point1 + Point2) / 2;
 }
+
+pair<Point, Point> Line::getBoundingBox() const {
+	return {Point(min(Point1.x, Point2.x), min(Point1.y, Point2.y)), Point(max(Point1.x, Point2.x), max(Point1.y, Point2.y))};
+}

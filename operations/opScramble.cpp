@@ -3,7 +3,7 @@
 opScramble::opScramble(controller* pCont):operation(pCont) {}
 opScramble::~opScramble() = default;
 bool opScramble::Execute() {
-	srand(time(nullptr));
+	srand(unsigned int(time(nullptr)));
 	GUI* pUI = pControl->GetUI();
 	Graph const* graph = pControl->GetGraph();
 	Point p;

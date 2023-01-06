@@ -21,4 +21,5 @@ public:
 	static Rect* Load(const string& data);
 	void Transform(transformation func, double factor, Point origin) override;
 	Point GetCenter() const override;
+	pair<Point, Point> getBoundingBox() const override;
 };

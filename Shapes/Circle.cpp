@@ -75,3 +75,7 @@ void Circle::Transform(transformation func, double factor, Point origin) {
 Point Circle::GetCenter() const {
 	return origin;
 }
+
+pair<Point, Point> Circle::getBoundingBox() const {
+	return {origin - Point(int(radius), int(radius)), origin + Point(int(radius), int(radius))};
+}
