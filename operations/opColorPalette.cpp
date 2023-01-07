@@ -20,6 +20,7 @@ bool opColorPalette::Execute() {
 	pUI->DrawRect(&border, 5, 5);
 	while (!pUI->GetLeftClick(p.x, p.y) || !(x <= p.x && p.x <= x + side && y <= p.y && p.y <= y + side) && lockScreen) {
 		if (pUI->GetKeyPress(c) == ESCAPE) {
+			pUI->setMsgColor(msgColor);
 			pUI->ClearStatusMessage();
 			return false;
 		}
