@@ -10,7 +10,7 @@ bool opScramble::Execute() {
 	ranges::shuffle(shapes.begin(), shapes.end(), default_random_engine(seed));
 	auto n = int(sqrt(shapes.size()));
 	for (int i = 0; i < shapes.size(); i++) {
-		Point p(i / n * 120 + pControl->GetUI()->getWidth() / 4, i % n * 120 + pControl->GetUI()->getHeight() / 4);
+		Point p(i / n * 120 + pControl->GetUI()->getWidth() / 3, i % n * 120 + pControl->GetUI()->getHeight() / 6);
 		shapes[i]->Transform(
 			[](Point& point, double s, const Point& origin) {
 				point.translate(origin);

@@ -83,6 +83,11 @@ void Graph::Show(GUI* pUI) const {
 	Refresh(pUI);
 }
 
+void Graph::limitSize() {
+	if (shapesList.size() > 24)
+		shapesList.erase(shapesList.begin() + 24, shapesList.end());
+}
+
 void Graph::updateHistory(const GUI* pUI) {
 	if (historyIndex == -1)
 		return;

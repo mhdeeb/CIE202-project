@@ -48,7 +48,7 @@ GUI::GUI(controller* pCont): pCont(pCont) {
 	//Create the output window
 	pWind = CreateWind(width, height, wx, wy);
 	//Change the title
-	pWind->ChangeTitle("- - - - - - - - - - PAINT ^ ^ PLAY - - - - - - - - - -");
+	pWind->ChangeTitle("PAINT");
 	CreateDrawToolBar();
 	PrintMessage("Welcome to Draw Mode!\n\nPress H for help");
 }
@@ -412,16 +412,17 @@ void GUI::CreateStatusBar(string statusMessage) {
 	PrintMessage(statusMessage, {10, height - getStatusBarHeight()});
 
 	setMsgColor(msgColor);
-
-	Circle* c = (Circle*)DrawButtons[FILL_SWITCH];
-	c->setDrawColor(DrawColor);
-	c->setFillColor(FillColor, Isfilled);
-	DrawCircle(c);
-	if (pCont->GetGraph()->getGroupPreview()) {
-		c = (Circle*)DrawButtons[GROUP_CYCLE];
+	if (getInterfaceMode() == MODE_DRAW) {
+		Circle* c = (Circle*)DrawButtons[FILL_SWITCH];
+		c->setDrawColor(DrawColor);
+		c->setFillColor(FillColor, Isfilled);
 		DrawCircle(c);
-		pWind->SetPen(unsigned char(gid + 1));
-		pWind->DrawString(int(c->getOrigin().x - c->getRadius() / 2), int(c->getOrigin().y - c->getRadius() + 1), to_string(gid));
+		if (pCont->GetGraph()->getGroupPreview()) {
+			c = (Circle*)DrawButtons[GROUP_CYCLE];
+			DrawCircle(c);
+			pWind->SetPen(unsigned char(gid + 1));
+			pWind->DrawString(int(c->getOrigin().x - c->getRadius() / 2), int(c->getOrigin().y - c->getRadius() + 1), to_string(gid));
+		}
 	}
 }
 
@@ -639,6 +640,14 @@ void GUI::loadImage() {
 	pWind->DrawImage(storedImage, 0, 0, width, height - getStatusBarHeight());
 }
 
+void GUI::setHighScore(int highscore) {
+	this->highscore = highscore;
+}
+
+int GUI::getHighScore() const {
+	return highscore;
+}
+
 //======================================================================================//
 //								shapes Drawing Functions								//
 //======================================================================================//
@@ -739,14 +748,6 @@ void GUI::displayHelp() {
 		if (!ranges::all_of(msg.begin(), msg.end(), ::isspace))
 			response = Prompt(msg);
 	help.close();
-}
-
-void GUI::setScore(int s) {
-	score = s;
-}
-
-int GUI::getScore() const {
-	return score;
 }
 
 void GUI::DrawLine(const Line* line) const {

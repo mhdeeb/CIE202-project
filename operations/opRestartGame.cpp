@@ -8,7 +8,6 @@ bool opRestartGame::Execute() {
 	GUI* pUI = pControl->GetUI();
 	graph->Show(pUI);
 	opScramble(pControl).Execute();
-	pUI->setScore(-1);
 	graph->Refresh(pUI);
 	return false;
 }

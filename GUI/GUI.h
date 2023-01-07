@@ -186,7 +186,7 @@ private:
 	int MenuIconWidth;
 	int gid = 0;
 	int gcount = 7;
-	int score = -1;
+	int highscore = 0;
 	GUI_MODE InterfaceMode;
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
@@ -251,8 +251,6 @@ public:
 	void DrawIrregPoly(const IrregPoly*) const;
 	void DrawRegPoly(const RegPoly*) const;
 	void displayHelp();
-	void setScore(int score);
-	int getScore() const;
 	///Make similar functions for drawing all other shapes.
 
 	void ClearDrawing() const;
@@ -291,6 +289,9 @@ public:
 
 	void storeImage();
 	void loadImage();
+
+	void setHighScore(int highscore);
+	int getHighScore() const;
 
 	static shape* ParseShape(const string& line);
 

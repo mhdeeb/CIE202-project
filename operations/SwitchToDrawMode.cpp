@@ -9,5 +9,6 @@ bool SwitchToDrawMode::Execute() {
 	pUI->ClearStatusMessage();
 	graph->Clear();
 	graph->Refresh(pUI);
+	pUI->getWindow()->ChangeTitle("PAINT");
 	return false;
 }

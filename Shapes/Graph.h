@@ -36,4 +36,5 @@ public:
 	void redo(GUI* pUI);
 	void Hide(GUI* pUI) const;
 	void Show(GUI* pUI) const;
+	void limitSize();
 };
