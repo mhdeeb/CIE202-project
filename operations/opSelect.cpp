@@ -1,6 +1,6 @@
 #include "opSelect.h"
-#include<ranges>
-#include<vector>
+#include <ranges>
+#include <vector>
 
 Select::Select(controller* pCont):operation(pCont) {}
 Select::~Select() = default;

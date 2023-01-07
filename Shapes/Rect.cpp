@@ -38,6 +38,8 @@ string Rect::PrintInfo() const {
 }
 
 bool Rect::isSelected(Point p) const {
+	if (isHidden() && GetCenter() - 51 <= p && p <= GetCenter() + 51)
+		return true;
 	if (p.x <= max(p1.x, p2.x) && p.x >= min(p1.x, p2.x) && p.y >= min(p1.y, p2.y) && p.y <= max(p1.y, p2.y))
 		return true;
 	return false;

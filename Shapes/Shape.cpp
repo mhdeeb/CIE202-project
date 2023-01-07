@@ -35,6 +35,24 @@ void shape::setId(int id) {
 	this->id = id;
 }
 
+void shape::Hide() {
+	auto [p1, p2] = getBoundingBox();
+	Point s = p2 - p1;
+	double scale = 100. / max(s.x, s.y);
+	Transform([](TRANSFORMATION) {
+		point.translate(-origin).scale(parameter).translate(origin);
+		}, scale, GetCenter());
+	hidden = true;
+}
+
+void shape::Show() {
+	hidden = false;
+}
+
+bool shape::isHidden() const {
+	return hidden;
+}
+
 void shape::setID(int ID) {
 	id = ID;
 }

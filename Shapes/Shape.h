@@ -4,6 +4,7 @@
 #include <functional>
 
 using transformation = const std::function<void(Point& point, double parameter, const Point& origin)>&;
+#define TRANSFORMATION Point& point, double parameter, const Point& origin
 
 //Base class for all shapes
 class shape {
@@ -13,6 +14,7 @@ protected:
 	//Shape graphics info
 	GfxInfo gfxInfo;
 	void setID(int id);
+	bool hidden = false;
 public:
 	//Shape constructor
 	explicit shape(const GfxInfo& gfxInfo = {});
@@ -39,4 +41,7 @@ public:
 	int getId() const;
 	void setId(int id);
 	virtual pair<Point, Point> getBoundingBox() const = 0;
+	void Hide();
+	void Show();
+	bool isHidden() const;
 };

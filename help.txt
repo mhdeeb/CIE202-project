@@ -1,29 +1,25 @@
+Welcome to the help section:
 
-Welcome to the help section:  
-
-Insert e to exit help.
-
-Press Enter to continue;
-Most shapes are drawn by selecting a shape from the toolbar  
+Press ESC to exit
+Press any key to continue
+;Most shapes are drawn by selecting a shape from the toolbar
 and then dragging on the drawing area.
 
-Press Enter to continue;
-Shapes that require more than two points to draw  
+Press any key to continue
+;Shapes that require more than two points to draw
 are drawn by clicking.
 
-Press Enter to continue;
-Select a shape by clicking on it  
+Press any key to continue
+;Select a shape by clicking on it
 without being in an operation.
 
-Press Enter to continue;
-Keyboard shortcuts for operations on selected shapes:  
+Press any key to continue
+;Keyboard shortcuts for operations on selected shapes:
 
 M: Move Shape
 R: Rotate Shape
 S: Scale Shape
 D: Delete Shape
-I: Scramble Graph
-O: Duplicate Graph
 H: Show Help
 C: Copy Shape
 P: Paste Shape
@@ -33,10 +29,10 @@ N: Redo
 -: Zoom Out
 T: Toggle Group Mode
 
-Press Enter to continue;
-Group Mode:
+Press any key to continue
+;Group Mode:
 
-Group mode allows users to operate  
+Group mode allows users to operate
 on multiple shapes at once.
 
 All single shape operations
@@ -48,17 +44,18 @@ A circle on the bottom left of
 the graph will appear to indicate
 that you entered group mode.
 
-Click on that circle to cycle through  
+Click on that circle to cycle through
 the available groups.
 
 Select a shape to add/remove it from
 the selected group.
 
-Press Enter to continue;
-To load a fresh canvas click on  
+Press any key to continue
+;To load a fresh canvas click on
 the third button from the right
 and select Default.
 
 This concludes the help section, Enjoy!
 
-Press Enter to exit;
+Press any key to exit
+;

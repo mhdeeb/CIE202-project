@@ -6,6 +6,7 @@
 #include <vector>
 #include <map>
 #include <filesystem>
+#include <compare>
 
 class shape;
 class Rect;
@@ -110,7 +111,12 @@ struct Point {
 		y = int(y / i);
 		return *this;
 	}
-	auto operator<=>(const Point& p) const = default;
+	partial_ordering operator<=>(const Point& p) const {
+		if (x > p.x && y > p.y) return partial_ordering::greater;
+		else if (x < p.x && y < p.y) return partial_ordering::less;
+		else if (x == p.x && y == p.y) return partial_ordering::equivalent;
+		else return partial_ordering::unordered;
+	};
 };
 
 struct GfxInfo	//Graphical info common for all shapes (you may add more members)
@@ -162,22 +168,12 @@ public:
 		DRAW_BUTTONS_COUNT,
 	};
 
-	const enum PlayMenuIcon //The icons of the Play menu (you should add more icons)
-	{
-		ICON_HIDE,
-		ICON_UNHIDE,
-		ICON_MATCH,
+	const enum PlayMenuIcon {
 		ICON_START_GAME,
+		ICON_RESTART_GAME,
 		ICON_DRAW_MODE,
 		ICON_EXIT2,
-
-		//Note: Icons are ordered here as they appear in menu
-		//If you want to change the menu icons order, change the order here
-
-		//TODO: Add more icons names here
-
-		PLAY_ICON_COUNT,		//no. of menu icons ==> This should be the last line in this enum
-		TOTAL_PLAY_ICON_COUNT,
+		PLAY_ICON_COUNT,
 	};
 
 private:
@@ -190,10 +186,11 @@ private:
 	int MenuIconWidth;
 	int gid = 0;
 	int gcount = 7;
+	int score = -1;
 	GUI_MODE InterfaceMode;
 	color DrawColor;		//Drawing color
 	color FillColor;		//Filling color
-	bool Isfilled;          // is the shape filled
+	bool Isfilled;          //is the shape filled
 	color HighlightColor;	//Highlighting color
 	color MsgColor;			//Messages color
 	color BkGrndColor;		//Background color
@@ -203,7 +200,7 @@ private:
 	string statusMessage;
 	buttonstate perviousLeftButtonState;
 	image* DrawMenuIconImages[TOTAL_DRAW_ICON_COUNT]{};
-	image* PlayMenuIconImages[TOTAL_PLAY_ICON_COUNT]{};
+	image* PlayMenuIconImages[PLAY_ICON_COUNT]{};
 	shape* DrawButtons[DRAW_BUTTONS_COUNT]{};
 	window* pWind;
 	image storedImage;
@@ -221,7 +218,9 @@ public:
 	void getMouseLocation(int& x, int& y);
 	Point getMousePosition();
 
-	string GetString(string prompt);	 //Returns a string entered by the user
+	string GetString(const string& prompt);	 //Returns a string entered by the user
+
+	bool Prompt(const string& message);
 
 	operationType GetUseroperation(int, int); //Read the user click and map to an operation
 
@@ -251,8 +250,9 @@ public:
 	void DrawCircle(const Circle*) const;  //Draw a circle
 	void DrawIrregPoly(const IrregPoly*) const;
 	void DrawRegPoly(const RegPoly*) const;
-	void hide(shape* pShp);
 	void displayHelp();
+	void setScore(int score);
+	int getScore() const;
 	///Make similar functions for drawing all other shapes.
 
 	void ClearDrawing() const;

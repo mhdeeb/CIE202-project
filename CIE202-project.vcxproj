@@ -168,6 +168,8 @@
     <ClCompile Include="GUI\GUI.cpp" />
     <ClCompile Include="controller.cpp" />
     <ClCompile Include="operations\opAddImageShape.cpp" />
+    <ClCompile Include="operations\opStartGame.cpp" />
+    <ClCompile Include="operations\opRestartGame.cpp" />
     <ClCompile Include="Shapes\imageShape.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="operations\opDuplicateGraph.cpp" />
@@ -234,6 +236,8 @@
     <ClInclude Include="controller.h" />
     <ClInclude Include="DEFS.h" />
     <ClInclude Include="operations\opAddImageShape.h" />
+    <ClInclude Include="operations\opStartGame.h" />
+    <ClInclude Include="operations\opRestartGame.h" />
     <ClInclude Include="Shapes\imageShape.h" />
     <ClInclude Include="operations\opDuplicateGraph.h" />
     <ClInclude Include="operations\opCopy.h" />
@@ -275,6 +279,9 @@
     <ClInclude Include="Shapes\Square.h" />
     <ClInclude Include="Shapes\Triangle.h" />
     <ClInclude Include="test.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="help.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

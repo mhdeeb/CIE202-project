@@ -108,6 +108,8 @@ IrregPoly* IrregPoly::Load(string data) {
 }
 
 bool IrregPoly::isSelected(Point p) const {
+	if (isHidden() && GetCenter() - 51 <= p && p <= GetCenter() + 51)
+		return true;
 	double area = 0;
 	double testArea = 0;
 	int nupberOfPoints = xpoints.size() - 1;

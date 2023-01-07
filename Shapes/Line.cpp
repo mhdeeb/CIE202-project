@@ -33,6 +33,8 @@ string Line::Serialize() const {
 }
 
 bool Line::isSelected(Point p) const {
+	if (isHidden() && GetCenter() - 51 <= p && p <= GetCenter() + 51)
+		return true;
 	if (Point1.x == Point2.x) {
 		if (p.y >= min(Point1.y, Point2.y) && p.y <= max(Point1.y, Point2.y) && p.x == Point2.x)
 			return true;

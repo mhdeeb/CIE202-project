@@ -18,6 +18,8 @@
 #include "operations/SwitchToDrawMode.h"
 #include "operations/opAddImageShape.h"
 #include "operations/noOp.h"
+#include "operations/opStartGame.h"
+#include "operations/opRestartGame.h"
 
 //Constructor
 controller::controller() {
@@ -97,13 +99,11 @@ operation* controller::createOperation(operationType OpType) {
 		}
 	} else {
 		switch (OpType) {
-		case HIDE:
-			break;
-		case UNHIDE:
-			break;
-		case MATCH:
+		case RESTART:
+			pOp = new opRestartGame(this);
 			break;
 		case START_GAME:
+			pOp = new opStartGame(this);
 			break;
 		case TO_DRAW:
 			pOp = new SwitchToDrawMode(this);  // this operation is supposed to Clear the Play toolbar and draw the Draw toolbar
@@ -113,9 +113,12 @@ operation* controller::createOperation(operationType OpType) {
 			break;
 		case STATUS:	//a click on the status bar ==> no operation
 			break;
+		default:
+			pOp = new Select(this);
+			break;
 		}
 	}
-	if (pOp == nullptr)
+	if (!pOp)
 		pOp = new noOp(this);	//No valid operation: create a dummy operation for noAction
 	return pOp;
 }
@@ -154,10 +157,14 @@ void controller::Run() {
 	bool skipInput = false;
 	pGraph->Load("save/Example_gf.txt", pGUI);
 	do {
-		if (!skipInput)
-			while (!pGUI->GetPointClicked(x, y));
-		else
-			pGUI->getMouseLocation(x, y);
+		if (pGUI->getInterfaceMode()) {
+			pGUI->GetPointClickedNoOp(x, y);
+		} else {
+			if (!skipInput)
+				while (!pGUI->GetPointClicked(x, y));
+			else
+				pGUI->getMouseLocation(x, y);
+		}
 		OpType = GetUseroperation(x, y);
 		pGUI->getWindow()->FlushKeyQueue();
 		operation* pOpr = createOperation(OpType);

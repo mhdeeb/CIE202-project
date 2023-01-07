@@ -40,7 +40,9 @@ string Circle::Serialize() const {
 }
 
 bool Circle::isSelected(Point p) const {
-	if (p.distance(origin) <= radius)
+	if (isHidden() && GetCenter() - 51 <= p && p <= GetCenter() + 51)
+		return true;
+	else if (p.distance(origin) <= radius)
 		return true;
 	return false;
 }

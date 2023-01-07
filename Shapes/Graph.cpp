@@ -38,9 +38,9 @@ void Graph::Draw(GUI* pUI) const {
 void Graph::Refresh(GUI* pUI) const {
 	pUI->Clear();
 	Draw(pUI);
-	if (pUI->getInterfaceMode())
+	if (pUI->getInterfaceMode()) {
 		pUI->CreatePlayToolBar();
-	else
+	} else
 		pUI->CreateDrawToolBar();
 	pUI->CreateStatusBar();
 }
@@ -69,6 +69,18 @@ void Graph::redo(GUI* pUI) {
 		historyIndex++;
 		LoadStr(history[historyIndex], pUI);
 	}
+}
+
+void Graph::Hide(GUI* pUI) const {
+	for (auto shape : GetShapeList())
+		shape->Hide();
+	Refresh(pUI);
+}
+
+void Graph::Show(GUI* pUI) const {
+	for (auto shape : GetShapeList())
+		shape->Show();
+	Refresh(pUI);
 }
 
 void Graph::updateHistory(const GUI* pUI) {

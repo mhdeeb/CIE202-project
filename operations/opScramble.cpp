@@ -1,25 +1,22 @@
 #include "opScramble.h"
+#include <random>
 
 opScramble::opScramble(controller* pCont):operation(pCont) {}
 opScramble::~opScramble() = default;
 bool opScramble::Execute() {
-	srand(unsigned int(time(nullptr)));
-	GUI* pUI = pControl->GetUI();
 	Graph const* graph = pControl->GetGraph();
-	Point p;
-	Point c;
-	for (auto* pShape : graph->GetShapeList()) {
-		c = pShape->GetCenter();
-		do {
-			p.x = rand() % (pUI->getWidth() - c.x) - c.x;
-			p.y = rand() % (pUI->getHeight() - c.y) - c.y;
-		} while (!pUI->isInDrawArea(p + c));
-		pShape->Transform(
+	vector<shape*> shapes = graph->GetShapeList();
+	auto seed = unsigned(chrono::system_clock::now().time_since_epoch().count());
+	ranges::shuffle(shapes.begin(), shapes.end(), default_random_engine(seed));
+	auto n = int(sqrt(shapes.size()));
+	for (int i = 0; i < shapes.size(); i++) {
+		Point p(i / n * 120 + pControl->GetUI()->getWidth() / 4, i % n * 120 + pControl->GetUI()->getHeight() / 4);
+		shapes[i]->Transform(
 			[](Point& point, double s, const Point& origin) {
 				point.translate(origin);
 			}
-		, 0, p);
+		, 0, p - shapes[i]->GetCenter());
 	}
-	graph->Refresh(pUI);
+	graph->Refresh(pControl->GetUI());
 	return false;
 }

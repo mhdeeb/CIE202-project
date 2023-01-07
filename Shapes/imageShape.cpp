@@ -18,9 +18,9 @@ string imageShape::getPath() const {
 }
 
 void imageShape::Draw(GUI* pUI) const {
-	Rect::Draw(pUI);
 	if (Image)
 		pUI->DrawImage(Image, p1.x + 3, p1.y + 3, p2.x - p1.x - 6, p2.y - p1.y - 6);
+	Rect::Draw(pUI);
 }
 
 string imageShape::PrintInfo() const {

@@ -3,7 +3,7 @@
 
 class SwitchToPlayMode: public operation {
 public:
-	SwitchToPlayMode(controller* pCont);
-	virtual ~SwitchToPlayMode();
-	virtual bool Execute();
+	explicit SwitchToPlayMode(controller* pCont);
+	~SwitchToPlayMode() override;
+	bool Execute() override;
 };

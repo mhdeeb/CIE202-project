@@ -213,6 +213,8 @@
     <ClCompile Include="operations\opToggleGroup.cpp" />
     <ClCompile Include="Shapes\imageShape.cpp" />
     <ClCompile Include="operations\opAddImageShape.cpp" />
+    <ClCompile Include="operations\opStartGame.cpp" />
+    <ClCompile Include="operations\opRestartGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -386,6 +388,8 @@
     <ClInclude Include="operations\opToggleGroup.h" />
     <ClInclude Include="Shapes\imageShape.h" />
     <ClInclude Include="operations\opAddImageShape.h" />
+    <ClInclude Include="operations\opStartGame.h" />
+    <ClInclude Include="operations\opRestartGame.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">
@@ -400,5 +404,8 @@
     <Filter Include="GUI">
       <UniqueIdentifier>{fbc5fee7-b829-4801-8f21-a57e487b9ede}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="help.txt" />
   </ItemGroup>
 </Project>

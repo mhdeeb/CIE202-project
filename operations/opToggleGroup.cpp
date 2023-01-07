@@ -10,7 +10,7 @@ bool opToggleGroup::Execute() {
 	graph->setGroupPreview(!graph->getGroupPreview());
 	graph->updateSelectedShapes(pUI);
 	if (graph->getGroupPreview()) {
-		pUI->PrintMessage(std::format("Group Mode Activated: Selected Group is {}", pUI->getGid()));
+		pUI->PrintMessage(format("Group Mode Activated: Selected Group is {}", pUI->getGid()));
 	} else {
 		pUI->ClearStatusMessage();
 	}

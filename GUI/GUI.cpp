@@ -44,6 +44,7 @@ GUI::GUI(controller* pCont): pCont(pCont) {
 	ToolBarHeight = 50;
 	MenuIconWidth = 80;
 	LoadDrawToolBar();
+	LoadPlayToolBar();
 	//Create the output window
 	pWind = CreateWind(width, height, wx, wy);
 	//Change the title
@@ -88,12 +89,6 @@ bool GUI::GetPointClicked(int& x, int& y) {
 			case '-':
 				opZoomOut(pCont).Execute();
 				break;
-			case 'o':
-				opDuplicateGraph(pCont).Execute();
-				break;
-			case 'i':
-				opScramble(pCont).Execute();
-				break;
 			case 't':
 				opToggleGroup(pCont).Execute();
 				break;
@@ -106,10 +101,6 @@ bool GUI::GetPointClicked(int& x, int& y) {
 			case 'h':
 				ClearStatusMessage();
 				displayHelp();
-				break;
-			case 'e':
-				for (auto shape : pCont->GetGraph()->GetShapeList())
-					hide(shape);
 				break;
 			default:
 				break;
@@ -156,7 +147,7 @@ Point GUI::getMousePosition() {
 	return {x, y};
 }
 
-string GUI::GetString(string message) {
+string GUI::GetString(const string& message) {
 	string Label;
 	string displayed;
 	char Key;
@@ -274,12 +265,54 @@ string GUI::GetString(string message) {
 	}
 }
 
+bool GUI::Prompt(const string& message) {
+	int maxChar = 0;
+	int nline = 0;
+	stringstream ss(message);
+	string line;
+	while (getline(ss, line)) {
+		nline++;
+		maxChar = max(maxChar, (int)line.size());
+	}
+
+	const int charWidth = 10;
+	const int marginy = 20;
+	const int marginx = 20;
+	const int charHeight = charWidth * 2;
+	const int messageHeight = charHeight * nline;
+	const int messageWidth = maxChar * charWidth;
+	const int promptHeight = messageHeight + 2 * marginy;
+	const int promptWidth = messageWidth + 2 * marginx;
+	const int centerY = height / 2;
+	const int centerX = width / 2;
+	const int promptY = centerY - promptHeight / 2;
+	const int promptX = centerX - promptWidth / 2;
+	const int messageY = promptY + marginy;
+	const int messageX = promptX + marginx;
+
+	storeImage();
+
+	pWind->SetPen(BLACK, 2);
+	pWind->SetBrush(GREY);
+	pWind->DrawRectangle(promptX, promptY, promptX + promptWidth, promptY + promptHeight, FILLED, 10, 10);
+
+	PrintMessage(message, {messageX, messageY});
+
+	char Key;
+	pWind->FlushKeyQueue();
+	keytype t = pWind->WaitKeyPress(Key);
+	loadImage();
+	if (t == ESCAPE)
+		return false;
+	return true;
+}
+
 //This function reads the position where the user clicks to determine the desired operation
 operationType GUI::GetUseroperation(int x, int y) {
 	if (InterfaceMode == MODE_DRAW)	//GUI in the DRAW mode
 	{
 		if (isInDrawArea({x, y})) {
-			return DRAWING_AREA;
+			return WINDOW_AREA;
 		} else if (y >= 0 && y < ToolBarHeight) {
 			//Check whick Menu icon was clicked
 			//==> This assumes that menu icons are lined up horizontally <==
@@ -322,7 +355,9 @@ operationType GUI::GetUseroperation(int x, int y) {
 
 	else if (InterfaceMode == MODE_PLAY)	//GUI is in PLAY mode
 	{
-		if (y >= 0 && y < ToolBarHeight) {
+		if (isInDrawArea({x, y})) {
+			return WINDOW_AREA;
+		} if (y >= 0 && y < ToolBarHeight) {
 			//Check whick Menu icon was clicked
 			 //==> This assumes that menu icons are lined up horizontally <==
 			int ClickedIconOrder = (x / MenuIconWidth);
@@ -330,10 +365,8 @@ operationType GUI::GetUseroperation(int x, int y) {
 			//if division result is 0 ==> first icon is clicked, if 1 ==> 2nd icon and so on
 
 			switch (ClickedIconOrder) {
-			case ICON_HIDE: return HIDE;
-			case ICON_UNHIDE: return UNHIDE;
-			case ICON_MATCH: return MATCH;
 			case ICON_START_GAME: return START_GAME;
+			case ICON_RESTART_GAME: return RESTART;
 			case ICON_DRAW_MODE: return TO_DRAW;
 			case ICON_EXIT2: return EXIT;
 			}
@@ -440,12 +473,10 @@ void GUI::CreateDrawToolBar() {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void GUI::LoadPlayToolBar() {
-	PlayMenuIconImages[ICON_HIDE] = new image("images/PlayMode/Menu_Hide.jpg");
-	PlayMenuIconImages[ICON_UNHIDE] = new image("images/PlayMode/Menu_Unhide.jpg");
-	PlayMenuIconImages[ICON_MATCH] = new image("images/PlayMode/Menu_Match.jpg");
 	PlayMenuIconImages[ICON_START_GAME] = new image("images/PlayMode/Menu_Play.jpg");
 	PlayMenuIconImages[ICON_DRAW_MODE] = new image("images/PlayMode/Menu_Draw_Mode.jpg");
 	PlayMenuIconImages[ICON_EXIT2] = new image("images/MenuIcons/Menu_Exit.jpg");
+	PlayMenuIconImages[ICON_RESTART_GAME] = new image("images/PlayMode/Menu_Restart.jpg");
 }
 void GUI::CreatePlayToolBar() {
 	for (int i = 0; i < PLAY_ICON_COUNT; i++)
@@ -604,6 +635,14 @@ void GUI::loadImage() {
 //======================================================================================//
 
 void GUI::DrawRect(const Rect* rect, int iWidth, int iHeight) const {
+	if (rect->isHidden()) {
+		auto [x1, y1] = rect->GetCenter() - 51;
+		auto [x2, y2] = rect->GetCenter() + 51;
+		pWind->SetPen(BLACK, 3);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
+		return;
+	}
 	color DrawingClr;
 	GfxInfo gfxInfo = rect->getGfxInfo();
 	Point c1 = rect->getC1();
@@ -625,6 +664,14 @@ void GUI::DrawRect(const Rect* rect, int iWidth, int iHeight) const {
 }
 
 void GUI::DrawSquare(const Square* Square) const {
+	if (Square->isHidden()) {
+		auto [x1, y1] = Square->GetCenter() - 51;
+		auto [x2, y2] = Square->GetCenter() + 51;
+		pWind->SetPen(BLACK, 3);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
+		return;
+	}
 	color DrawingClr;
 	GfxInfo gfxInfo = Square->getGfxInfo();
 	Point c1 = Square->getC1();
@@ -646,6 +693,14 @@ void GUI::DrawSquare(const Square* Square) const {
 }
 
 void GUI::DrawCircle(const Circle* circle) const {
+	if (circle->isHidden()) {
+		auto [x1, y1] = circle->GetCenter() - 51;
+		auto [x2, y2] = circle->GetCenter() + 51;
+		pWind->SetPen(BLACK, 3);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
+		return;
+	}
 	color DrawingClr;
 	Point origin = circle->getOrigin();
 	GfxInfo gfxInfo = circle->getGfxInfo();
@@ -667,6 +722,14 @@ void GUI::DrawCircle(const Circle* circle) const {
 }
 
 void GUI::DrawIrregPoly(const IrregPoly* irrePoly) const {
+	if (irrePoly->isHidden()) {
+		auto [x1, y1] = irrePoly->GetCenter() - 51;
+		auto [x2, y2] = irrePoly->GetCenter() + 51;
+		pWind->SetPen(BLACK, 3);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
+		return;
+	}
 	color DrawingClr;
 	GfxInfo gfxInfo = irrePoly->getGfxInfo();
 	if (gfxInfo.isSelected)
@@ -687,27 +750,34 @@ void GUI::DrawRegPoly(const RegPoly* RegPoly) const {
 	DrawIrregPoly(RegPoly);
 }
 
-void GUI::hide(shape* pShp) {
-	auto [p1, p2] = pShp->getBoundingBox();
-	pWind->SetPen(BLACK, 3);
-	pWind->SetBrush(WHITE);
-	pWind->DrawRectangle(p1.x - 2, p1.y - 2, p2.x + 2, p2.y + 2, FILLED);
-}
-
 void GUI::displayHelp() {
-	string response;
-	string msg;
 	ifstream help;
 	help.open("help.txt");
-	while (!help.eof() && response != "e") {
-		getline(help, msg, ';');
+	bool response = true;
+	string msg;
+	while (getline(help, msg, ';') && response)
 		if (!ranges::all_of(msg.begin(), msg.end(), ::isspace))
-			response = GetString(msg);
-	}
+			response = Prompt(msg);
 	help.close();
 }
 
+void GUI::setScore(int s) {
+	score = s;
+}
+
+int GUI::getScore() const {
+	return score;
+}
+
 void GUI::DrawLine(const Line* line) const {
+	if (line->isHidden()) {
+		auto [x1, y1] = line->GetCenter() - 51;
+		auto [x2, y2] = line->GetCenter() + 51;
+		pWind->SetPen(BLACK, 3);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
+		return;
+	}
 	color DrawingClr;
 	GfxInfo gfxInfo = line->getGfxInfo();
 	Point p1 = line->getPoint1();
@@ -721,6 +791,14 @@ void GUI::DrawLine(const Line* line) const {
 }
 
 void GUI::DrawTriangle(const Triangle* triangle) const {
+	if (triangle->isHidden()) {
+		auto [x1, y1] = triangle->GetCenter() - 51;
+		auto [x2, y2] = triangle->GetCenter() + 51;
+		pWind->SetPen(BLACK, 3);
+		pWind->SetBrush(WHITE);
+		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
+		return;
+	}
 	color DrawingClr;
 	GfxInfo gfxInfo = triangle->getGfxInfo();
 	if (gfxInfo.isSelected)	//shape is selected
@@ -793,7 +871,7 @@ GUI::~GUI() {
 		delete DrawMenuIconImages[i];
 	for (int i = 0; i < DRAW_BUTTONS_COUNT; ++i)
 		delete DrawButtons[i];
-	for (int i = 0; i < TOTAL_PLAY_ICON_COUNT; ++i)
+	for (int i = 0; i < PLAY_ICON_COUNT; ++i)
 		delete PlayMenuIconImages[i];
 }
 

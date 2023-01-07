@@ -34,4 +34,6 @@ public:
 	void updateHistory(const GUI* pUI);
 	void undo(GUI* pUI);
 	void redo(GUI* pUI);
+	void Hide(GUI* pUI) const;
+	void Show(GUI* pUI) const;
 };
