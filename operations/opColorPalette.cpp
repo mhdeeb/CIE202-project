@@ -19,11 +19,6 @@ bool opColorPalette::Execute() {
 	pUI->getWindow()->DrawImage(pUI->getImage(GUI::ICON_COLOR_PALETTE), x, y, side, side);
 	pUI->DrawRect(&border, 5, 5);
 	while (!pUI->GetLeftClick(p.x, p.y) || !(x <= p.x && p.x <= x + side && y <= p.y && p.y <= y + side) && lockScreen) {
-		if (pUI->GetKeyPress(c) == ESCAPE) {
-			pUI->setMsgColor(msgColor);
-			pUI->ClearStatusMessage();
-			return false;
-		}
 		pUI->setMsgColor(pUI->getHoverColor(p.x, p.y));
 		pUI->PrintMessage(pUI->getMsgColor().hex());
 		Sleep(16);
