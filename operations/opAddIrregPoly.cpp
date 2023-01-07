@@ -36,7 +36,7 @@ bool opAddIrregPoly::Execute() {
 			pUI->storeImage();
 			while (true) {
 				I->addPoint(p2);
-				while (pUI->GetLeftClick(p2.x, p2.y)) {
+				while (!pUI->GetLeftClick(p2.x, p2.y)) {
 					if (pUI->GetKeyPress(ch) == ESCAPE) {
 						delete I;
 						pUI->ClearStatusMessage();

@@ -165,11 +165,14 @@ void Graph::Load(const filesystem::path& name, GUI* pUI) {
 	int isFilled;
 	int drawWidth;
 	int shapeCount;
-	file >> drawColor >> fillColor >> isFilled >> drawWidth >> shapeCount;
+	getline(file, data);
+	stringstream ss(data);
+	ss >> drawColor >> fillColor >> isFilled >> drawWidth;
+	getline(file, data);
+	stringstream(data) >> shapeCount;
 	pUI->setDrawColor(drawColor);
 	pUI->setFillColor(fillColor, isFilled);
 	pUI->setPenWidth(drawWidth);
-	getline(file, data);
 	Clear();
 	while (getline(file, data))
 		Addshape(GUI::ParseShape(data), pUI);
@@ -180,20 +183,23 @@ void Graph::Load(const filesystem::path& name, GUI* pUI) {
 void Graph::LoadStr(const string& data, GUI* pUI) {
 	int histoIndex = historyIndex;
 	historyIndex = -1;
-	stringstream ss(data);
 	string line;
 	string drawColor;
 	string fillColor;
 	int isFilled;
 	int drawWidth;
 	int shapeCount;
-	ss >> drawColor >> fillColor >> isFilled >> drawWidth >> shapeCount;
+	stringstream ds(data);
+	getline(ds, line);
+	stringstream ls(line);
+	ls >> drawColor >> fillColor >> isFilled >> drawWidth;
+	getline(ds, line);
+	stringstream(line) >> shapeCount;
 	pUI->setDrawColor(drawColor);
 	pUI->setFillColor(fillColor, isFilled);
 	pUI->setPenWidth(drawWidth);
-	getline(ss, line);
 	Clear();
-	while (getline(ss, line))
+	while (getline(ds, line))
 		Addshape(GUI::ParseShape(line), pUI);
 	Refresh(pUI);
 	historyIndex = histoIndex;

@@ -60,7 +60,7 @@ bool GUI::GetPointClicked(int& x, int& y) {
 	char c;
 	pWind->FlushMouseQueue();
 	pWind->FlushKeyQueue();
-	while (GetLeftClick(x, y)) {
+	while (!GetLeftClick(x, y)) {
 		if (keytype k = GetKeyPress(c)) {
 			if (k == ESCAPE)
 				return false;
@@ -117,7 +117,7 @@ bool GUI::GetPointClickedNoOp(int& x, int& y) {
 	char c;
 	pWind->FlushMouseQueue();
 	pWind->FlushKeyQueue();
-	while (GetLeftClick(x, y)) {
+	while (!GetLeftClick(x, y)) {
 		if (ESCAPE == GetKeyPress(c) || pWind->GetButtonState(RIGHT_BUTTON, x, y) == BUTTON_DOWN)
 			return false;
 		Sleep(16);
@@ -133,7 +133,11 @@ bool GUI::GetLeftClick(int& x, int& y) {
 	buttonstate currentLeftButtonState = pWind->GetButtonState(LEFT_BUTTON, x, y);
 	buttonstate prev = perviousLeftButtonState;
 	perviousLeftButtonState = currentLeftButtonState;
-	return prev || !currentLeftButtonState;
+	return !prev && currentLeftButtonState;
+}
+
+bool GUI::isMouseLeftDown(int& x, int& y) {
+	return pWind->GetButtonState(LEFT_BUTTON, x, y);
 }
 
 void GUI::getMouseLocation(int& x, int& y) {
@@ -485,10 +489,15 @@ void GUI::CreatePlayToolBar() {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void GUI::Clear() const {
+	Clear({0, 0}, {width, height});
+}
+
+void GUI::Clear(Point p1, Point p2) const {
 	pWind->SetPen(BkGrndColor, 1);
 	pWind->SetBrush(BkGrndColor);
-	pWind->DrawRectangle(0, 0, width, height);
+	pWind->DrawRectangle(p1.x, p1.y, p2.x, p2.y);
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 void GUI::ClearDrawing() const {
@@ -638,9 +647,9 @@ void GUI::DrawRect(const Rect* rect, int iWidth, int iHeight) const {
 	if (rect->isHidden()) {
 		auto [x1, y1] = rect->GetCenter() - 51;
 		auto [x2, y2] = rect->GetCenter() + 51;
-		pWind->SetPen(BLACK, 3);
+		pWind->SetPen(rect->IsSelected() ? HighlightColor : BLACK, 3);
 		pWind->SetBrush(WHITE);
-		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
+		pWind->DrawRectangle(x1, y1, x2, y2, FILLED, iWidth, iHeight);
 		return;
 	}
 	color DrawingClr;
@@ -663,40 +672,11 @@ void GUI::DrawRect(const Rect* rect, int iWidth, int iHeight) const {
 	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style, iWidth, iHeight);
 }
 
-void GUI::DrawSquare(const Square* Square) const {
-	if (Square->isHidden()) {
-		auto [x1, y1] = Square->GetCenter() - 51;
-		auto [x2, y2] = Square->GetCenter() + 51;
-		pWind->SetPen(BLACK, 3);
-		pWind->SetBrush(WHITE);
-		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
-		return;
-	}
-	color DrawingClr;
-	GfxInfo gfxInfo = Square->getGfxInfo();
-	Point c1 = Square->getC1();
-	Point c2 = Square->getC2();
-	if (gfxInfo.isSelected)	//shape is selected
-		DrawingClr = HighlightColor; //shape should be drawn highlighted
-	else
-		DrawingClr = gfxInfo.DrawClr;
-
-	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
-
-	drawstyle style;
-	if (Square->getGfxInfo().isFilled) {
-		style = FILLED;
-		pWind->SetBrush(Square->getGfxInfo().FillClr);
-	} else
-		style = FRAME;
-	pWind->DrawRectangle(c1.x, c1.y, c2.x, c2.y, style);
-}
-
 void GUI::DrawCircle(const Circle* circle) const {
 	if (circle->isHidden()) {
 		auto [x1, y1] = circle->GetCenter() - 51;
 		auto [x2, y2] = circle->GetCenter() + 51;
-		pWind->SetPen(BLACK, 3);
+		pWind->SetPen(circle->IsSelected() ? HighlightColor : BLACK, 3);
 		pWind->SetBrush(WHITE);
 		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
 		return;
@@ -725,7 +705,7 @@ void GUI::DrawIrregPoly(const IrregPoly* irrePoly) const {
 	if (irrePoly->isHidden()) {
 		auto [x1, y1] = irrePoly->GetCenter() - 51;
 		auto [x2, y2] = irrePoly->GetCenter() + 51;
-		pWind->SetPen(BLACK, 3);
+		pWind->SetPen(irrePoly->IsSelected() ? HighlightColor : BLACK, 3);
 		pWind->SetBrush(WHITE);
 		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
 		return;
@@ -773,7 +753,7 @@ void GUI::DrawLine(const Line* line) const {
 	if (line->isHidden()) {
 		auto [x1, y1] = line->GetCenter() - 51;
 		auto [x2, y2] = line->GetCenter() + 51;
-		pWind->SetPen(BLACK, 3);
+		pWind->SetPen(line->IsSelected() ? HighlightColor : BLACK, 3);
 		pWind->SetBrush(WHITE);
 		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
 		return;
@@ -790,34 +770,6 @@ void GUI::DrawLine(const Line* line) const {
 	pWind->DrawLine(p1.x, p1.y, p2.x, p2.y, FRAME);
 }
 
-void GUI::DrawTriangle(const Triangle* triangle) const {
-	if (triangle->isHidden()) {
-		auto [x1, y1] = triangle->GetCenter() - 51;
-		auto [x2, y2] = triangle->GetCenter() + 51;
-		pWind->SetPen(BLACK, 3);
-		pWind->SetBrush(WHITE);
-		pWind->DrawRectangle(x1, y1, x2, y2, FILLED);
-		return;
-	}
-	color DrawingClr;
-	GfxInfo gfxInfo = triangle->getGfxInfo();
-	if (gfxInfo.isSelected)	//shape is selected
-		DrawingClr = HighlightColor; //shape should be drawn highlighted
-	else
-		DrawingClr = gfxInfo.DrawClr;
-
-	pWind->SetPen(DrawingClr, gfxInfo.BorderWdth);	//Set Drawing color & width
-
-	drawstyle style;
-	if (gfxInfo.isFilled) {
-		style = FILLED;
-		pWind->SetBrush(gfxInfo.FillClr);
-	} else
-		style = FRAME;
-
-	pWind->DrawTriangle(triangle->getPoint(0).x, triangle->getPoint(0).y, triangle->getPoint(1).x, triangle->getPoint(1).y, triangle->getPoint(2).x, triangle->getPoint(2).y, style);
-}
-
 void GUI::DrawImage(const image* imgThis, const int iX, const int iY, const int iWidth, const int iHeight) const {
 	pWind->DrawImage(imgThis, iX, iY, iWidth, iHeight);
 }
@@ -829,39 +781,25 @@ shape* GUI::ParseShape(const string& line) {
 	string type;
 	string rest;
 	ss >> type;
+	ss >> ws;
 	getline(ss, rest);
-	getline(ss, rest);
-	shapeType t;
-	shape* sh;
-	for (int i = 0; i < shapesCount; ++i)
-		if (ShapesArray[i] == type)
-			t = (shapeType)i;
-	switch (t) {
-	case RECTANGLE:
+	shape* sh = nullptr;
+	if (type == "RECTANGLE")
 		sh = Rect::Load(rest);
-		break;
-	case CIRCLE:
+	else if (type == "CIRCLE")
 		sh = Circle::Load(rest);
-		break;
-	case SQUARE:
+	else if (type == "SQUARE")
 		sh = Square::Load(rest);
-		break;
-	case LINE:
+	else if (type == "LINE")
 		sh = Line::Load(rest);
-		break;
-	case TRIANGLE:
+	else if (type == "TRIANGLE")
 		sh = Triangle::Load(rest);
-		break;
-	case REGULAR_POLYGON:
+	else if (type == "REGULAR_POLYGON")
 		sh = RegPoly::Load(rest);
-		break;
-	case IRREGULAR_POLYGON:
+	else if (type == "IRREGULAR_POLYGON")
 		sh = IrregPoly::Load(rest);
-		break;
-	case IMAGE:
+	else if (type == "IMAGE")
 		sh = imageShape::Load(rest);
-		break;
-	}
 	return sh;
 }
 

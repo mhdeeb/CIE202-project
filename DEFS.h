@@ -37,27 +37,6 @@ enum operationType //The operations supported (you can add more if needed)
 	RESTART,
 	START_GAME,
 };
-enum shapeType {
-	RECTANGLE,
-	CIRCLE,
-	SQUARE,
-	LINE,
-	TRIANGLE,
-	REGULAR_POLYGON,
-	IRREGULAR_POLYGON,
-	IMAGE,
-	shapesCount,
-};
-const string ShapesArray[]{
-	"RECTANGLE",
-	"CIRCLE",
-	"SQUARE",
-	"LINE",
-	"TRIANGLE",
-	"REGULAR_POLYGON",
-	"IRREGULAR_POLYGON",
-	"IMAGE",
-};
 
 const color ColorsArray[]{
 	RED,

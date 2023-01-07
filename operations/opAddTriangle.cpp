@@ -31,7 +31,7 @@ bool opAddTri::Execute() {
 			T->addPoint(p1);
 			for (int i = 0; i < 2; ++i) {
 				T->addPoint(p2);
-				while (pUI->GetLeftClick(p2.x, p2.y)) {
+				while (!pUI->GetLeftClick(p2.x, p2.y)) {
 					if (pUI->GetKeyPress(c) == ESCAPE) {
 						delete T;
 						pUI->ClearStatusMessage();

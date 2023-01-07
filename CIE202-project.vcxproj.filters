@@ -215,6 +215,7 @@
     <ClCompile Include="operations\opAddImageShape.cpp" />
     <ClCompile Include="operations\opStartGame.cpp" />
     <ClCompile Include="operations\opRestartGame.cpp" />
+    <ClCompile Include="Shapes\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -390,6 +391,7 @@
     <ClInclude Include="operations\opAddImageShape.h" />
     <ClInclude Include="operations\opStartGame.h" />
     <ClInclude Include="operations\opRestartGame.h" />
+    <ClInclude Include="Shapes\Button.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">

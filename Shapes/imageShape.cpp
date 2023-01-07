@@ -18,7 +18,7 @@ string imageShape::getPath() const {
 }
 
 void imageShape::Draw(GUI* pUI) const {
-	if (Image)
+	if (!isHidden() && Image)
 		pUI->DrawImage(Image, p1.x + 3, p1.y + 3, p2.x - p1.x - 6, p2.y - p1.y - 6);
 	Rect::Draw(pUI);
 }
@@ -29,7 +29,7 @@ string imageShape::PrintInfo() const {
 
 string imageShape::Serialize() const {
 	stringstream ss;
-	ss << ShapesArray[IMAGE] << ' ' << id << ' ' << p1.x << ' ' << p1.y << ' ' << p2.x << ' ' << p2.y << ' ' << getPath();
+	ss << type() << ' ' << id << ' ' << p1.x << ' ' << p1.y << ' ' << p2.x << ' ' << p2.y << ' ' << getPath();
 	return ss.str();
 }
 
@@ -45,4 +45,8 @@ imageShape* imageShape::Load(const string& data) {
 	auto* shape = new imageShape({p1x, p1y}, {p2x, p2y}, path);
 	shape->setID(id);
 	return shape;
+}
+
+string imageShape::type() const {
+	return "IMAGE";
 }

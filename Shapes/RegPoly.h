@@ -3,13 +3,14 @@
 #include "../GUI/GUI.h"
 class RegPoly: public IrregPoly {
 private:
-	Point c;
 	double r;
+	Point c;
 	int v;
 public:
-	RegPoly(Point center, int vertices, GfxInfo shapeGfxInfo, double radius = 10);
+	RegPoly(Point center, int vertices, const GfxInfo& shapeGfxInfo, double radius = 10);
 	void update(Point center, double radius);
-	virtual ~RegPoly() override;
-	virtual void Draw(GUI*) const override;
-	static RegPoly* Load(string data);
+	~RegPoly() override = default;
+	void Draw(GUI*) const override;
+	static RegPoly* Load(const string& data);
+	string type() const override;
 };

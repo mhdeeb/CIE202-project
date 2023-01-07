@@ -190,6 +190,8 @@ static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
 			wipInput->SetKeyInfo(hwnd, ASCII, (char)wParam);
 		}
 		return 0;
+	case WM_CLOSE:
+		exit(0);
 	}
 
 	return DefWindowProc(hwnd, msg, wParam, lParam);
@@ -305,7 +307,6 @@ window::~window() {
 	} else {
 		wipInput->RemoveWindow(hwndWindow);
 	}
-
 	DestroyWindow(hwndWindow);
 }
 

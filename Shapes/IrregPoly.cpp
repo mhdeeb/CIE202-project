@@ -3,7 +3,7 @@
 #include <numeric>
 #include <sstream>
 
-IrregPoly::IrregPoly(GfxInfo shapeGfxInfo): shape(shapeGfxInfo), type(IRREGULAR_POLYGON), center({0,0}) {}
+IrregPoly::IrregPoly(const GfxInfo& shapeGfxInfo): shape(shapeGfxInfo) {}
 
 const int* IrregPoly::getXpoints() const {
 	return &xpoints[0];
@@ -59,9 +59,11 @@ void IrregPoly::Draw(GUI* pUI) const {
 }
 
 string IrregPoly::PrintInfo() const {
-	string color, data, points = "";
+	string color;
+	string data;
+	string points = "";
 	color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
-	data = format("type: {: <20} fill: {: <20} draw: {: <20}\n", ShapesArray[type], color, gfxInfo.DrawClr.hex());
+	data = format("type: {: <20} fill: {: <20} draw: {: <20}\n", type(), color, gfxInfo.DrawClr.hex());
 	for (size_t i = 0; i < xpoints.size(); i++)
 		points += getPoint(i).toString(format("p{}", i)) + "  ";
 	return data + points;
@@ -69,7 +71,7 @@ string IrregPoly::PrintInfo() const {
 
 string IrregPoly::Serialize() const {
 	stringstream ss;
-	ss << ShapesArray[IRREGULAR_POLYGON] << ' ' << id << ' ' << xpoints.size() << ' ';
+	ss << type() << ' ' << id << ' ' << xpoints.size() << ' ';
 	for (size_t i = 0; i < xpoints.size(); i++)
 		ss << xpoints[i] << ' ' << ypoints[i] << ' ';
 	ss << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
@@ -85,10 +87,15 @@ void IrregPoly::updateCenter() {
 	center.y = accumulate(ypoints.cbegin(), ypoints.cend(), 0) / ypoints.size();
 }
 
-IrregPoly* IrregPoly::Load(string data) {
+IrregPoly* IrregPoly::Load(const string& data) {
 	stringstream ss(data);
-	int id, px, py, n, borderWidth;
-	string draw, fill;
+	int id;
+	int px;
+	int py;
+	int n;
+	int borderWidth;
+	string draw;
+	string fill;
 	bool isFilled;
 	GfxInfo gfx;
 	ss >> id >> n;
@@ -140,4 +147,8 @@ pair<Point, Point> IrregPoly::getBoundingBox() const {
 		p2.y = max(p2.y, ypoints[i]);
 	}
 	return {p1, p2};
+}
+
+string IrregPoly::type() const {
+	return "IRREGULAR_POLYGON";
 }

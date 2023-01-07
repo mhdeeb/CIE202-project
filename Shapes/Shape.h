@@ -16,6 +16,7 @@ protected:
 	void setID(int id);
 	bool hidden = false;
 public:
+	virtual string type() const = 0;
 	//Shape constructor
 	explicit shape(const GfxInfo& gfxInfo = {});
 	//Shape destructor
@@ -44,4 +45,5 @@ public:
 	void Hide();
 	void Show();
 	bool isHidden() const;
+	virtual string signiture() const;
 };

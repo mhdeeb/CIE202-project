@@ -213,6 +213,7 @@ public:
 	bool GetPointClickedNoOp(int& x, int& y);
 	keytype GetKeyPress(char& c) const;
 	bool GetLeftClick(int&, int&);
+	bool isMouseLeftDown(int& x, int& y);
 	//Get coordinate where user clicks
 
 	void getMouseLocation(int& x, int& y);
@@ -239,15 +240,14 @@ public:
 	void PrintMessage(string message, Point pos) const;
 
 	void Clear() const;	//Clears the display
+	void Clear(Point p1, Point p2) const;
 	void ClearStatusMessage();
 
 	// -- shapes Drawing functions
-	void DrawRect(const Rect*, int iWidth = 0, int iHeight = 0) const;		//Draw a rectangle
-	void DrawSquare(const Square*) const;     // Draw square
-	void DrawLine(const Line*) const;		//Draw a Line
-	void DrawTriangle(const Triangle* triangle) const;
+	void DrawRect(const Rect*, int iWidth = 0, int iHeight = 0) const;
+	void DrawLine(const Line*) const;
 	void DrawImage(const image* imgThis, const int iX, const int iY, const int iWidth, const int iHeight) const;
-	void DrawCircle(const Circle*) const;  //Draw a circle
+	void DrawCircle(const Circle*) const;
 	void DrawIrregPoly(const IrregPoly*) const;
 	void DrawRegPoly(const RegPoly*) const;
 	void displayHelp();

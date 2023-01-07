@@ -30,12 +30,12 @@ void Circle::Draw(GUI* pUI) const {
 
 string Circle::PrintInfo() const {
 	string color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
-	return format("type: {: <20} fill: {: <20} draw: {: <20} {} radius: {:3.3f}", ShapesArray[CIRCLE], color, gfxInfo.DrawClr.hex(), origin.toString("center"), radius);
+	return format("type: {: <20} fill: {: <20} draw: {: <20} {} radius: {:3.3f}", type(), color, gfxInfo.DrawClr.hex(), origin.toString("center"), radius);
 }
 
 string Circle::Serialize() const {
 	stringstream ss;
-	ss << ShapesArray[CIRCLE] << ' ' << id << ' ' << origin.x << ' ' << origin.y << ' ' << radius << ' ' << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
+	ss << type() << ' ' << id << ' ' << origin.x << ' ' << origin.y << ' ' << radius << ' ' << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
 	return ss.str();
 }
 
@@ -80,4 +80,8 @@ Point Circle::GetCenter() const {
 
 pair<Point, Point> Circle::getBoundingBox() const {
 	return {origin - Point(int(radius), int(radius)), origin + Point(int(radius), int(radius))};
+}
+
+string Circle::type() const {
+	return "CIRCLE";
 }

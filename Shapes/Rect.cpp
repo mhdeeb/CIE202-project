@@ -2,7 +2,7 @@
 
 #include <sstream>
 
-Rect::Rect(Point p1, Point p2, GfxInfo shapeGfxInfo):shape(shapeGfxInfo), p1(p1), p2(p2) {}
+Rect::Rect(Point p1, Point p2, const GfxInfo& shapeGfxInfo, int rx, int ry):shape(shapeGfxInfo), p1(p1), p2(p2), rx(rx), ry(ry) {}
 
 Point Rect::getC1() const {
 	return p1;
@@ -20,21 +20,19 @@ void Rect::setC2(Point p2) {
 	this->p2 = p2;
 }
 
-Rect::~Rect() {}
-
 void Rect::Draw(GUI* pUI) const {
-	pUI->DrawRect(this);
+	pUI->DrawRect(this, rx, ry);
 }
 
 string Rect::Serialize() const {
 	stringstream ss;
-	ss << ShapesArray[RECTANGLE] << ' ' << id << ' ' << p1.x << ' ' << p1.y << ' ' << p2.x << ' ' << p2.y << ' ' << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
+	ss << type() << ' ' << id << ' ' << p1.x << ' ' << p1.y << ' ' << p2.x << ' ' << p2.y << ' ' << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
 	return ss.str();
 }
 
 string Rect::PrintInfo() const {
 	string color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
-	return format("type: {: <20} fill: {: <20} draw: {: <20} {} {}", ShapesArray[type], color, gfxInfo.DrawClr.hex(), p1.toString("p1"), p2.toString("p2"));
+	return format("type: {: <20} fill: {: <20} draw: {: <20} {} {}", type(), color, gfxInfo.DrawClr.hex(), p1.toString("p1"), p2.toString("p2"));
 }
 
 bool Rect::isSelected(Point p) const {
@@ -77,4 +75,8 @@ Point Rect::GetCenter() const {
 
 pair<Point, Point> Rect::getBoundingBox() const {
 	return {p1, p2};
+}
+
+string Rect::type() const {
+	return "RECTANGLE";
 }

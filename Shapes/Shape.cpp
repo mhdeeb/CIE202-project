@@ -53,6 +53,15 @@ bool shape::isHidden() const {
 	return hidden;
 }
 
+string shape::signiture() const {
+	shape* s = GUI::ParseShape(Serialize());
+	s->setID(0);
+	s->Transform([](TRANSFORMATION) {
+		point.translate(origin);
+		}, 0, -GetCenter());
+	return s->Serialize();
+}
+
 void shape::setID(int ID) {
 	id = ID;
 }

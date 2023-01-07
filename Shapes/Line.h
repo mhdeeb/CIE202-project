@@ -21,4 +21,5 @@ public:
 	void Transform(transformation func, double factor, Point origin) override;
 	Point GetCenter() const override;
 	pair<Point, Point> getBoundingBox() const override;
+	string type() const override;
 };

@@ -4,8 +4,9 @@
 
 class Square: public Rect {
 public:
-	Square(Point, Point, GfxInfo);
-	virtual ~Square() override;
+	Square(Point p1, Point p2, const GfxInfo& shapeGfxInfo);
+	~Square() override = default;
 	void setC2(Point p2);
-	static Square* Load(string data);
+	static Square* Load(const string& data);
+	string type() const override;
 };

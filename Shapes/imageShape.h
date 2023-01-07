@@ -11,4 +11,5 @@ public:
 	string PrintInfo() const override;
 	string Serialize() const override;
 	static imageShape* Load(const string& data);
+	string type() const override;
 };

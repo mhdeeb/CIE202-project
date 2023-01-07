@@ -3,15 +3,19 @@
 #include <sstream>
 
 Line::Line(Point P1, Point P2, const GfxInfo& shapeGfxInfo): shape(shapeGfxInfo), Point1(P1), Point2(P2) {}
+
 Point Line::getPoint1() const {
 	return Point1;
 }
+
 Point Line::getPoint2() const {
 	return Point2;
 }
+
 void Line::setPoint1(const Point& p1) {
 	Point1 = p1;
 }
+
 void Line::setPoint2(const Point& p2) {
 	Point2 = p2;
 }
@@ -23,12 +27,12 @@ void Line::Draw(GUI* pUI) const {
 
 string Line::PrintInfo() const {
 	string color = (gfxInfo.isFilled) ? gfxInfo.FillClr.hex() : "null";
-	return format("type: {: <20} fill: {: <20} draw: {: <20} {} {}", ShapesArray[RECTANGLE], color, gfxInfo.DrawClr.hex(), Point1.toString("p1"), Point2.toString("p2"));
+	return format("type: {: <20} fill: {: <20} draw: {: <20} {} {}", type(), color, gfxInfo.DrawClr.hex(), Point1.toString("p1"), Point2.toString("p2"));
 }
 
 string Line::Serialize() const {
 	stringstream ss;
-	ss << ShapesArray[LINE] << ' ' << id << ' ' << Point1.x << ' ' << Point1.y << ' ' << Point2.x << ' ' << Point2.y << ' ' << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
+	ss << type() << ' ' << id << ' ' << Point1.x << ' ' << Point1.y << ' ' << Point2.x << ' ' << Point2.y << ' ' << gfxInfo.DrawClr.hex() << ' ' << gfxInfo.isFilled << ' ' << gfxInfo.FillClr.hex() << ' ' << gfxInfo.BorderWdth;
 	return ss.str();
 }
 
@@ -80,4 +84,8 @@ Point Line::GetCenter() const {
 
 pair<Point, Point> Line::getBoundingBox() const {
 	return {Point(min(Point1.x, Point2.x), min(Point1.y, Point2.y)), Point(max(Point1.x, Point2.x), max(Point1.y, Point2.y))};
+}
+
+string Line::type() const {
+	return "LINE";
 }
