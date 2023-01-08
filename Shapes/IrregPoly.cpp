@@ -83,8 +83,8 @@ double IrregPoly::Area(Point p1, Point p2, Point p3) {
 }
 
 void IrregPoly::updateCenter() {
-	center.x = accumulate(xpoints.cbegin(), xpoints.cend(), 0) / xpoints.size();
-	center.y = accumulate(ypoints.cbegin(), ypoints.cend(), 0) / ypoints.size();
+	center.x = int(round(accumulate(xpoints.cbegin(), xpoints.cend(), 0) / double(xpoints.size())));
+	center.y = int(round(accumulate(ypoints.cbegin(), ypoints.cend(), 0) / double(ypoints.size())));
 }
 
 IrregPoly* IrregPoly::Load(const string& data) {

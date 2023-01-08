@@ -107,8 +107,8 @@ struct Point {
 		return *this;
 	}
 	Point operator/=(double i) {
-		x = int(x / i);
-		y = int(y / i);
+		x = int(round(x / i));
+		y = int(round(y / i));
 		return *this;
 	}
 	partial_ordering operator<=>(const Point& p) const {
