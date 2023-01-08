@@ -11,8 +11,8 @@ bool opRotate::Execute() {
 	GUI* pUI = pControl->GetUI();
 	for (auto shape : graph->getSelectedShapes())
 		shape->Transform(
-			[](Point& point, double angle, const Point& origin) {
-				point.translate(-origin).rotate(angle).translate(origin);
+			[](TRANSFORMATION) {
+				point.translate(-origin).rotate(parameter).translate(origin);
 			}
 	, numbers::pi / 2, shape->GetCenter());
 	graph->Refresh(pUI);

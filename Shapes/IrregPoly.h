@@ -6,7 +6,7 @@ class IrregPoly: public shape {
 protected:
 	vector<int> xpoints;
 	vector<int> ypoints;
-	Point center{0, 0};;
+	Point center{0, 0};
 public:
 	explicit IrregPoly(const GfxInfo& shapeGfxInfo);
 	const int* getXpoints() const;

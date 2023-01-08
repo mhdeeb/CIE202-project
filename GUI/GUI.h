@@ -34,8 +34,8 @@ struct Point {
 		return *this;
 	}
 	Point& translate(const Point& point) {
-		x = x + point.x;
-		y = y + point.y;
+		x += point.x;
+		y += point.y;
 		return *this;
 	}
 	Point& rotate(double angle) {
