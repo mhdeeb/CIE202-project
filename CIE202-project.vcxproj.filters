@@ -204,18 +204,42 @@
     <ClCompile Include="Operations\opMove.cpp">
       <Filter>Operations</Filter>
     </ClCompile>
-    <ClCompile Include="operations\opCopy.cpp" />
-    <ClCompile Include="operations\opPaste.cpp" />
-    <ClCompile Include="operations\opZoomIn.cpp" />
-    <ClCompile Include="operations\opZoomOut.cpp" />
-    <ClCompile Include="operations\opDuplicateGraph.cpp" />
-    <ClCompile Include="operations\opScramble.cpp" />
-    <ClCompile Include="operations\opToggleGroup.cpp" />
-    <ClCompile Include="Shapes\imageShape.cpp" />
-    <ClCompile Include="operations\opAddImageShape.cpp" />
-    <ClCompile Include="operations\opStartGame.cpp" />
-    <ClCompile Include="operations\opRestartGame.cpp" />
-    <ClCompile Include="Shapes\Button.cpp" />
+    <ClCompile Include="operations\opAddImageShape.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opCopy.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opDuplicateGraph.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opPaste.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opRestartGame.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opScramble.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opStartGame.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opToggleGroup.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opZoomIn.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="operations\opZoomOut.cpp">
+      <Filter>Operations</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\Button.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes\imageShape.cpp">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controller.h" />
@@ -380,18 +404,42 @@
     <ClInclude Include="Operations\opMove.h">
       <Filter>Operations</Filter>
     </ClInclude>
-    <ClInclude Include="operations\opCopy.h" />
-    <ClInclude Include="operations\opPaste.h" />
-    <ClInclude Include="operations\opZoomIn.h" />
-    <ClInclude Include="operations\opZoomOut.h" />
-    <ClInclude Include="operations\opDuplicateGraph.h" />
-    <ClInclude Include="operations\opScramble.h" />
-    <ClInclude Include="operations\opToggleGroup.h" />
-    <ClInclude Include="Shapes\imageShape.h" />
-    <ClInclude Include="operations\opAddImageShape.h" />
-    <ClInclude Include="operations\opStartGame.h" />
-    <ClInclude Include="operations\opRestartGame.h" />
-    <ClInclude Include="Shapes\Button.h" />
+    <ClInclude Include="operations\opZoomOut.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opAddImageShape.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opCopy.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opDuplicateGraph.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opPaste.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opRestartGame.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opScramble.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opStartGame.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opToggleGroup.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="operations\opZoomIn.h">
+      <Filter>Operations</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\Button.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes\imageShape.h">
+      <Filter>Shapes&amp;Graph</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Shapes&amp;Graph">
