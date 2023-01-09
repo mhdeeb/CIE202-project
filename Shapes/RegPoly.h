@@ -11,6 +11,4 @@ public:
 	void update(Point center, double radius);
 	~RegPoly() override = default;
 	void Draw(GUI*) const override;
-	static RegPoly* Load(const string& data);
-	string type() const override;
 };

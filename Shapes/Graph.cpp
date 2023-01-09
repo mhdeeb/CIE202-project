@@ -7,7 +7,9 @@ using namespace std;
 
 Graph::Graph() {}
 
-Graph::~Graph() {}
+Graph::~Graph() {
+	Clear();
+}
 
 //==================================================================================//
 //						shapes Management Functions								//

@@ -19,29 +19,3 @@ void RegPoly::update(Point center, double radius) {
 void RegPoly::Draw(GUI* pUI) const {
 	pUI->DrawRegPoly(this);
 }
-
-RegPoly* RegPoly::Load(const string& data) {
-	stringstream ss(data);
-	int id;
-	int p1x;
-	int p1y;
-	int vertices;
-	int borderWidth;
-	double radius;
-	string draw;
-	string fill;
-	bool isFilled;
-	GfxInfo gfx;
-	ss >> id >> p1x >> p1y >> vertices >> radius >> draw >> isFilled >> fill >> borderWidth;
-	gfx.BorderWdth = borderWidth;
-	gfx.DrawClr = draw;
-	gfx.FillClr = fill;
-	gfx.isFilled = isFilled;
-	RegPoly* shape = new RegPoly({p1x, p1y}, vertices, gfx, radius);
-	shape->setID(id);
-	return shape;
-}
-
-string RegPoly::type() const {
-	return "REGULAR_POLYGON";
-}
