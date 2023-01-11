@@ -18,6 +18,7 @@ bool opLoad::Execute() {
 		pUI->PrintMessage("Graph wasn't loaded: bad input");
 		return false;
 	}
+
 	pControl->GetGraph()->Load(files[response], pUI);
 	pUI->PrintMessage("Graph Loaded!");
 	return false;

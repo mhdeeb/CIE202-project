@@ -18,6 +18,7 @@ bool opPaste::Execute() {
 				point.translate(origin);
 			},
 			0, pControl->GetUI()->getMousePosition() - center);
+		i->SetSelected(true);
 	}
 	graph->Refresh(pControl->GetUI());
 	return false;

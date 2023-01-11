@@ -155,7 +155,7 @@ void controller::Run() {
 	int x;
 	int y;
 	bool skipInput = false;
-	pGraph->Load("save/Example_gf.txt", pGUI);
+	pGraph->Load("save/Default_gf.txt", pGUI);
 	do {
 		if (pGUI->getInterfaceMode()) {
 			pGUI->GetPointClickedNoOp(x, y);
